@@ -1,14 +1,9 @@
 package visitor.customised;
 
 import nodes.*;
-import nodes.data.BooleanNode;
-import nodes.data.IdentifierNode;
-import nodes.data.IntegerNode;
-import nodes.data.StringConstNode;
+import nodes.data.*;
 
 public interface CustomVisitor<T, D> {
-
-    public T visit(TreeNode treeNode, D data);
 
     public T visit(ClassNode classNode, D data);
 
@@ -43,6 +38,12 @@ public interface CustomVisitor<T, D> {
     public T visit(ProcedureNode procedureNode, D data);
 
     public T visit(ReaderContainerNode readerContainerNode, D data);
+
+    public T visit(WriterContainerNode writerContainerNode, D data);
+
+    public T visit(ReaderNode readerNode, D data);
+
+    public T visit(ExpressionNode expressionNode, D data);
 
     public T visit(SubNode subNode, D data);
 

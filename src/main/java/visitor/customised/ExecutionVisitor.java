@@ -3,18 +3,10 @@ package visitor.customised;
 import nodes.*;
 import nodes.data.*;
 
-public class SemanticVisitor implements CustomVisitor<Void, Object> {
-
-    public SemanticVisitor() {
-        super();
-    }
+public class ExecutionVisitor implements CustomVisitor<Void, Object> {
 
     @Override
     public Void visit(ClassNode classNode, Object data) {
-
-        for(ProcedureNode procedureNode : classNode.getProcedures())
-            visit(procedureNode, data);
-
         return null;
     }
 
@@ -90,7 +82,6 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
 
     @Override
     public Void visit(ProcedureNode procedureNode, Object data) {
-        System.out.println("Procedure");
         return null;
     }
 
