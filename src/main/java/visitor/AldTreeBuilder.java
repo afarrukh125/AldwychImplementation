@@ -1,10 +1,7 @@
 package visitor;
 
 import nodes.*;
-import nodes.data.BooleanNode;
-import nodes.data.IdentifierNode;
-import nodes.data.IntegerNode;
-import nodes.data.StringConstNode;
+import nodes.data.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
@@ -18,7 +15,10 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
         ClassNode classNode = new ClassNode();
 
         for (AldParser.DeclarationContext decl : ctx.declaration()) {
-            classNode.addChild(visit(decl));
+            if(decl instanceof AldParser.ProcedureNodeContext) {
+                TreeNode result = visit(decl);
+                classNode.addProcedureNode((ProcedureNode) result);
+            }
         }
 
         return classNode;
@@ -26,10 +26,9 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitProcedureNode(AldParser.ProcedureNodeContext ctx) {
-        ProcedureNode procedureNode = new ProcedureNode();
-        procedureNode.addChild(visit(ctx.heading()));
-        procedureNode.addChild(visit(ctx.body()));
-        return procedureNode;
+        HeadingNode headingNode = (HeadingNode) visit(ctx.heading());
+        BodyNode bodyNode = (BodyNode) visit(ctx.body());
+        return new ProcedureNode(headingNode, bodyNode);
     }
 
     // TODO remove this when we get a nice variable ecosystem (no global variables)
@@ -40,7 +39,10 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitHeading(AldParser.HeadingContext ctx) {
-        HeadingNode node = new HeadingNode(ctx.name().ID().getText());
+        ReaderContainerNode readers = (ReaderContainerNode) visit(ctx.formals().readers());
+        WriterContainerNode writers = (WriterContainerNode) visit(ctx.formals().writers());
+
+        HeadingNode node = new HeadingNode(ctx.name().ID().getText(), readers, writers);
         return node;
     }
 
@@ -50,26 +52,26 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitVariables(AldParser.VariablesContext ctx) {
-        return super.visitVariables(ctx);
+    public TreeNode visitFormals(AldParser.FormalsContext ctx) {
+        return super.visitFormals(ctx);
     }
 
     @Override
-    public TreeNode visitReader(AldParser.ReaderContext ctx) {
-        ReaderNode readers = new ReaderNode();
+    public TreeNode visitReaders(AldParser.ReadersContext ctx) {
+        ReaderContainerNode readers = new ReaderContainerNode();
 
-        for (TerminalNode reader : ctx.ID())
-            readers.addChild(visit(reader));
+        for(TerminalNode tn : ctx.ID())
+            readers.addReaderNode(new ReaderNode(tn.getText()));
 
         return readers;
     }
 
     @Override
-    public TreeNode visitWriter(AldParser.WriterContext ctx) {
-        WriterNode writers = new WriterNode();
+    public TreeNode visitWriters(AldParser.WritersContext ctx) {
+        WriterContainerNode writers = new WriterContainerNode();
 
         for (TerminalNode writer : ctx.ID())
-            writers.addChild(visit(writer));
+            writers.addWriter(new WriterNode(writer.getText()));
 
         return writers;
     }
@@ -77,45 +79,52 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     @Override
     public TreeNode visitBody(AldParser.BodyContext ctx) {
         BodyNode bodyNode = new BodyNode();
+
         for (AldParser.RegularruleContext regularruleContext : ctx.regularrule())
-            bodyNode.addChild(visit(regularruleContext));
-        bodyNode.addChild(visit(ctx.finalrule()));
+            bodyNode.addRegularRule((RegularRuleNode) visit(regularruleContext));
+
+        bodyNode.setFinalRule((FinalRuleNode) visit(ctx.finalrule()));
+
         return bodyNode;
     }
 
     @Override
     public TreeNode visitRegularrule(AldParser.RegularruleContext ctx) {
         RegularRuleNode regularRuleNode = new RegularRuleNode();
-        regularRuleNode.addChild(visit(ctx.ask()));
-        regularRuleNode.addChild(visit(ctx.tell()));
+
+        for(AldParser.AskContext askContext : ctx.ask()) {
+            AskNode askNode = (AskNode) visit(askContext);
+            regularRuleNode.addAsk(askNode);
+        }
+
+        for(AldParser.TellContext tellContext : ctx.tell()) {
+            TellNode tellNode = (TellNode) visit(tellContext);
+            regularRuleNode.addTell(tellNode);
+        }
 
         return regularRuleNode;
     }
 
     @Override
     public TreeNode visitAskNode(AldParser.AskNodeContext ctx) {
-        AskNode askNode = new AskNode();
-
-        for (AldParser.ExprContext exp : ctx.expr())
-            askNode.addChild(visit(exp));
-
-        return askNode;
+        ExpressionNode expressionNode = (ExpressionNode) visit(ctx.expr());
+        return new AskNode(expressionNode);
     }
 
     @Override
     public TreeNode visitTellNode(AldParser.TellNodeContext ctx) {
-        TellNode tellNode = new TellNode();
-
-        for (AldParser.ExprContext exp : ctx.expr())
-            tellNode.addChild(visit(exp));
-
-        return tellNode;
+        ExpressionNode expressionNode = (ExpressionNode) visit(ctx.expr());
+        return new TellNode(expressionNode);
     }
 
     @Override
     public TreeNode visitFinalrule(AldParser.FinalruleContext ctx) {
         FinalRuleNode node = new FinalRuleNode();
-        node.addChild(visit(ctx.tell()));
+
+        for(AldParser.TellContext tellContext : ctx.tell()) {
+            TellNode tellNode = (TellNode) visit(tellContext);
+            node.addTell(tellNode);
+        }
         return node;
     }
 

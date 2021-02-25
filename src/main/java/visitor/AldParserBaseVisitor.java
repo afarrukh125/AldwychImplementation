@@ -51,21 +51,21 @@ public class AldParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> impleme
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitVariables(AldParser.VariablesContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFormals(AldParser.FormalsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitReader(AldParser.ReaderContext ctx) { return visitChildren(ctx); }
+	@Override public T visitReaders(AldParser.ReadersContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitWriter(AldParser.WriterContext ctx) { return visitChildren(ctx); }
+	@Override public T visitWriters(AldParser.WritersContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

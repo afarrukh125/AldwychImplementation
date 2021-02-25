@@ -1,8 +1,9 @@
 package nodes;
 
 import helpers.Constants;
+import nodes.data.ExpressionNode;
 
-public abstract class BinOpNode extends TreeNode {
+public abstract class BinOpNode extends ExpressionNode {
 
     private final TreeNode left;
     private final TreeNode right;
@@ -26,18 +27,5 @@ public abstract class BinOpNode extends TreeNode {
                 "left=" + left +
                 ", right=" + right +
                 '}';
-    }
-
-    @Override
-    protected String toStringRec(int depth) {
-        String result = super.toStringRec(depth);
-        StringBuilder sb = new StringBuilder(result);
-        for (int i = 0; i < depth * Constants.INDENT_LENGTH; i++)
-            sb.append(" ");
-        sb.append(left.toStringRec(depth + 1));
-        for (int i = 0; i < depth * Constants.INDENT_LENGTH; i++)
-            sb.append(" ");
-        sb.append(right.toStringRec(depth + 1));
-        return sb.toString();
     }
 }

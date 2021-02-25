@@ -42,23 +42,23 @@ public interface AldParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitName(AldParser.NameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AldParser#variables}.
+	 * Visit a parse tree produced by {@link AldParser#formals}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVariables(AldParser.VariablesContext ctx);
+	T visitFormals(AldParser.FormalsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AldParser#reader}.
+	 * Visit a parse tree produced by {@link AldParser#readers}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReader(AldParser.ReaderContext ctx);
+	T visitReaders(AldParser.ReadersContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AldParser#writer}.
+	 * Visit a parse tree produced by {@link AldParser#writers}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitWriter(AldParser.WriterContext ctx);
+	T visitWriters(AldParser.WritersContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AldParser#body}.
 	 * @param ctx the parse tree

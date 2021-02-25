@@ -75,37 +75,37 @@ public class AldParserBaseListener implements AldParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariables(AldParser.VariablesContext ctx) { }
+	@Override public void enterFormals(AldParser.FormalsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariables(AldParser.VariablesContext ctx) { }
+	@Override public void exitFormals(AldParser.FormalsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReader(AldParser.ReaderContext ctx) { }
+	@Override public void enterReaders(AldParser.ReadersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReader(AldParser.ReaderContext ctx) { }
+	@Override public void exitReaders(AldParser.ReadersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWriter(AldParser.WriterContext ctx) { }
+	@Override public void enterWriters(AldParser.WritersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWriter(AldParser.WriterContext ctx) { }
+	@Override public void exitWriters(AldParser.WritersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

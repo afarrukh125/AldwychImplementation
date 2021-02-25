@@ -6,8 +6,6 @@ import nodes.data.IdentifierNode;
 import nodes.data.IntegerNode;
 import nodes.data.StringConstNode;
 
-import java.util.List;
-
 public interface CustomVisitor<T, D> {
 
     public T visit(TreeNode treeNode, D data);
@@ -44,7 +42,7 @@ public interface CustomVisitor<T, D> {
 
     public T visit(ProcedureNode procedureNode, D data);
 
-    public T visit(ReaderNode readerNode, D data);
+    public T visit(ReaderContainerNode readerContainerNode, D data);
 
     public T visit(SubNode subNode, D data);
 

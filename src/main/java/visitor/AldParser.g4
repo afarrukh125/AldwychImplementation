@@ -6,24 +6,24 @@ aldwychClass
     : (declaration)+ EOF;
 
 declaration
-    : heading CURLY_OPEN body CURLY_CLOSE                               # ProcedureNode
-    | ID EQUALS expr SEMICOLON                                          # DeclarationNode
+    : heading CURLY_OPEN body CURLY_CLOSE                           # ProcedureNode
+    | ID EQUALS expr SEMICOLON                                      # DeclarationNode
     ;
 
 heading
-    : name variables;
+    : name formals;
 
 name
     : HASH ID;
 
-variables
-    : reader ARROW writer;
+formals
+    : readers ARROW writers;
 
-reader
+readers
     : ID
     | PARENT_OPEN (ID COMMA)* ID PARENT_CLOSE;
 
-writer
+writers
     : ID
     | PARENT_OPEN (ID COMMA)* ID PARENT_CLOSE;
 
@@ -31,18 +31,18 @@ body
     : (regularrule SEMICOLON COLON?)*  COLON finalrule;
 
 regularrule
-    : ask PRED_SEPARATOR tell;
+    : ask (COMMA ask)* PRED_SEPARATOR tell (COMMA tell)*;
 
 ask
-    : expr (COMMA expr)*                                            # AskNode
+    : expr                                                          # AskNode
     ;
 
 tell
-    : expr (COMMA expr)*                                            # TellNode
+    : expr                                                          # TellNode
     ;
 
 finalrule
-    : PRED_SEPARATOR tell;
+    : PRED_SEPARATOR tell (COMMA tell)*;
 
 expr
     : ID PARENT_OPEN ( expr (COMMA expr)*)? PARENT_CLOSE            # DispatchNode

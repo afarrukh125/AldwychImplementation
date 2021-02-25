@@ -1,4 +1,3 @@
-import nodes.ClassNode;
 import nodes.TreeNode;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -6,7 +5,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import visitor.AldLexer;
 import visitor.AldParser;
 import visitor.AldTreeBuilder;
-import visitor.customised.SemanticVisitor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,9 +33,6 @@ public class Main {
             ParseTree tree = parser.aldwychClass();
             TreeNode result = new AldTreeBuilder().visit(tree);
             System.out.println(result);
-
-            Void res = new SemanticVisitor().visit((ClassNode) result, null);
-
             System.out.println("Completed running " + fileName + "\n");
         }
     }

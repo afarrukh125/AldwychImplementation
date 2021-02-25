@@ -1,5 +1,7 @@
 package nodes;
 
+import visitor.customised.CustomVisitor;
+
 public class AssignNode extends TreeNode {
 
     private final TreeNode left;
@@ -16,5 +18,10 @@ public class AssignNode extends TreeNode {
 
     public TreeNode getRight() {
         return right;
+    }
+
+    @Override
+    public <T, D> T accept(CustomVisitor<T, D> v, D data) {
+        return v.visit(this, data);
     }
 }

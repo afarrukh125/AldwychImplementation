@@ -61,35 +61,35 @@ public interface AldParserListener extends ParseTreeListener {
 	 */
 	void exitName(AldParser.NameContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AldParser#variables}.
+	 * Enter a parse tree produced by {@link AldParser#formals}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariables(AldParser.VariablesContext ctx);
+	void enterFormals(AldParser.FormalsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AldParser#variables}.
+	 * Exit a parse tree produced by {@link AldParser#formals}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariables(AldParser.VariablesContext ctx);
+	void exitFormals(AldParser.FormalsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AldParser#reader}.
+	 * Enter a parse tree produced by {@link AldParser#readers}.
 	 * @param ctx the parse tree
 	 */
-	void enterReader(AldParser.ReaderContext ctx);
+	void enterReaders(AldParser.ReadersContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AldParser#reader}.
+	 * Exit a parse tree produced by {@link AldParser#readers}.
 	 * @param ctx the parse tree
 	 */
-	void exitReader(AldParser.ReaderContext ctx);
+	void exitReaders(AldParser.ReadersContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AldParser#writer}.
+	 * Enter a parse tree produced by {@link AldParser#writers}.
 	 * @param ctx the parse tree
 	 */
-	void enterWriter(AldParser.WriterContext ctx);
+	void enterWriters(AldParser.WritersContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AldParser#writer}.
+	 * Exit a parse tree produced by {@link AldParser#writers}.
 	 * @param ctx the parse tree
 	 */
-	void exitWriter(AldParser.WriterContext ctx);
+	void exitWriters(AldParser.WritersContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AldParser#body}.
 	 * @param ctx the parse tree
