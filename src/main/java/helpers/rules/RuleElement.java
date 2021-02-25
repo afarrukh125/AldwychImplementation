@@ -9,9 +9,11 @@ public abstract class RuleElement {
         this.left = left;
         this.right = right;
     }
+
     public String getLeft() {
         return left;
     }
+
     public Object getRight() {
         return right;
     }

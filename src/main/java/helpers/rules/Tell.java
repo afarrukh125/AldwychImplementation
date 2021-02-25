@@ -1,6 +1,6 @@
 package helpers.rules;
 
-public class Tell extends RuleElement{
+public class Tell extends RuleElement {
     public Tell(String left, Object right) {
         super(left, right);
     }

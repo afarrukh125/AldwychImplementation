@@ -65,7 +65,7 @@ public class RuleSet implements Iterable<Rule> {
         // This is the situation where we use the final rule, the "all-else-fails" rule
         // where none of the regular rules applied
         if (ruleData == null) {
-            if(!executorService.isTerminated())
+            if (!executorService.isTerminated())
                 executorService.shutdownNow();
             return finalRule.execute(symbolTable);
         }

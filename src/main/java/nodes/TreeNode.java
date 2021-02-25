@@ -30,8 +30,8 @@ public class TreeNode {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName()).append("\n");
 
-        for(TreeNode childNode : children) {
-            for(int i = 0; i<depth* Constants.INDENT_LENGTH; i++)
+        for (TreeNode childNode : children) {
+            for (int i = 0; i < depth * Constants.INDENT_LENGTH; i++)
                 sb.append(" ");
             sb.append(childNode.toStringRec(depth + 1));
         }

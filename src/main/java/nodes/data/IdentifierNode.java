@@ -6,8 +6,4 @@ public class IdentifierNode extends Node<String> {
         super(value);
     }
 
-    @Override
-    protected String toStringRec(int depth) {
-        return super.toStringRec(depth);
-    }
 }

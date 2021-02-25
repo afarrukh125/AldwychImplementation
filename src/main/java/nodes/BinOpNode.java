@@ -32,12 +32,12 @@ public class BinOpNode extends TreeNode {
     protected String toStringRec(int depth) {
         String result = super.toStringRec(depth);
         StringBuilder sb = new StringBuilder(result);
-        for(int i = 0; i<depth* Constants.INDENT_LENGTH; i++)
+        for (int i = 0; i < depth * Constants.INDENT_LENGTH; i++)
             sb.append(" ");
-        sb.append(left.toStringRec(depth));
-        for(int i = 0; i<depth* Constants.INDENT_LENGTH; i++)
+        sb.append(left.toStringRec(depth + 1));
+        for (int i = 0; i < depth * Constants.INDENT_LENGTH; i++)
             sb.append(" ");
-        sb.append(right.toStringRec(depth));
+        sb.append(right.toStringRec(depth + 1));
         return sb.toString();
     }
 }

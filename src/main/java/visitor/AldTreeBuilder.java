@@ -1,8 +1,10 @@
 package visitor;
 
 import nodes.*;
-import nodes.FinalRuleNode;
-import nodes.data.*;
+import nodes.data.BooleanNode;
+import nodes.data.IdentifierNode;
+import nodes.data.IntegerNode;
+import nodes.data.StringConstNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
@@ -15,7 +17,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitAldwychClass(AldParser.AldwychClassContext ctx) {
         ClassNode classNode = new ClassNode();
 
-        for(AldParser.DeclarationContext decl : ctx.declaration()) {
+        for (AldParser.DeclarationContext decl : ctx.declaration()) {
             classNode.addChild(visit(decl));
         }
 
@@ -56,7 +58,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitReader(AldParser.ReaderContext ctx) {
         ReaderNode readers = new ReaderNode();
 
-        for(TerminalNode reader : ctx.ID())
+        for (TerminalNode reader : ctx.ID())
             readers.addChild(visit(reader));
 
         return readers;
@@ -66,7 +68,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitWriter(AldParser.WriterContext ctx) {
         WriterNode writers = new WriterNode();
 
-        for(TerminalNode writer : ctx.ID())
+        for (TerminalNode writer : ctx.ID())
             writers.addChild(visit(writer));
 
         return writers;
@@ -75,7 +77,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     @Override
     public TreeNode visitBody(AldParser.BodyContext ctx) {
         BodyNode bodyNode = new BodyNode();
-        for(AldParser.RegularruleContext regularruleContext : ctx.regularrule())
+        for (AldParser.RegularruleContext regularruleContext : ctx.regularrule())
             bodyNode.addChild(visit(regularruleContext));
         bodyNode.addChild(visit(ctx.finalrule()));
         return bodyNode;
@@ -94,7 +96,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitAskNode(AldParser.AskNodeContext ctx) {
         AskNode askNode = new AskNode();
 
-        for(AldParser.ExprContext exp : ctx.expr())
+        for (AldParser.ExprContext exp : ctx.expr())
             askNode.addChild(visit(exp));
 
         return askNode;
@@ -104,7 +106,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitTellNode(AldParser.TellNodeContext ctx) {
         TellNode tellNode = new TellNode();
 
-        for(AldParser.ExprContext exp : ctx.expr())
+        for (AldParser.ExprContext exp : ctx.expr())
             tellNode.addChild(visit(exp));
 
         return tellNode;
@@ -151,7 +153,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
         TreeNode left = visit(ctx.expr(0));
         TreeNode right = visit(ctx.expr(1));
 
-        if(ctx.DIV_OPERATOR() != null)
+        if (ctx.DIV_OPERATOR() != null)
             return new DivNode(left, right);
         return new MulNode(left, right);
     }
@@ -161,7 +163,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
         TreeNode left = visit(ctx.expr(0));
         TreeNode right = visit(ctx.expr(1));
 
-        if(ctx.MINUS_OPERATOR() != null)
+        if (ctx.MINUS_OPERATOR() != null)
             return new SubNode(left, right);
         return new PlusNode(left, right);
     }

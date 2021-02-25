@@ -1,6 +1,8 @@
 package helpers;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * Behaves like a scope and type checker aspect, while also maintaining the value of variables
@@ -28,13 +30,14 @@ public class SymbolTable {
 
     /**
      * Finds the value of the identifier in the nearest scope
+     *
      * @param identifier The identifier to look for
      * @return The value of the identifier if found, null otherwise TODO find a better way to handle not-found values
      */
     public Object findInScope(String identifier) {
         for (Entry tableEntry : table) {
             Object value = tableEntry.getValue(identifier);
-            if(value != null)
+            if (value != null)
                 return tableEntry.getValue(identifier);
         }
         return null;

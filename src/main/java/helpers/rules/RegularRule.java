@@ -1,6 +1,7 @@
 package helpers.rules;
 
 import helpers.SymbolTable;
+
 class RegularRule extends Rule {
     protected final Ask ask;
 
