@@ -1,5 +1,7 @@
 package nodes;
 
+import helpers.Constants;
+
 public class BinOpNode extends TreeNode {
 
     private final TreeNode left;
@@ -24,5 +26,18 @@ public class BinOpNode extends TreeNode {
                 "left=" + left +
                 ", right=" + right +
                 '}';
+    }
+
+    @Override
+    protected String toStringRec(int depth) {
+        String result = super.toStringRec(depth);
+        StringBuilder sb = new StringBuilder(result);
+        for(int i = 0; i<depth* Constants.INDENT_LENGTH; i++)
+            sb.append(" ");
+        sb.append(left.toStringRec(depth));
+        for(int i = 0; i<depth* Constants.INDENT_LENGTH; i++)
+            sb.append(" ");
+        sb.append(right.toStringRec(depth));
+        return sb.toString();
     }
 }

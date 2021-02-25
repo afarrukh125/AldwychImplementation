@@ -163,7 +163,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
         if(ctx.MINUS_OPERATOR() != null)
             return new SubNode(left, right);
-        return new AddNode(left, right);
+        return new PlusNode(left, right);
     }
 
     @Override
