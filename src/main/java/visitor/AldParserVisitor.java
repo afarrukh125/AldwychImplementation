@@ -106,6 +106,13 @@ public interface AldParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStringConstNode(AldParser.StringConstNodeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code DivMultNode}
+	 * labeled alternative in {@link AldParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDivMultNode(AldParser.DivMultNodeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code GEqNode}
 	 * labeled alternative in {@link AldParser#expr}.
 	 * @param ctx the parse tree
@@ -119,13 +126,6 @@ public interface AldParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitGTNode(AldParser.GTNodeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code DivMultNode}
-	 * labeled alternative in {@link AldParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDivMultNode(AldParser.DivMultNodeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code MinusPlusNode}
 	 * labeled alternative in {@link AldParser#expr}.

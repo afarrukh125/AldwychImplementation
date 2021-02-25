@@ -971,6 +971,30 @@ public class AldParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class DivMultNodeContext extends ExprContext {
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
+		}
+		public TerminalNode MULT_OPERATOR() { return getToken(AldParser.MULT_OPERATOR, 0); }
+		public TerminalNode DIV_OPERATOR() { return getToken(AldParser.DIV_OPERATOR, 0); }
+		public DivMultNodeContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterDivMultNode(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitDivMultNode(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitDivMultNode(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 	public static class GEqNodeContext extends ExprContext {
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
@@ -1014,30 +1038,6 @@ public class AldParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitGTNode(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class DivMultNodeContext extends ExprContext {
-		public List<ExprContext> expr() {
-			return getRuleContexts(ExprContext.class);
-		}
-		public ExprContext expr(int i) {
-			return getRuleContext(ExprContext.class,i);
-		}
-		public TerminalNode MULT_OPERATOR() { return getToken(AldParser.MULT_OPERATOR, 0); }
-		public TerminalNode DIV_OPERATOR() { return getToken(AldParser.DIV_OPERATOR, 0); }
-		public DivMultNodeContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterDivMultNode(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitDivMultNode(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitDivMultNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1261,94 +1261,94 @@ public class AldParser extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
 					case 1:
 						{
-						_localctx = new LEqNodeContext(new ExprContext(_parentctx, _parentState));
+						_localctx = new DivMultNodeContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(125);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
 						setState(126);
-						match(LESS_EQ);
-						setState(127);
-						expr(8);
-						}
-						break;
-					case 2:
-						{
-						_localctx = new LtNodeContext(new ExprContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(128);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(129);
-						match(LESS);
-						setState(130);
-						expr(7);
-						}
-						break;
-					case 3:
-						{
-						_localctx = new EqNodeContext(new ExprContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(131);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(132);
-						match(EQUALS);
-						setState(133);
-						expr(6);
-						}
-						break;
-					case 4:
-						{
-						_localctx = new GEqNodeContext(new ExprContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(134);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(135);
-						match(GREATER_EQ);
-						setState(136);
-						expr(5);
-						}
-						break;
-					case 5:
-						{
-						_localctx = new GTNodeContext(new ExprContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(137);
-						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(138);
-						match(GREATER_THAN);
-						setState(139);
-						expr(4);
-						}
-						break;
-					case 6:
-						{
-						_localctx = new DivMultNodeContext(new ExprContext(_parentctx, _parentState));
-						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(140);
-						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(141);
 						_la = _input.LA(1);
 						if ( !(_la==MULT_OPERATOR || _la==DIV_OPERATOR) ) {
 						_errHandler.recoverInline(this);
 						} else {
 							consume();
 						}
-						setState(142);
-						expr(3);
+						setState(127);
+						expr(7);
 						}
 						break;
-					case 7:
+					case 2:
 						{
 						_localctx = new MinusPlusNodeContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(143);
-						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-						setState(144);
+						setState(128);
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						setState(129);
 						_la = _input.LA(1);
 						if ( !(_la==PLUS_OPERATOR || _la==MINUS_OPERATOR) ) {
 						_errHandler.recoverInline(this);
 						} else {
 							consume();
 						}
+						setState(130);
+						expr(6);
+						}
+						break;
+					case 3:
+						{
+						_localctx = new LEqNodeContext(new ExprContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(131);
+						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
+						setState(132);
+						match(LESS_EQ);
+						setState(133);
+						expr(6);
+						}
+						break;
+					case 4:
+						{
+						_localctx = new LtNodeContext(new ExprContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(134);
+						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
+						setState(135);
+						match(LESS);
+						setState(136);
+						expr(5);
+						}
+						break;
+					case 5:
+						{
+						_localctx = new EqNodeContext(new ExprContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(137);
+						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
+						setState(138);
+						match(EQUALS);
+						setState(139);
+						expr(4);
+						}
+						break;
+					case 6:
+						{
+						_localctx = new GEqNodeContext(new ExprContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(140);
+						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
+						setState(141);
+						match(GREATER_EQ);
+						setState(142);
+						expr(3);
+						}
+						break;
+					case 7:
+						{
+						_localctx = new GTNodeContext(new ExprContext(_parentctx, _parentState));
+						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(143);
+						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
+						setState(144);
+						match(GREATER_THAN);
 						setState(145);
 						expr(2);
 						}
@@ -1433,12 +1433,12 @@ public class AldParser extends Parser {
 		"\2ps\3\2\2\2qo\3\2\2\2qr\3\2\2\2r\27\3\2\2\2sq\3\2\2\2tu\7\n\2\2uv\5\26"+
 		"\f\2v\31\3\2\2\2wx\b\16\1\2x~\7\34\2\2y~\7\30\2\2z~\7\32\2\2{~\7\26\2"+
 		"\2|~\7\27\2\2}w\3\2\2\2}y\3\2\2\2}z\3\2\2\2}{\3\2\2\2}|\3\2\2\2~\u0096"+
-		"\3\2\2\2\177\u0080\f\t\2\2\u0080\u0081\7\17\2\2\u0081\u0095\5\32\16\n"+
-		"\u0082\u0083\f\b\2\2\u0083\u0084\7\20\2\2\u0084\u0095\5\32\16\t\u0085"+
-		"\u0086\f\7\2\2\u0086\u0087\7\f\2\2\u0087\u0095\5\32\16\b\u0088\u0089\f"+
-		"\6\2\2\u0089\u008a\7\16\2\2\u008a\u0095\5\32\16\7\u008b\u008c\f\5\2\2"+
-		"\u008c\u008d\7\r\2\2\u008d\u0095\5\32\16\6\u008e\u008f\f\4\2\2\u008f\u0090"+
-		"\t\2\2\2\u0090\u0095\5\32\16\5\u0091\u0092\f\3\2\2\u0092\u0093\t\3\2\2"+
+		"\3\2\2\2\177\u0080\f\t\2\2\u0080\u0081\t\2\2\2\u0081\u0095\5\32\16\t\u0082"+
+		"\u0083\f\b\2\2\u0083\u0084\t\3\2\2\u0084\u0095\5\32\16\b\u0085\u0086\f"+
+		"\7\2\2\u0086\u0087\7\17\2\2\u0087\u0095\5\32\16\b\u0088\u0089\f\6\2\2"+
+		"\u0089\u008a\7\20\2\2\u008a\u0095\5\32\16\7\u008b\u008c\f\5\2\2\u008c"+
+		"\u008d\7\f\2\2\u008d\u0095\5\32\16\6\u008e\u008f\f\4\2\2\u008f\u0090\7"+
+		"\16\2\2\u0090\u0095\5\32\16\5\u0091\u0092\f\3\2\2\u0092\u0093\7\r\2\2"+
 		"\u0093\u0095\5\32\16\4\u0094\177\3\2\2\2\u0094\u0082\3\2\2\2\u0094\u0085"+
 		"\3\2\2\2\u0094\u0088\3\2\2\2\u0094\u008b\3\2\2\2\u0094\u008e\3\2\2\2\u0094"+
 		"\u0091\3\2\2\2\u0095\u0098\3\2\2\2\u0096\u0094\3\2\2\2\u0096\u0097\3\2"+

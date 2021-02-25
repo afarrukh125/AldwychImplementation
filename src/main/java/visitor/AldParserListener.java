@@ -169,6 +169,18 @@ public interface AldParserListener extends ParseTreeListener {
 	 */
 	void exitStringConstNode(AldParser.StringConstNodeContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code DivMultNode}
+	 * labeled alternative in {@link AldParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterDivMultNode(AldParser.DivMultNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DivMultNode}
+	 * labeled alternative in {@link AldParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitDivMultNode(AldParser.DivMultNodeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code GEqNode}
 	 * labeled alternative in {@link AldParser#expr}.
 	 * @param ctx the parse tree
@@ -192,18 +204,6 @@ public interface AldParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitGTNode(AldParser.GTNodeContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code DivMultNode}
-	 * labeled alternative in {@link AldParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterDivMultNode(AldParser.DivMultNodeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code DivMultNode}
-	 * labeled alternative in {@link AldParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitDivMultNode(AldParser.DivMultNodeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code MinusPlusNode}
 	 * labeled alternative in {@link AldParser#expr}.

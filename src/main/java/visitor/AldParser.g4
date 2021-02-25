@@ -50,8 +50,8 @@ expr
     | STRING_CONST                                                  # StringConstNode
     | TRUE                                                          # True
     | FALSE                                                         # False
-    | <assoc=right> expr (MULT_OPERATOR | DIV_OPERATOR) expr         # DivMultNode
-    | <assoc=right> expr (MINUS_OPERATOR | PLUS_OPERATOR) expr       # MinusPlusNode
+    | <assoc=right> expr (MULT_OPERATOR | DIV_OPERATOR) expr        # DivMultNode
+    | <assoc=right> expr (MINUS_OPERATOR | PLUS_OPERATOR) expr      # MinusPlusNode
     | expr LESS_EQ expr                                             # LEqNode
     | expr LESS expr                                                # LtNode
     | expr EQUALS expr                                              # EqNode
