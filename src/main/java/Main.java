@@ -1,7 +1,9 @@
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import visitor.RuleBuildVisitor;
+import visitor.AldLexer;
+import visitor.AldParser;
+import visitor.GenerationVisitor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,10 +27,10 @@ public class Main {
     private static void runAll(List<String> fileNames) throws IOException {
         for(String fileName : fileNames) {
             System.out.println("Running " + fileName);
-            AldwychLexer lexer = new AldwychLexer(new ANTLRFileStream(fileName));
-            AldwychParser parser = new AldwychParser(new CommonTokenStream(lexer));
+            AldLexer lexer = new AldLexer(new ANTLRFileStream(fileName));
+            AldParser parser = new AldParser(new CommonTokenStream(lexer));
             ParseTree tree = parser.aldwychClass();
-            new RuleBuildVisitor().visit(tree);
+            new GenerationVisitor().visit(tree);
             System.out.println("Completed running " + fileName + "\n");
         }
     }

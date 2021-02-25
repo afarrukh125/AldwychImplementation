@@ -1,4 +1,4 @@
-package nodes;
+package nodes.data;
 
 public class IdentifierNode extends Node<String> {
     private final Node nodeValue;

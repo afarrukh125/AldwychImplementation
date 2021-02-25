@@ -1,6 +1,8 @@
-package nodes;
+package nodes.data;
 
-public abstract class Node<T> {
+import nodes.TreeNode;
+
+public abstract class Node<T> extends TreeNode {
     private final T nodeValue;
 
     public Node(T value) {

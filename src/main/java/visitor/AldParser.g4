@@ -6,11 +6,9 @@ aldwychClass
     : (declaration)+ EOF;
 
 declaration
-    : procedure
-    | ID EQUALS expr SEMICOLON;
-
-procedure
-    : heading CURLY_OPEN body CURLY_CLOSE;
+    : heading CURLY_OPEN body CURLY_CLOSE                               # ProcedureNode
+    | ID EQUALS expr SEMICOLON                                          # DeclarationNode
+    ;
 
 heading
     : name variables;

@@ -2,19 +2,19 @@ package visitor;
 
 import helpers.*;
 import helpers.rules.*;
-import nodes.BooleanNode;
-import nodes.IdentifierNode;
-import nodes.IntegerNode;
-import nodes.StringConstNode;
+import nodes.data.BooleanNode;
+import nodes.data.IntegerNode;
+import nodes.data.StringConstNode;
 
 /**
- * This visitor aims to build an image of our variables values, so that we can execute statements in parallel
+ * This visitor aims to build an image of our program, including the procedures and the rules contained within them
+ * to be executed in parallel by {@link ExecutionVisitor}
  */
-public class RuleBuildVisitor extends AldParserBaseVisitor<Object> {
+public class GenerationVisitor extends AldParserBaseVisitor<Object> {
 
     private final SymbolTable symbolTable;
 
-    public RuleBuildVisitor() {
+    public GenerationVisitor() {
         symbolTable = new SymbolTable();
     }
 

@@ -1,4 +1,4 @@
-package nodes;
+package nodes.data;
 
 public class IntegerNode extends Node<Integer> {
     public IntegerNode(Integer value) {
