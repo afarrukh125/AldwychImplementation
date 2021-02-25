@@ -17,4 +17,12 @@ public class BinOpNode extends TreeNode {
     public TreeNode getRight() {
         return right;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+                "left=" + left +
+                ", right=" + right +
+                '}';
+    }
 }

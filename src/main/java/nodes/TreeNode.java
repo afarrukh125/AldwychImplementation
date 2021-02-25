@@ -21,7 +21,8 @@ public class TreeNode {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "\n"
-                + "\t\t" +this.children.toString();
+        return "\n" + getClass().getSimpleName() +
+                "{children=" + children +
+                '}';
     }
 }

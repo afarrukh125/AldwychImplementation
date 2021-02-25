@@ -12,4 +12,11 @@ public abstract class Node<T> extends TreeNode {
     public T getNodeValue() {
         return nodeValue;
     }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "nodeValue=" + nodeValue +
+                '}';
+    }
 }

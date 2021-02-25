@@ -13,4 +13,11 @@ public class HeadingNode extends TreeNode {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "HeadingNode{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
