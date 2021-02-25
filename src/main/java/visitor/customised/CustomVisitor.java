@@ -6,53 +6,57 @@ import nodes.data.IdentifierNode;
 import nodes.data.IntegerNode;
 import nodes.data.StringConstNode;
 
-public interface CustomVisitor<T> {
+import java.util.List;
 
-    public T visitClassNode(ClassNode classNode);
+public interface CustomVisitor<T, D> {
 
-    public T visitRegularRuleNode(RegularRuleNode ruleNode);
+    public T visit(TreeNode treeNode, D data);
 
-    public T visitFinalRuleNode(FinalRuleNode finalRuleNode);
+    public T visit(ClassNode classNode, D data);
 
-    public T visitAskNode(AskNode askNode);
+    public T visit(RegularRuleNode ruleNode, D data);
 
-    public T visitBodyNode(BodyNode bodyNode);
+    public T visit(FinalRuleNode finalRuleNode, D data);
 
-    public T visitDispatchNode(DispatchNode dispatchNode);
+    public T visit(AskNode askNode, D data);
 
-    public T visitDivNode(DivNode divNode);
+    public T visit(BodyNode bodyNode, D data);
 
-    public T visitEqNode(EqNode eqNode);
+    public T visit(DispatchNode dispatchNode, D data);
 
-    public T visitGEqNode(GEqNode gEqNode);
+    public T visit(DivNode divNode, D data);
 
-    public T visitGTNode(GTNode gtNode);
+    public T visit(EqNode eqNode, D data);
 
-    public T visit(HeadingNode headingNode);
+    public T visit(GEqNode gEqNode, D data);
 
-    public T visitLEqNode(LEqNode lEqNode);
+    public T visit(GTNode gtNode, D data);
 
-    public T visitLTNode(LTNode ltNode);
+    public T visit(HeadingNode headingNode, D data);
 
-    public T visitMulNode(MulNode mulNode);
+    public T visit(LEqNode lEqNode, D data);
 
-    public T visitPlusNode(PlusNode plusNode);
+    public T visit(LTNode ltNode, D data);
 
-    public T visitProcedureNode(ProcedureNode procedureNode);
+    public T visit(MulNode mulNode, D data);
 
-    public T visitReaderNode(ReaderNode readerNode);
+    public T visit(PlusNode plusNode, D data);
 
-    public T visitSubNode(SubNode subNode);
+    public T visit(ProcedureNode procedureNode, D data);
 
-    public T visitTellNode(TellNode tellNode);
+    public T visit(ReaderNode readerNode, D data);
 
-    public T visitWriterNode(WriterNode writerNode);
+    public T visit(SubNode subNode, D data);
 
-    public T visitBooleanNode(BooleanNode booleanNode);
+    public T visit(TellNode tellNode, D data);
 
-    public T visitIdentifierNode(IdentifierNode identifierNode);
+    public T visit(WriterNode writerNode, D data);
 
-    public T visitIntegerNode(IntegerNode integerNode);
+    public T visit(BooleanNode booleanNode, D data);
 
-    public T visitStringConstNode(StringConstNode stringConstNode);
+    public T visit(IdentifierNode identifierNode, D data);
+
+    public T visit(IntegerNode integerNode, D data);
+
+    public T visit(StringConstNode stringConstNode, D data);
 }

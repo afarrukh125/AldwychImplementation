@@ -202,4 +202,9 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
         return new LEqNode(left, right);
     }
+
+    @Override
+    public TreeNode visitDispatchNode(AldParser.DispatchNodeContext ctx) {
+        return super.visitDispatchNode(ctx);
+    }
 }

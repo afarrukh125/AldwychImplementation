@@ -2,7 +2,7 @@ package nodes;
 
 import helpers.Constants;
 
-public class BinOpNode extends TreeNode {
+public abstract class BinOpNode extends TreeNode {
 
     private final TreeNode left;
     private final TreeNode right;

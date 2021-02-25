@@ -1,12 +1,13 @@
 package nodes;
 
 import helpers.Constants;
+import visitor.customised.CustomVisitor;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TreeNode {
+public abstract class TreeNode {
     protected final List<TreeNode> children;
 
     public TreeNode() {
@@ -15,6 +16,10 @@ public class TreeNode {
 
     public void addChild(TreeNode node) {
         children.add(node);
+    }
+
+    public <T, D> T accept(CustomVisitor<T, D> v, D data) {
+        return v.visit(this, data);
     }
 
     public List<TreeNode> getChildren() {

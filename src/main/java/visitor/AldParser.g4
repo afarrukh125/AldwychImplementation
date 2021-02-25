@@ -45,11 +45,7 @@ finalrule
     : PRED_SEPARATOR tell;
 
 expr
-    : ID                                                            # IdentifierNode
-    | INTEGER                                                       # IntegerNode
-    | STRING_CONST                                                  # StringConstNode
-    | TRUE                                                          # True
-    | FALSE                                                         # False
+    : ID PARENT_OPEN ( expr (COMMA expr)*)? PARENT_CLOSE            # DispatchNode
     | <assoc=right> expr (MULT_OPERATOR | DIV_OPERATOR) expr        # DivMultNode
     | <assoc=right> expr (MINUS_OPERATOR | PLUS_OPERATOR) expr      # MinusPlusNode
     | expr LESS_EQ expr                                             # LEqNode
@@ -57,5 +53,9 @@ expr
     | expr EQUALS expr                                              # EqNode
     | expr GREATER_EQ expr                                          # GEqNode
     | expr GREATER_THAN expr                                        # GTNode
-
+    | ID                                                            # IdentifierNode
+    | INTEGER                                                       # IntegerNode
+    | STRING_CONST                                                  # StringConstNode
+    | TRUE                                                          # True
+    | FALSE                                                         # False
     ;
