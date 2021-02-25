@@ -1,4 +1,6 @@
 package nodes;
 
-public class UnaryOpNode extends TreeNode {
+import nodes.data.ExpressionNode;
+
+public class UnaryOpNode extends ExpressionNode {
 }

@@ -135,25 +135,13 @@ public class AldParserBaseListener implements AldParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAsk(AldParser.AskContext ctx) { }
+	@Override public void enterAskNode(AldParser.AskNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAsk(AldParser.AskContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterTellAssignNode(AldParser.TellAssignNodeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTellAssignNode(AldParser.TellAssignNodeContext ctx) { }
+	@Override public void exitAskNode(AldParser.AskNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -18,4 +18,10 @@ public class TreeNode {
     public List<TreeNode> getChildren() {
         return Collections.unmodifiableList(children);
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "\n"
+                + "\t\t" +this.children.toString();
+    }
 }

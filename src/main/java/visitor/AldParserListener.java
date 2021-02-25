@@ -111,27 +111,17 @@ public interface AldParserListener extends ParseTreeListener {
 	 */
 	void exitRegularrule(AldParser.RegularruleContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AldParser#ask}.
+	 * Enter a parse tree produced by the {@code AskNode}
+	 * labeled alternative in {@link AldParser#ask}.
 	 * @param ctx the parse tree
 	 */
-	void enterAsk(AldParser.AskContext ctx);
+	void enterAskNode(AldParser.AskNodeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AldParser#ask}.
+	 * Exit a parse tree produced by the {@code AskNode}
+	 * labeled alternative in {@link AldParser#ask}.
 	 * @param ctx the parse tree
 	 */
-	void exitAsk(AldParser.AskContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code TellAssignNode}
-	 * labeled alternative in {@link AldParser#tell}.
-	 * @param ctx the parse tree
-	 */
-	void enterTellAssignNode(AldParser.TellAssignNodeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code TellAssignNode}
-	 * labeled alternative in {@link AldParser#tell}.
-	 * @param ctx the parse tree
-	 */
-	void exitTellAssignNode(AldParser.TellAssignNodeContext ctx);
+	void exitAskNode(AldParser.AskNodeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code TellNode}
 	 * labeled alternative in {@link AldParser#tell}.

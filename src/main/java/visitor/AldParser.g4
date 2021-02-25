@@ -34,11 +34,11 @@ regularrule
     : ask PRED_SEPARATOR tell;
 
 ask
-    : expr (COMMA ask)*;
+    : expr (COMMA expr)*                                            # AskNode
+    ;
 
 tell
-    : expr EQUALS expr (COMMA tell)*                                # TellAssignNode
-    | expr (COMMA tell)*                                            # TellNode
+    : expr (COMMA expr)*                                            # TellNode
     ;
 
 finalrule

@@ -5,13 +5,8 @@ import java.util.List;
 
 public class ProcedureNode extends TreeNode {
 
-    private final String procedureName;
 
-    public ProcedureNode(String procedureName) {
-        this.procedureName = procedureName;
+    public ProcedureNode() {
     }
 
-    public String getProcedureName() {
-        return procedureName;
-    }
 }

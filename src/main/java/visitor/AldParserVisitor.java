@@ -72,18 +72,12 @@ public interface AldParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRegularrule(AldParser.RegularruleContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AldParser#ask}.
+	 * Visit a parse tree produced by the {@code AskNode}
+	 * labeled alternative in {@link AldParser#ask}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAsk(AldParser.AskContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TellAssignNode}
-	 * labeled alternative in {@link AldParser#tell}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTellAssignNode(AldParser.TellAssignNodeContext ctx);
+	T visitAskNode(AldParser.AskNodeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code TellNode}
 	 * labeled alternative in {@link AldParser#tell}.

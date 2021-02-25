@@ -720,34 +720,39 @@ public class AldParser extends Parser {
 	}
 
 	public static class AskContext extends ParserRuleContext {
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
+		public AskContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_ask; }
+	 
+		public AskContext() { }
+		public void copyFrom(AskContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class AskNodeContext extends AskContext {
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
 		}
 		public List<TerminalNode> COMMA() { return getTokens(AldParser.COMMA); }
 		public TerminalNode COMMA(int i) {
 			return getToken(AldParser.COMMA, i);
 		}
-		public List<AskContext> ask() {
-			return getRuleContexts(AskContext.class);
-		}
-		public AskContext ask(int i) {
-			return getRuleContext(AskContext.class,i);
-		}
-		public AskContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_ask; }
+		public AskNodeContext(AskContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterAsk(this);
+			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterAskNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitAsk(this);
+			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitAskNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitAsk(this);
+			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitAskNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -755,29 +760,28 @@ public class AldParser extends Parser {
 	public final AskContext ask() throws RecognitionException {
 		AskContext _localctx = new AskContext(_ctx, getState());
 		enterRule(_localctx, 18, RULE_ask);
+		int _la;
 		try {
-			int _alt;
+			_localctx = new AskNodeContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(98);
 			expr(0);
 			setState(103);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(99);
-					match(COMMA);
-					setState(100);
-					ask();
-					}
-					} 
+			_la = _input.LA(1);
+			while (_la==COMMA) {
+				{
+				{
+				setState(99);
+				match(COMMA);
+				setState(100);
+				expr(0);
+				}
 				}
 				setState(105);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
+				_la = _input.LA(1);
 			}
 			}
 		}
@@ -803,52 +807,16 @@ public class AldParser extends Parser {
 			super.copyFrom(ctx);
 		}
 	}
-	public static class TellAssignNodeContext extends TellContext {
+	public static class TellNodeContext extends TellContext {
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode EQUALS() { return getToken(AldParser.EQUALS, 0); }
 		public List<TerminalNode> COMMA() { return getTokens(AldParser.COMMA); }
 		public TerminalNode COMMA(int i) {
 			return getToken(AldParser.COMMA, i);
-		}
-		public List<TellContext> tell() {
-			return getRuleContexts(TellContext.class);
-		}
-		public TellContext tell(int i) {
-			return getRuleContext(TellContext.class,i);
-		}
-		public TellAssignNodeContext(TellContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterTellAssignNode(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitTellAssignNode(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitTellAssignNode(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class TellNodeContext extends TellContext {
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public List<TerminalNode> COMMA() { return getTokens(AldParser.COMMA); }
-		public TerminalNode COMMA(int i) {
-			return getToken(AldParser.COMMA, i);
-		}
-		public List<TellContext> tell() {
-			return getRuleContexts(TellContext.class);
-		}
-		public TellContext tell(int i) {
-			return getRuleContext(TellContext.class,i);
 		}
 		public TellNodeContext(TellContext ctx) { copyFrom(ctx); }
 		@Override
@@ -869,67 +837,29 @@ public class AldParser extends Parser {
 	public final TellContext tell() throws RecognitionException {
 		TellContext _localctx = new TellContext(_ctx, getState());
 		enterRule(_localctx, 20, RULE_tell);
+		int _la;
 		try {
-			int _alt;
-			setState(124);
+			_localctx = new TellNodeContext(_localctx);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(106);
+			expr(0);
+			setState(111);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
-			case 1:
-				_localctx = new TellAssignNodeContext(_localctx);
-				enterOuterAlt(_localctx, 1);
+			_la = _input.LA(1);
+			while (_la==COMMA) {
 				{
-				setState(106);
-				expr(0);
+				{
 				setState(107);
-				match(EQUALS);
+				match(COMMA);
 				setState(108);
 				expr(0);
+				}
+				}
 				setState(113);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(109);
-						match(COMMA);
-						setState(110);
-						tell();
-						}
-						} 
-					}
-					setState(115);
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,9,_ctx);
-				}
-				}
-				break;
-			case 2:
-				_localctx = new TellNodeContext(_localctx);
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(116);
-				expr(0);
-				setState(121);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(117);
-						match(COMMA);
-						setState(118);
-						tell();
-						}
-						} 
-					}
-					setState(123);
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,10,_ctx);
-				}
-				}
-				break;
+				_la = _input.LA(1);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -973,9 +903,9 @@ public class AldParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(126);
+			setState(114);
 			match(PRED_SEPARATOR);
-			setState(127);
+			setState(115);
 			tell();
 			}
 		}
@@ -1266,7 +1196,7 @@ public class AldParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(135);
+			setState(123);
 			switch (_input.LA(1)) {
 			case ID:
 				{
@@ -1274,7 +1204,7 @@ public class AldParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(130);
+				setState(118);
 				match(ID);
 				}
 				break;
@@ -1283,7 +1213,7 @@ public class AldParser extends Parser {
 				_localctx = new IntegerNodeContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(131);
+				setState(119);
 				match(INTEGER);
 				}
 				break;
@@ -1292,7 +1222,7 @@ public class AldParser extends Parser {
 				_localctx = new StringConstNodeContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(132);
+				setState(120);
 				match(STRING_CONST);
 				}
 				break;
@@ -1301,7 +1231,7 @@ public class AldParser extends Parser {
 				_localctx = new TrueContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(133);
+				setState(121);
 				match(TRUE);
 				}
 				break;
@@ -1310,7 +1240,7 @@ public class AldParser extends Parser {
 				_localctx = new FalseContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(134);
+				setState(122);
 				match(FALSE);
 				}
 				break;
@@ -1318,26 +1248,26 @@ public class AldParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(160);
+			setState(148);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(158);
+					setState(146);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,11,_ctx) ) {
 					case 1:
 						{
 						_localctx = new LEqNodeContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(137);
+						setState(125);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(138);
+						setState(126);
 						match(LESS_EQ);
-						setState(139);
+						setState(127);
 						expr(8);
 						}
 						break;
@@ -1345,11 +1275,11 @@ public class AldParser extends Parser {
 						{
 						_localctx = new LtNodeContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(140);
+						setState(128);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(141);
+						setState(129);
 						match(LESS);
-						setState(142);
+						setState(130);
 						expr(7);
 						}
 						break;
@@ -1357,11 +1287,11 @@ public class AldParser extends Parser {
 						{
 						_localctx = new EqNodeContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(143);
+						setState(131);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(144);
+						setState(132);
 						match(EQUALS);
-						setState(145);
+						setState(133);
 						expr(6);
 						}
 						break;
@@ -1369,11 +1299,11 @@ public class AldParser extends Parser {
 						{
 						_localctx = new GEqNodeContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(146);
+						setState(134);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(147);
+						setState(135);
 						match(GREATER_EQ);
-						setState(148);
+						setState(136);
 						expr(5);
 						}
 						break;
@@ -1381,11 +1311,11 @@ public class AldParser extends Parser {
 						{
 						_localctx = new GTNodeContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(149);
+						setState(137);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
-						setState(150);
+						setState(138);
 						match(GREATER_THAN);
-						setState(151);
+						setState(139);
 						expr(4);
 						}
 						break;
@@ -1393,16 +1323,16 @@ public class AldParser extends Parser {
 						{
 						_localctx = new DivMultNodeContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(152);
+						setState(140);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-						setState(153);
+						setState(141);
 						_la = _input.LA(1);
 						if ( !(_la==MULT_OPERATOR || _la==DIV_OPERATOR) ) {
 						_errHandler.recoverInline(this);
 						} else {
 							consume();
 						}
-						setState(154);
+						setState(142);
 						expr(3);
 						}
 						break;
@@ -1410,25 +1340,25 @@ public class AldParser extends Parser {
 						{
 						_localctx = new MinusPlusNodeContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(155);
+						setState(143);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
-						setState(156);
+						setState(144);
 						_la = _input.LA(1);
 						if ( !(_la==PLUS_OPERATOR || _la==MINUS_OPERATOR) ) {
 						_errHandler.recoverInline(this);
 						} else {
 							consume();
 						}
-						setState(157);
+						setState(145);
 						expr(2);
 						}
 						break;
 					}
 					} 
 				}
-				setState(162);
+				setState(150);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,14,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,12,_ctx);
 			}
 			}
 		}
@@ -1471,54 +1401,48 @@ public class AldParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\34\u00a6\4\2\t\2"+
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\34\u009a\4\2\t\2"+
 		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\3\2\6\2\36\n\2\r\2\16\2\37\3\2\3\2\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3.\n\3\3\4\3\4\3\4\3\5\3\5\3\5"+
 		"\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\7\7>\n\7\f\7\16\7A\13\7\3\7\3\7\5\7E"+
 		"\n\7\3\b\3\b\3\b\3\b\7\bK\n\b\f\b\16\bN\13\b\3\b\3\b\5\bR\n\b\3\t\3\t"+
 		"\3\t\5\tW\n\t\7\tY\n\t\f\t\16\t\\\13\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\13"+
-		"\3\13\3\13\7\13h\n\13\f\13\16\13k\13\13\3\f\3\f\3\f\3\f\3\f\7\fr\n\f\f"+
-		"\f\16\fu\13\f\3\f\3\f\3\f\7\fz\n\f\f\f\16\f}\13\f\5\f\177\n\f\3\r\3\r"+
-		"\3\r\3\16\3\16\3\16\3\16\3\16\3\16\5\16\u008a\n\16\3\16\3\16\3\16\3\16"+
+		"\3\13\3\13\7\13h\n\13\f\13\16\13k\13\13\3\f\3\f\3\f\7\fp\n\f\f\f\16\f"+
+		"s\13\f\3\r\3\r\3\r\3\16\3\16\3\16\3\16\3\16\3\16\5\16~\n\16\3\16\3\16"+
 		"\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16\3\16"+
-		"\3\16\3\16\3\16\7\16\u00a1\n\16\f\16\16\16\u00a4\13\16\3\16\2\3\32\17"+
-		"\2\4\6\b\n\f\16\20\22\24\26\30\32\2\4\3\2\24\25\3\2\22\23\u00af\2\35\3"+
-		"\2\2\2\4-\3\2\2\2\6/\3\2\2\2\b\62\3\2\2\2\n\65\3\2\2\2\fD\3\2\2\2\16Q"+
-		"\3\2\2\2\20Z\3\2\2\2\22`\3\2\2\2\24d\3\2\2\2\26~\3\2\2\2\30\u0080\3\2"+
-		"\2\2\32\u0089\3\2\2\2\34\36\5\4\3\2\35\34\3\2\2\2\36\37\3\2\2\2\37\35"+
-		"\3\2\2\2\37 \3\2\2\2 !\3\2\2\2!\"\7\2\2\3\"\3\3\2\2\2#$\5\6\4\2$%\7\5"+
-		"\2\2%&\5\20\t\2&\'\7\6\2\2\'.\3\2\2\2()\7\34\2\2)*\7\f\2\2*+\5\32\16\2"+
-		"+,\7\3\2\2,.\3\2\2\2-#\3\2\2\2-(\3\2\2\2.\5\3\2\2\2/\60\5\b\5\2\60\61"+
-		"\5\n\6\2\61\7\3\2\2\2\62\63\7\13\2\2\63\64\7\34\2\2\64\t\3\2\2\2\65\66"+
-		"\5\f\7\2\66\67\7\t\2\2\678\5\16\b\28\13\3\2\2\29E\7\34\2\2:?\7\7\2\2;"+
-		"<\7\34\2\2<>\7\21\2\2=;\3\2\2\2>A\3\2\2\2?=\3\2\2\2?@\3\2\2\2@B\3\2\2"+
-		"\2A?\3\2\2\2BC\7\34\2\2CE\7\b\2\2D9\3\2\2\2D:\3\2\2\2E\r\3\2\2\2FR\7\34"+
-		"\2\2GL\7\7\2\2HI\7\34\2\2IK\7\21\2\2JH\3\2\2\2KN\3\2\2\2LJ\3\2\2\2LM\3"+
-		"\2\2\2MO\3\2\2\2NL\3\2\2\2OP\7\34\2\2PR\7\b\2\2QF\3\2\2\2QG\3\2\2\2R\17"+
-		"\3\2\2\2ST\5\22\n\2TV\7\3\2\2UW\7\4\2\2VU\3\2\2\2VW\3\2\2\2WY\3\2\2\2"+
-		"XS\3\2\2\2Y\\\3\2\2\2ZX\3\2\2\2Z[\3\2\2\2[]\3\2\2\2\\Z\3\2\2\2]^\7\4\2"+
-		"\2^_\5\30\r\2_\21\3\2\2\2`a\5\24\13\2ab\7\n\2\2bc\5\26\f\2c\23\3\2\2\2"+
-		"di\5\32\16\2ef\7\21\2\2fh\5\24\13\2ge\3\2\2\2hk\3\2\2\2ig\3\2\2\2ij\3"+
-		"\2\2\2j\25\3\2\2\2ki\3\2\2\2lm\5\32\16\2mn\7\f\2\2ns\5\32\16\2op\7\21"+
-		"\2\2pr\5\26\f\2qo\3\2\2\2ru\3\2\2\2sq\3\2\2\2st\3\2\2\2t\177\3\2\2\2u"+
-		"s\3\2\2\2v{\5\32\16\2wx\7\21\2\2xz\5\26\f\2yw\3\2\2\2z}\3\2\2\2{y\3\2"+
-		"\2\2{|\3\2\2\2|\177\3\2\2\2}{\3\2\2\2~l\3\2\2\2~v\3\2\2\2\177\27\3\2\2"+
-		"\2\u0080\u0081\7\n\2\2\u0081\u0082\5\26\f\2\u0082\31\3\2\2\2\u0083\u0084"+
-		"\b\16\1\2\u0084\u008a\7\34\2\2\u0085\u008a\7\30\2\2\u0086\u008a\7\32\2"+
-		"\2\u0087\u008a\7\26\2\2\u0088\u008a\7\27\2\2\u0089\u0083\3\2\2\2\u0089"+
-		"\u0085\3\2\2\2\u0089\u0086\3\2\2\2\u0089\u0087\3\2\2\2\u0089\u0088\3\2"+
-		"\2\2\u008a\u00a2\3\2\2\2\u008b\u008c\f\t\2\2\u008c\u008d\7\17\2\2\u008d"+
-		"\u00a1\5\32\16\n\u008e\u008f\f\b\2\2\u008f\u0090\7\20\2\2\u0090\u00a1"+
-		"\5\32\16\t\u0091\u0092\f\7\2\2\u0092\u0093\7\f\2\2\u0093\u00a1\5\32\16"+
-		"\b\u0094\u0095\f\6\2\2\u0095\u0096\7\16\2\2\u0096\u00a1\5\32\16\7\u0097"+
-		"\u0098\f\5\2\2\u0098\u0099\7\r\2\2\u0099\u00a1\5\32\16\6\u009a\u009b\f"+
-		"\4\2\2\u009b\u009c\t\2\2\2\u009c\u00a1\5\32\16\5\u009d\u009e\f\3\2\2\u009e"+
-		"\u009f\t\3\2\2\u009f\u00a1\5\32\16\4\u00a0\u008b\3\2\2\2\u00a0\u008e\3"+
-		"\2\2\2\u00a0\u0091\3\2\2\2\u00a0\u0094\3\2\2\2\u00a0\u0097\3\2\2\2\u00a0"+
-		"\u009a\3\2\2\2\u00a0\u009d\3\2\2\2\u00a1\u00a4\3\2\2\2\u00a2\u00a0\3\2"+
-		"\2\2\u00a2\u00a3\3\2\2\2\u00a3\33\3\2\2\2\u00a4\u00a2\3\2\2\2\21\37-?"+
-		"DLQVZis{~\u0089\u00a0\u00a2";
+		"\3\16\3\16\3\16\3\16\3\16\7\16\u0095\n\16\f\16\16\16\u0098\13\16\3\16"+
+		"\2\3\32\17\2\4\6\b\n\f\16\20\22\24\26\30\32\2\4\3\2\24\25\3\2\22\23\u00a1"+
+		"\2\35\3\2\2\2\4-\3\2\2\2\6/\3\2\2\2\b\62\3\2\2\2\n\65\3\2\2\2\fD\3\2\2"+
+		"\2\16Q\3\2\2\2\20Z\3\2\2\2\22`\3\2\2\2\24d\3\2\2\2\26l\3\2\2\2\30t\3\2"+
+		"\2\2\32}\3\2\2\2\34\36\5\4\3\2\35\34\3\2\2\2\36\37\3\2\2\2\37\35\3\2\2"+
+		"\2\37 \3\2\2\2 !\3\2\2\2!\"\7\2\2\3\"\3\3\2\2\2#$\5\6\4\2$%\7\5\2\2%&"+
+		"\5\20\t\2&\'\7\6\2\2\'.\3\2\2\2()\7\34\2\2)*\7\f\2\2*+\5\32\16\2+,\7\3"+
+		"\2\2,.\3\2\2\2-#\3\2\2\2-(\3\2\2\2.\5\3\2\2\2/\60\5\b\5\2\60\61\5\n\6"+
+		"\2\61\7\3\2\2\2\62\63\7\13\2\2\63\64\7\34\2\2\64\t\3\2\2\2\65\66\5\f\7"+
+		"\2\66\67\7\t\2\2\678\5\16\b\28\13\3\2\2\29E\7\34\2\2:?\7\7\2\2;<\7\34"+
+		"\2\2<>\7\21\2\2=;\3\2\2\2>A\3\2\2\2?=\3\2\2\2?@\3\2\2\2@B\3\2\2\2A?\3"+
+		"\2\2\2BC\7\34\2\2CE\7\b\2\2D9\3\2\2\2D:\3\2\2\2E\r\3\2\2\2FR\7\34\2\2"+
+		"GL\7\7\2\2HI\7\34\2\2IK\7\21\2\2JH\3\2\2\2KN\3\2\2\2LJ\3\2\2\2LM\3\2\2"+
+		"\2MO\3\2\2\2NL\3\2\2\2OP\7\34\2\2PR\7\b\2\2QF\3\2\2\2QG\3\2\2\2R\17\3"+
+		"\2\2\2ST\5\22\n\2TV\7\3\2\2UW\7\4\2\2VU\3\2\2\2VW\3\2\2\2WY\3\2\2\2XS"+
+		"\3\2\2\2Y\\\3\2\2\2ZX\3\2\2\2Z[\3\2\2\2[]\3\2\2\2\\Z\3\2\2\2]^\7\4\2\2"+
+		"^_\5\30\r\2_\21\3\2\2\2`a\5\24\13\2ab\7\n\2\2bc\5\26\f\2c\23\3\2\2\2d"+
+		"i\5\32\16\2ef\7\21\2\2fh\5\32\16\2ge\3\2\2\2hk\3\2\2\2ig\3\2\2\2ij\3\2"+
+		"\2\2j\25\3\2\2\2ki\3\2\2\2lq\5\32\16\2mn\7\21\2\2np\5\32\16\2om\3\2\2"+
+		"\2ps\3\2\2\2qo\3\2\2\2qr\3\2\2\2r\27\3\2\2\2sq\3\2\2\2tu\7\n\2\2uv\5\26"+
+		"\f\2v\31\3\2\2\2wx\b\16\1\2x~\7\34\2\2y~\7\30\2\2z~\7\32\2\2{~\7\26\2"+
+		"\2|~\7\27\2\2}w\3\2\2\2}y\3\2\2\2}z\3\2\2\2}{\3\2\2\2}|\3\2\2\2~\u0096"+
+		"\3\2\2\2\177\u0080\f\t\2\2\u0080\u0081\7\17\2\2\u0081\u0095\5\32\16\n"+
+		"\u0082\u0083\f\b\2\2\u0083\u0084\7\20\2\2\u0084\u0095\5\32\16\t\u0085"+
+		"\u0086\f\7\2\2\u0086\u0087\7\f\2\2\u0087\u0095\5\32\16\b\u0088\u0089\f"+
+		"\6\2\2\u0089\u008a\7\16\2\2\u008a\u0095\5\32\16\7\u008b\u008c\f\5\2\2"+
+		"\u008c\u008d\7\r\2\2\u008d\u0095\5\32\16\6\u008e\u008f\f\4\2\2\u008f\u0090"+
+		"\t\2\2\2\u0090\u0095\5\32\16\5\u0091\u0092\f\3\2\2\u0092\u0093\t\3\2\2"+
+		"\u0093\u0095\5\32\16\4\u0094\177\3\2\2\2\u0094\u0082\3\2\2\2\u0094\u0085"+
+		"\3\2\2\2\u0094\u0088\3\2\2\2\u0094\u008b\3\2\2\2\u0094\u008e\3\2\2\2\u0094"+
+		"\u0091\3\2\2\2\u0095\u0098\3\2\2\2\u0096\u0094\3\2\2\2\u0096\u0097\3\2"+
+		"\2\2\u0097\33\3\2\2\2\u0098\u0096\3\2\2\2\17\37-?DLQVZiq}\u0094\u0096";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

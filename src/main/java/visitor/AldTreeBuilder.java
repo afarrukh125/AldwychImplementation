@@ -1,7 +1,11 @@
 package visitor;
 
-import nodes.ClassNode;
-import nodes.TreeNode;
+import nodes.*;
+import nodes.data.BooleanNode;
+import nodes.data.ExpressionNode;
+import nodes.data.IntegerNode;
+import nodes.data.StringConstNode;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
  * Used to build our tree to then execute afterwards
@@ -21,9 +25,13 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitProcedureNode(AldParser.ProcedureNodeContext ctx) {
+        ProcedureNode procedureNode = new ProcedureNode();
+        procedureNode.addChild(visit(ctx.heading()));
+        procedureNode.addChild(visit(ctx.body()));
         return super.visitProcedureNode(ctx);
     }
 
+    // TODO remove this when we get a nice variable ecosystem (no global variables)
     @Override
     public TreeNode visitDeclarationNode(AldParser.DeclarationNodeContext ctx) {
         return super.visitDeclarationNode(ctx);
@@ -31,7 +39,9 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitHeading(AldParser.HeadingContext ctx) {
-        return super.visitHeading(ctx);
+        HeadingNode node = new HeadingNode(ctx.name().ID().getText());
+        node.addChild(visit(ctx.variables()));
+        return node;
     }
 
     @Override
@@ -41,17 +51,27 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitVariables(AldParser.VariablesContext ctx) {
-        return super.visitVariables(ctx);
+        return visit(ctx);
     }
 
     @Override
     public TreeNode visitReader(AldParser.ReaderContext ctx) {
-        return super.visitReader(ctx);
+        ReaderNode readers = new ReaderNode();
+
+        for(TerminalNode reader : ctx.ID())
+            readers.addChild(visit(reader));
+
+        return readers;
     }
 
     @Override
     public TreeNode visitWriter(AldParser.WriterContext ctx) {
-        return super.visitWriter(ctx);
+        WriterNode writers = new WriterNode();
+
+        for(TerminalNode writer : ctx.ID())
+            writers.addChild(visit(writer));
+
+        return writers;
     }
 
     @Override
@@ -61,67 +81,100 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitRegularrule(AldParser.RegularruleContext ctx) {
-        return super.visitRegularrule(ctx);
+        RegularRuleNode regularRuleNode = new RegularRuleNode();
+        regularRuleNode.addChild(visit(ctx.ask()));
+        regularRuleNode.addChild(visit(ctx.tell()));
+
+        return regularRuleNode;
     }
 
     @Override
-    public TreeNode visitAsk(AldParser.AskContext ctx) {
-        return super.visitAsk(ctx);
-    }
+    public TreeNode visitAskNode(AldParser.AskNodeContext ctx) {
+        AskNode askNode = new AskNode();
 
-    @Override
-    public TreeNode visitTellAssignNode(AldParser.TellAssignNodeContext ctx) {
-        return super.visitTellAssignNode(ctx);
+        for(AldParser.ExprContext exp : ctx.expr())
+            askNode.addChild(visit(exp));
+
+        return askNode;
     }
 
     @Override
     public TreeNode visitTellNode(AldParser.TellNodeContext ctx) {
-        return super.visitTellNode(ctx);
+        TellNode tellNode = new TellNode();
+
+        for(AldParser.ExprContext exp : ctx.expr())
+            tellNode.addChild(visit(exp));
+
+        return tellNode;
     }
 
     @Override
     public TreeNode visitFinalrule(AldParser.FinalruleContext ctx) {
-        return super.visitFinalrule(ctx);
+        FinalRuleNode node = new FinalRuleNode();
+        node.addChild(visit(ctx.tell()));
+        return node;
     }
 
     @Override
     public TreeNode visitLtNode(AldParser.LtNodeContext ctx) {
-        return super.visitLtNode(ctx);
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+
+        return new LTNode(left, right);
     }
 
     @Override
     public TreeNode visitStringConstNode(AldParser.StringConstNodeContext ctx) {
-        return super.visitStringConstNode(ctx);
+        return new StringConstNode(ctx.getText());
     }
 
     @Override
     public TreeNode visitGEqNode(AldParser.GEqNodeContext ctx) {
-        return super.visitGEqNode(ctx);
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+
+        return new GEqNode(left, right);
     }
 
     @Override
     public TreeNode visitGTNode(AldParser.GTNodeContext ctx) {
-        return super.visitGTNode(ctx);
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+
+        return new GTNode(left, right);
     }
 
     @Override
     public TreeNode visitDivMultNode(AldParser.DivMultNodeContext ctx) {
-        return super.visitDivMultNode(ctx);
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+
+        if(ctx.DIV_OPERATOR() != null)
+            return new DivNode(left, right);
+        return new MulNode(left, right);
     }
 
     @Override
     public TreeNode visitMinusPlusNode(AldParser.MinusPlusNodeContext ctx) {
-        return super.visitMinusPlusNode(ctx);
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+
+        if(ctx.MINUS_OPERATOR() != null)
+            return new SubNode(left, right);
+        return new AddNode(left, right);
     }
 
     @Override
     public TreeNode visitIntegerNode(AldParser.IntegerNodeContext ctx) {
-        return super.visitIntegerNode(ctx);
+        return new IntegerNode(ctx.getText());
     }
 
     @Override
     public TreeNode visitEqNode(AldParser.EqNodeContext ctx) {
-        return super.visitEqNode(ctx);
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+
+        return new EqNode(left, right);
     }
 
     @Override
@@ -131,16 +184,19 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitTrue(AldParser.TrueContext ctx) {
-        return super.visitTrue(ctx);
+        return new BooleanNode(true);
     }
 
     @Override
     public TreeNode visitFalse(AldParser.FalseContext ctx) {
-        return super.visitFalse(ctx);
+        return new BooleanNode(false);
     }
 
     @Override
     public TreeNode visitLEqNode(AldParser.LEqNodeContext ctx) {
-        return super.visitLEqNode(ctx);
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+
+        return new LEqNode(left, right);
     }
 }
