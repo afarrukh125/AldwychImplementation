@@ -5,13 +5,12 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
- * Behaves like a scope and type checker aspect, while also maintaining the value of variables
- * in a given scope
+ * Keeps track of variable values in the current scope and can enter and exit scopes
  */
-public class SymbolTable {
+public class ValueTable {
     private final Stack<Entry> table;
 
-    public SymbolTable() {
+    public ValueTable() {
         table = new Stack<>();
     }
 

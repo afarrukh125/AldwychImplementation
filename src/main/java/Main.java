@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import visitor.AldLexer;
 import visitor.AldParser;
 import visitor.AldTreeBuilder;
+import visitor.customised.ExecutionVisitor;
 import visitor.customised.SemanticVisitor;
 
 import java.io.IOException;
@@ -37,6 +38,16 @@ public class Main {
 
             SemanticVisitor visitor = new SemanticVisitor();
             result.accept(visitor, null);
+
+            if(!visitor.getErrors().isEmpty()) {
+                System.err.println("Failed compilation: ");
+                for(String s : visitor.getErrors())
+                    System.out.println(s);
+            }
+
+            ExecutionVisitor executionVisitor = new ExecutionVisitor();
+            result.accept(executionVisitor, null);
+
             System.out.println("Completed running " + fileName + "\n");
         }
     }

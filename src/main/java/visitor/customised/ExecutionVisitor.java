@@ -1,17 +1,30 @@
 package visitor.customised;
 
+import helpers.ValueTable;
 import nodes.*;
 import nodes.data.*;
 
+import java.util.List;
+
 public class ExecutionVisitor implements CustomVisitor<Void, Object> {
+
+    private final ValueTable valueTable;
+
+    public ExecutionVisitor() {
+        valueTable = new ValueTable();
+    }
 
     @Override
     public Void visit(ClassNode classNode, Object data) {
+        for(ProcedureNode procedureNode : classNode.getProcedures())
+            visit(procedureNode, data);
         return null;
     }
 
     @Override
     public Void visit(RegularRuleNode ruleNode, Object data) {
+        List<AskNode> asks = ruleNode.getAsks();
+        List<TellNode> tells = ruleNode.getTells();
         return null;
     }
 
@@ -27,6 +40,10 @@ public class ExecutionVisitor implements CustomVisitor<Void, Object> {
 
     @Override
     public Void visit(BodyNode bodyNode, Object data) {
+        for(RegularRuleNode regularRuleNode : bodyNode.getRegularRules())
+            visit(regularRuleNode, data);
+
+        visit(bodyNode.getFinalRule(), data);
         return null;
     }
 
@@ -57,6 +74,8 @@ public class ExecutionVisitor implements CustomVisitor<Void, Object> {
 
     @Override
     public Void visit(HeadingNode headingNode, Object data) {
+        visit(headingNode.getReaders(), data);
+        visit(headingNode.getWriters(), data);
         return null;
     }
 
@@ -82,6 +101,8 @@ public class ExecutionVisitor implements CustomVisitor<Void, Object> {
 
     @Override
     public Void visit(ProcedureNode procedureNode, Object data) {
+        visit(procedureNode.getHeadingNode(), data);
+        visit(procedureNode.getBody(), data);
         return null;
     }
 

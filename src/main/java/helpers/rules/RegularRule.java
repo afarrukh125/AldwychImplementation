@@ -1,6 +1,6 @@
 package helpers.rules;
 
-import helpers.SymbolTable;
+import helpers.ValueTable;
 
 class RegularRule extends Rule {
     protected final Ask ask;
@@ -23,15 +23,15 @@ class RegularRule extends Rule {
     }
 
     @Override
-    public RuleData execute(SymbolTable symbolTable) {
-        Object askLeft = symbolTable.findInScope(ask.getLeft());
-        Object askRight = symbolTable.findInScope(ask.getRight().toString());
+    public RuleData execute(ValueTable valueTable) {
+        Object askLeft = valueTable.findInScope(ask.getLeft());
+        Object askRight = valueTable.findInScope(ask.getRight().toString());
 
-        Object tellValue = symbolTable.findInScope(tell.getLeft());
+        Object tellValue = valueTable.findInScope(tell.getLeft());
 
         if (askLeft.equals(askRight)) {
-            Object previousValue = symbolTable.findInScope(tell.getLeft());
-            symbolTable.addVariable(tell.getLeft(), tellValue);
+            Object previousValue = valueTable.findInScope(tell.getLeft());
+            valueTable.addVariable(tell.getLeft(), tellValue);
             return new RuleData(this, previousValue);
         }
         return null;

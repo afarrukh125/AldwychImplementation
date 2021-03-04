@@ -1,7 +1,7 @@
 package helpers.rules;
 
 
-import helpers.SymbolTable;
+import helpers.ValueTable;
 
 // The rule at the end of each procedure that will be executed unconditionally given the other rules were not
 class FinalRule extends Rule {
@@ -10,10 +10,10 @@ class FinalRule extends Rule {
     }
 
     @Override
-    public RuleData execute(SymbolTable symbolTable) {
-        Object tellValue = symbolTable.findInScope(tell.getRight().toString());
-        Object previousTellValue = symbolTable.findInScope(tell.getLeft());
-        symbolTable.addVariable(tell.getLeft(), tellValue);
+    public RuleData execute(ValueTable valueTable) {
+        Object tellValue = valueTable.findInScope(tell.getRight().toString());
+        Object previousTellValue = valueTable.findInScope(tell.getLeft());
+        valueTable.addVariable(tell.getLeft(), tellValue);
         return new RuleData(this, previousTellValue);
     }
 

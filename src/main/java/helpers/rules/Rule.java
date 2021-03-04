@@ -1,6 +1,6 @@
 package helpers.rules;
 
-import helpers.SymbolTable;
+import helpers.ValueTable;
 
 public abstract class Rule {
     protected final Tell tell;
@@ -13,5 +13,5 @@ public abstract class Rule {
         return tell;
     }
 
-    public abstract RuleData execute(SymbolTable symbolTable);
+    public abstract RuleData execute(ValueTable valueTable);
 }

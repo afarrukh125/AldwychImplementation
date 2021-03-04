@@ -20,7 +20,7 @@ public class WriterContainerNode extends TreeNode{
         writers.add(writer);
     }
 
-    public List<WriterNode> getWriters() {
+    public List<WriterNode> getWriterNodes() {
         return Collections.unmodifiableList(writers);
     }
 

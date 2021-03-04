@@ -1,6 +1,6 @@
 package helpers.rules;
 
-import helpers.SymbolTable;
+import helpers.ValueTable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,7 +34,7 @@ public class RuleSet implements Iterable<Rule> {
     /**
      * Runs all the rules in turn and returns the rule that had the correct tell and ask
      */
-    public RuleData executeAll(SymbolTable symbolTable, Rule finalRule) {
+    public RuleData executeAll(ValueTable valueTable, Rule finalRule) {
         int numRules = rules.size();
 
         // Each rule to be executed concurrently
@@ -42,7 +42,7 @@ public class RuleSet implements Iterable<Rule> {
         CompletionService<RuleData> completionService = new ExecutorCompletionService<>(executorService);
 
         for (Rule rule : rules)
-            completionService.submit(() -> rule.execute(symbolTable));
+            completionService.submit(() -> rule.execute(valueTable));
 
 
         int receivedCount = 0;
@@ -67,7 +67,7 @@ public class RuleSet implements Iterable<Rule> {
         if (ruleData == null) {
             if (!executorService.isTerminated())
                 executorService.shutdownNow();
-            return finalRule.execute(symbolTable);
+            return finalRule.execute(valueTable);
         }
 
         return ruleData;

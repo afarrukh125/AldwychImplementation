@@ -1,9 +1,10 @@
 package nodes;
 
+import helpers.rules.RuleComponent;
 import nodes.data.ExpressionNode;
 import visitor.customised.CustomVisitor;
 
-public class AskNode extends TreeNode {
+public class AskNode extends TreeNode implements RuleComponent {
 
     private final ExpressionNode expressionNode;
 
