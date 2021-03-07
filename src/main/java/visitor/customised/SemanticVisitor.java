@@ -5,7 +5,10 @@ import helpers.Mode;
 import nodes.*;
 import nodes.data.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SemanticVisitor implements CustomVisitor<Void, Object> {

@@ -2,10 +2,6 @@ package nodes;
 
 import visitor.customised.CustomVisitor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class HeadingNode extends TreeNode {
 
     private final String name;

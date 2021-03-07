@@ -1,6 +1,5 @@
 package nodes.data;
 
-import com.sun.org.apache.xpath.internal.ExpressionNode;
 import visitor.customised.CustomVisitor;
 
 public class IdentifierNode extends Node<String> {

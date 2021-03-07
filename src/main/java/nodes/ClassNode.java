@@ -1,6 +1,5 @@
 package nodes;
 
-import visitor.AldParser;
 import visitor.customised.CustomVisitor;
 
 import java.util.ArrayList;

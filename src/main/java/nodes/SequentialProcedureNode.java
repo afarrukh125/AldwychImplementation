@@ -1,12 +1,6 @@
 package nodes;
 
-import nodes.data.ExpressionNode;
 import visitor.customised.CustomVisitor;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 public class SequentialProcedureNode extends TreeNode {
 
