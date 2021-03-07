@@ -14,7 +14,7 @@ public class ProcedureNode extends TreeNode {
 
     @Override
     public <T, D> T accept(CustomVisitor<T, D> v, D data) {
-        return null;
+        return v.visit(this, data);
     }
 
     public HeadingNode getHeadingNode() {

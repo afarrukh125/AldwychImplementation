@@ -58,4 +58,8 @@ public interface CustomVisitor<T, D> {
     public T visit(IntegerNode integerNode, D data);
 
     public T visit(StringConstNode stringConstNode, D data);
+
+    public T visit(SequentialProcedureNode sequentialProcedureNode, D data);
+
+    public T visit(SequentialBodyNode sequentialBodyNode, D data);
 }

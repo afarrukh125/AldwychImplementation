@@ -1,5 +1,6 @@
 package nodes;
 
+import visitor.AldParser;
 import visitor.customised.CustomVisitor;
 
 import java.util.ArrayList;
@@ -8,9 +9,11 @@ import java.util.List;
 
 public class ClassNode extends TreeNode {
     List<ProcedureNode> procedureNodeList;
+    List<SequentialProcedureNode> sequentialProcedureNodeList;
 
     public ClassNode() {
         procedureNodeList = new ArrayList<>();
+        sequentialProcedureNodeList = new ArrayList<>();
     }
 
     @Override
@@ -20,6 +23,14 @@ public class ClassNode extends TreeNode {
 
     public void addProcedureNode(ProcedureNode procedureNode) {
         procedureNodeList.add(procedureNode);
+    }
+
+    public void addSequentialProcedureNode(SequentialProcedureNode sequentialProcedureNode) {
+        sequentialProcedureNodeList.add(sequentialProcedureNode);
+    }
+
+    public List<SequentialProcedureNode> getSequentialProcedureNodes() {
+        return Collections.unmodifiableList(sequentialProcedureNodeList);
     }
 
     public List<ProcedureNode> getProcedures() {

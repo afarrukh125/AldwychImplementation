@@ -233,6 +233,16 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
         return null;
     }
 
+    @Override
+    public Void visit(SequentialProcedureNode sequentialProcedureNode, Object data) {
+        return null;
+    }
+
+    @Override
+    public Void visit(SequentialBodyNode sequentialBodyNode, Object data) {
+        return null;
+    }
+
     private void addError(String message) {
         errors.add(message);
     }

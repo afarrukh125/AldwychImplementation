@@ -29,6 +29,18 @@ public interface AldParserListener extends ParseTreeListener {
 	 */
 	void exitProcedureNode(AldParser.ProcedureNodeContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SequentialProcedureNode}
+	 * labeled alternative in {@link AldParser#declaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterSequentialProcedureNode(AldParser.SequentialProcedureNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SequentialProcedureNode}
+	 * labeled alternative in {@link AldParser#declaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitSequentialProcedureNode(AldParser.SequentialProcedureNodeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code DeclarationNode}
 	 * labeled alternative in {@link AldParser#declaration}.
 	 * @param ctx the parse tree
@@ -40,6 +52,16 @@ public interface AldParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDeclarationNode(AldParser.DeclarationNodeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AldParser#seqbody}.
+	 * @param ctx the parse tree
+	 */
+	void enterSeqbody(AldParser.SeqbodyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AldParser#seqbody}.
+	 * @param ctx the parse tree
+	 */
+	void exitSeqbody(AldParser.SeqbodyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AldParser#heading}.
 	 * @param ctx the parse tree

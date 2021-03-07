@@ -4,7 +4,9 @@ import helpers.ValueTable;
 import nodes.*;
 import nodes.data.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
@@ -16,7 +18,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ClassNode classNode, Object data) {
-        for(ProcedureNode procedureNode : classNode.getProcedures())
+        for (ProcedureNode procedureNode : classNode.getProcedures())
             visit(procedureNode, data);
         return null;
     }
@@ -26,10 +28,13 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         List<AskNode> asks = ruleNode.getAsks();
         List<TellNode> tells = ruleNode.getTells();
 
-        for(AskNode askNode : asks)
-            visit(askNode, data);
+        Map<AskNode, String> predMap = new HashMap<>();
 
-        for(TellNode tellNode : tells)
+        for (AskNode askNode : asks) {
+            predMap.put(askNode, (String) visit(askNode, data));
+        }
+
+        for (TellNode tellNode : tells)
             visit(tellNode, data);
         return null;
     }
@@ -46,10 +51,21 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(BodyNode bodyNode, Object data) {
-        for(RegularRuleNode regularRuleNode : bodyNode.getRegularRules())
+        for (RegularRuleNode regularRuleNode : bodyNode.getRegularRules())
             visit(regularRuleNode, data);
 
         visit(bodyNode.getFinalRule(), data);
+        return null;
+    }
+
+
+    @Override
+    public Object visit(SequentialProcedureNode sequentialProcedureNode, Object data) {
+        return null;
+    }
+
+    @Override
+    public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
         return null;
     }
 
@@ -65,7 +81,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(EqNode eqNode, Object data) {
-        return null;
+        String left = (String) visit(eqNode.getLeft(), data);
+        String right = (String) visit(eqNode.getRight(), data);
+
+        return left.equals(right);
     }
 
     @Override
@@ -75,7 +94,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(GTNode gtNode, Object data) {
-        return null;
+        String leftString = (String) visit(gtNode.getLeft(), data);
+        String rightString = (String) visit(gtNode.getRight(), data);
+        int left = Integer.parseInt(leftString);
+        int right = Integer.parseInt(rightString);
+
+        return left > right;
     }
 
     @Override
@@ -129,18 +153,22 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     /**
      * Portal for other expression nodes to be casted to here
-     * @param expressionNode
-     * @param data
-     * @return
+     * TODO complete method description, redo this JavaDoc comment
      */
     @Override
     public Object visit(ExpressionNode expressionNode, Object data) {
-        if(expressionNode instanceof GTNode)
+        if (expressionNode instanceof GTNode)
             return visit((GTNode) expressionNode, data);
-        if(expressionNode instanceof LTNode)
+        if (expressionNode instanceof LTNode)
             return visit((LTNode) expressionNode, data);
-        if(expressionNode instanceof EqNode)
+        if (expressionNode instanceof EqNode)
             return visit((EqNode) expressionNode, data);
+        if (expressionNode instanceof IdentifierNode)
+            return visit((IdentifierNode) expressionNode, data);
+        if (expressionNode instanceof StringConstNode)
+            return visit((StringConstNode) expressionNode, data);
+        if (expressionNode instanceof IntegerNode)
+            return visit((IntegerNode) expressionNode, data);
 
 
         throw new IllegalArgumentException("No expression node to visit for this: " + expressionNode.getClass().getSimpleName());
@@ -148,8 +176,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(SubNode subNode, Object data) {
-        IntegerNode left = (IntegerNode) visit((ExpressionNode) subNode.getLeft(), data);
-        IntegerNode right = (IntegerNode) visit((ExpressionNode) subNode.getRight(), data);
+        IntegerNode left = (IntegerNode) visit(subNode.getLeft(), data);
+        IntegerNode right = (IntegerNode) visit(subNode.getRight(), data);
 
         return left.getNodeValue() + right.getNodeValue();
     }
@@ -171,12 +199,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(IdentifierNode identifierNode, Object data) {
-        return null;
+        return identifierNode.getNodeValue();
     }
 
     @Override
     public Object visit(IntegerNode integerNode, Object data) {
-        return integerNode.getNodeValue();
+        return Integer.toString(integerNode.getNodeValue());
     }
 
     @Override

@@ -15,10 +15,13 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
         ClassNode classNode = new ClassNode();
 
         for (AldParser.DeclarationContext decl : ctx.declaration()) {
-            if(decl instanceof AldParser.ProcedureNodeContext) {
-                TreeNode result = visit(decl);
+            TreeNode result = visit(decl);
+            if(decl instanceof AldParser.ProcedureNodeContext)
                 classNode.addProcedureNode((ProcedureNode) result);
-            }
+
+            if(decl instanceof AldParser.SequentialProcedureNodeContext)
+                classNode.addSequentialProcedureNode((SequentialProcedureNode) result);
+
         }
 
         return classNode;
@@ -74,6 +77,18 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
             writers.addWriter(new WriterNode(writer.getText()));
 
         return writers;
+    }
+
+    @Override
+    public TreeNode visitSequentialProcedureNode(AldParser.SequentialProcedureNodeContext ctx) {
+        HeadingNode headingNode = (HeadingNode) visit(ctx.heading());
+        SequentialBodyNode bodyNode = (SequentialBodyNode) visit(ctx.seqbody());
+        return new SequentialProcedureNode(headingNode, bodyNode);
+    }
+
+    @Override
+    public TreeNode visitSeqbody(AldParser.SeqbodyContext ctx) {
+        return super.visitSeqbody(ctx);
     }
 
     @Override

@@ -23,12 +23,25 @@ public interface AldParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProcedureNode(AldParser.ProcedureNodeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SequentialProcedureNode}
+	 * labeled alternative in {@link AldParser#declaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSequentialProcedureNode(AldParser.SequentialProcedureNodeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code DeclarationNode}
 	 * labeled alternative in {@link AldParser#declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitDeclarationNode(AldParser.DeclarationNodeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AldParser#seqbody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSeqbody(AldParser.SeqbodyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AldParser#heading}.
 	 * @param ctx the parse tree
