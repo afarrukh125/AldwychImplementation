@@ -130,8 +130,8 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitLtNode(AldParser.LtNodeContext ctx) {
-        TreeNode left = visit(ctx.expr(0));
-        TreeNode right = visit(ctx.expr(1));
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
         return new LTNode(left, right);
     }
@@ -143,24 +143,24 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitGEqNode(AldParser.GEqNodeContext ctx) {
-        TreeNode left = visit(ctx.expr(0));
-        TreeNode right = visit(ctx.expr(1));
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
         return new GEqNode(left, right);
     }
 
     @Override
     public TreeNode visitGTNode(AldParser.GTNodeContext ctx) {
-        TreeNode left = visit(ctx.expr(0));
-        TreeNode right = visit(ctx.expr(1));
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
         return new GTNode(left, right);
     }
 
     @Override
     public TreeNode visitDivMultNode(AldParser.DivMultNodeContext ctx) {
-        TreeNode left = visit(ctx.expr(0));
-        TreeNode right = visit(ctx.expr(1));
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
         if (ctx.DIV_OPERATOR() != null)
             return new DivNode(left, right);
@@ -169,8 +169,8 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitMinusPlusNode(AldParser.MinusPlusNodeContext ctx) {
-        TreeNode left = visit(ctx.expr(0));
-        TreeNode right = visit(ctx.expr(1));
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
         if (ctx.MINUS_OPERATOR() != null)
             return new SubNode(left, right);
@@ -184,8 +184,8 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitEqNode(AldParser.EqNodeContext ctx) {
-        TreeNode left = visit(ctx.expr(0));
-        TreeNode right = visit(ctx.expr(1));
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
         return new EqNode(left, right);
     }
 
@@ -206,8 +206,8 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitLEqNode(AldParser.LEqNodeContext ctx) {
-        TreeNode left = visit(ctx.expr(0));
-        TreeNode right = visit(ctx.expr(1));
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
         return new LEqNode(left, right);
     }

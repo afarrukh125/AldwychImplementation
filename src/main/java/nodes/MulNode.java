@@ -1,9 +1,10 @@
 package nodes;
 
+import nodes.data.ExpressionNode;
 import visitor.customised.CustomVisitor;
 
 public class MulNode extends BinOpNode {
-    public MulNode(TreeNode left, TreeNode right) {
+    public MulNode(ExpressionNode left, ExpressionNode right) {
         super(left, right);
     }
 

@@ -1,9 +1,10 @@
 package nodes;
 
+import nodes.data.ExpressionNode;
 import visitor.customised.CustomVisitor;
 
 public class GEqNode extends BinOpNode {
-    public GEqNode(TreeNode left, TreeNode right) {
+    public GEqNode(ExpressionNode left, ExpressionNode right) {
         super(left, right);
     }
 

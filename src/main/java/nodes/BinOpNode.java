@@ -4,19 +4,19 @@ import nodes.data.ExpressionNode;
 
 public abstract class BinOpNode extends ExpressionNode {
 
-    private final TreeNode left;
-    private final TreeNode right;
+    private final ExpressionNode left;
+    private final ExpressionNode right;
 
-    public BinOpNode(TreeNode left, TreeNode right) {
+    public BinOpNode(ExpressionNode left, ExpressionNode right) {
         this.left = left;
         this.right = right;
     }
 
-    public TreeNode getLeft() {
+    public ExpressionNode getLeft() {
         return left;
     }
 
-    public TreeNode getRight() {
+    public ExpressionNode getRight() {
         return right;
     }
 

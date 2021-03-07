@@ -25,6 +25,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     public Object visit(RegularRuleNode ruleNode, Object data) {
         List<AskNode> asks = ruleNode.getAsks();
         List<TellNode> tells = ruleNode.getTells();
+
+        for(AskNode askNode : asks)
+            visit(askNode, data);
+
+        for(TellNode tellNode : tells)
+            visit(tellNode, data);
         return null;
     }
 
@@ -35,7 +41,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(AskNode askNode, Object data) {
-        return null;
+        return visit(askNode.getExpressionNode(), data);
     }
 
     @Override
@@ -121,19 +127,36 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         return null;
     }
 
+    /**
+     * Portal for other expression nodes to be casted to here
+     * @param expressionNode
+     * @param data
+     * @return
+     */
     @Override
     public Object visit(ExpressionNode expressionNode, Object data) {
-        return null;
+        if(expressionNode instanceof GTNode)
+            return visit((GTNode) expressionNode, data);
+        if(expressionNode instanceof LTNode)
+            return visit((LTNode) expressionNode, data);
+        if(expressionNode instanceof EqNode)
+            return visit((EqNode) expressionNode, data);
+
+
+        throw new IllegalArgumentException("No expression node to visit for this: " + expressionNode.getClass().getSimpleName());
     }
 
     @Override
     public Object visit(SubNode subNode, Object data) {
-        return null;
+        IntegerNode left = (IntegerNode) visit((ExpressionNode) subNode.getLeft(), data);
+        IntegerNode right = (IntegerNode) visit((ExpressionNode) subNode.getRight(), data);
+
+        return left.getNodeValue() + right.getNodeValue();
     }
 
     @Override
     public Object visit(TellNode tellNode, Object data) {
-        return null;
+        return visit(tellNode.getExpressionNode(), data);
     }
 
     @Override
@@ -143,7 +166,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(BooleanNode booleanNode, Object data) {
-        return null;
+        return booleanNode.getNodeValue();
     }
 
     @Override
@@ -153,11 +176,11 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(IntegerNode integerNode, Object data) {
-        return null;
+        return integerNode.getNodeValue();
     }
 
     @Override
     public Object visit(StringConstNode stringConstNode, Object data) {
-        return null;
+        return stringConstNode.getNodeValue();
     }
 }

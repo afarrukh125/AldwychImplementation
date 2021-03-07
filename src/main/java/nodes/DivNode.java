@@ -1,9 +1,10 @@
 package nodes;
 
+import nodes.data.ExpressionNode;
 import visitor.customised.CustomVisitor;
 
 public class DivNode extends BinOpNode {
-    public DivNode(TreeNode left, TreeNode right) {
+    public DivNode(ExpressionNode left, ExpressionNode right) {
         super(left, right);
     }
 

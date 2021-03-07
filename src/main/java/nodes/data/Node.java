@@ -3,7 +3,7 @@ package nodes.data;
 import helpers.Constants;
 import nodes.TreeNode;
 
-public abstract class Node<T> extends TreeNode {
+public abstract class Node<T> extends ExpressionNode {
     private final T nodeValue;
 
     public Node(T value) {

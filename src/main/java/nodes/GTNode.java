@@ -1,9 +1,10 @@
 package nodes;
 
+import nodes.data.ExpressionNode;
 import visitor.customised.CustomVisitor;
 
 public class GTNode extends BinOpNode {
-    public GTNode(TreeNode left, TreeNode right) {
+    public GTNode(ExpressionNode left, ExpressionNode right) {
         super(left, right);
     }
 
