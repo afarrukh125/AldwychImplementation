@@ -4,6 +4,9 @@ import nodes.*;
 import nodes.data.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Used to build our tree to then execute afterwards
  * This is done as a frontend step
@@ -88,7 +91,10 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitSeqbody(AldParser.SeqbodyContext ctx) {
-        return super.visitSeqbody(ctx);
+        SequentialBodyNode sequentialBodyNode = new SequentialBodyNode();
+        for(AldParser.ExprContext exprContext : ctx.expr())
+            sequentialBodyNode.addExpression((ExpressionNode) visit(exprContext));
+        return sequentialBodyNode;
     }
 
     @Override
@@ -229,6 +235,12 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitDispatchNode(AldParser.DispatchNodeContext ctx) {
-        return super.visitDispatchNode(ctx);
+        List<ExpressionNode> exprs = new ArrayList<>();
+        for(AldParser.ExprContext exprContext : ctx.expr())
+            exprs.add((ExpressionNode) visit(exprContext));
+
+        if(ctx.expr().size() == 1)
+            return new DispatchNode(ctx.ID(0).getText(), exprs, null);
+        return new DispatchNode(ctx.ID(0).getText(), exprs, ctx.ID(1).getText());
     }
 }

@@ -18,6 +18,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ClassNode classNode, Object data) {
+        data = new HashMap<String, String>();
+
+        for(SequentialProcedureNode seqNode : classNode.getSequentialProcedureNodes())
+            visit(seqNode, data);
         for (ProcedureNode procedureNode : classNode.getProcedures())
             visit(procedureNode, data);
         return null;
@@ -61,11 +65,15 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(SequentialProcedureNode sequentialProcedureNode, Object data) {
-        return null;
+        visit(sequentialProcedureNode.getHeadingNode(), data);
+        visit(sequentialProcedureNode.getSequentialBody(), data);
+        return  null;
     }
 
     @Override
     public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
+        for(ExpressionNode expressionNode : sequentialBodyNode.getExpressions())
+            visit(expressionNode, data);
         return null;
     }
 
@@ -169,6 +177,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             return visit((StringConstNode) expressionNode, data);
         if (expressionNode instanceof IntegerNode)
             return visit((IntegerNode) expressionNode, data);
+        if(expressionNode instanceof DispatchNode)
+            return visit((DispatchNode) expressionNode, data);
 
 
         throw new IllegalArgumentException("No expression node to visit for this: " + expressionNode.getClass().getSimpleName());
