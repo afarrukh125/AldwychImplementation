@@ -346,6 +346,18 @@ public class AldParserBaseListener implements AldParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitEqNode(AldParser.EqNodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignNode(AldParser.AssignNodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignNode(AldParser.AssignNodeContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -18,7 +18,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ClassNode classNode, Object data) {
-        data = new HashMap<String, String>();
+        data = new Object();
 
         for(SequentialProcedureNode seqNode : classNode.getSequentialProcedureNodes())
             visit(seqNode, data);
@@ -65,6 +65,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(SequentialProcedureNode sequentialProcedureNode, Object data) {
+        valueTable.enterScope();
         visit(sequentialProcedureNode.getHeadingNode(), data);
         visit(sequentialProcedureNode.getSequentialBody(), data);
         return  null;
@@ -74,6 +75,16 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
         for(ExpressionNode expressionNode : sequentialBodyNode.getExpressions())
             visit(expressionNode, data);
+        return null;
+    }
+
+
+    @Override
+    public Object visit(AssignNode assignNode, Object data) {
+        String left = (String) visit(assignNode.getLeft(), data);
+        String right = (String) visit(assignNode.getRight(), data);
+
+        valueTable.addVariable(left, right);
         return null;
     }
 
@@ -95,6 +106,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         return left.equals(right);
     }
 
+
+
     @Override
     public Object visit(GEqNode gEqNode, Object data) {
         return null;
@@ -107,7 +120,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         int left = Integer.parseInt(leftString);
         int right = Integer.parseInt(rightString);
 
-        return left > right;
+        return Boolean.toString(left > right);
     }
 
     @Override
@@ -134,11 +147,17 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(PlusNode plusNode, Object data) {
-        return null;
+        String leftString = (String) visit(plusNode.getLeft(), data);
+        String rightString = (String) visit(plusNode.getRight(), data);
+        int left = Integer.parseInt(leftString);
+        int right = Integer.parseInt(rightString);
+
+        return Integer.toString(left + right);
     }
 
     @Override
     public Object visit(ProcedureNode procedureNode, Object data) {
+        valueTable.enterScope();
         visit(procedureNode.getHeadingNode(), data);
         visit(procedureNode.getBody(), data);
         return null;
@@ -179,6 +198,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             return visit((IntegerNode) expressionNode, data);
         if(expressionNode instanceof DispatchNode)
             return visit((DispatchNode) expressionNode, data);
+        if(expressionNode instanceof PlusNode)
+            return visit((PlusNode) expressionNode, data);
+        if(expressionNode instanceof AssignNode)
+            return visit((AssignNode) expressionNode, data);
 
 
         throw new IllegalArgumentException("No expression node to visit for this: " + expressionNode.getClass().getSimpleName());
@@ -209,8 +232,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(IdentifierNode identifierNode, Object data) {
-        return identifierNode.getNodeValue();
+        String identifierNodeValue = identifierNode.getNodeValue();
+        if(valueTable.findInScope(identifierNodeValue) == null)
+            return identifierNodeValue;
+        return valueTable.findInScope(identifierNode.getNodeValue());
     }
+
 
     @Override
     public Object visit(IntegerNode integerNode, Object data) {

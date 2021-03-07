@@ -57,6 +57,7 @@ expr
     | <assoc=right> expr (MULT_OPERATOR | DIV_OPERATOR) expr                # DivMultNode
     | <assoc=right> expr (MINUS_OPERATOR | PLUS_OPERATOR) expr              # MinusPlusNode
     | expr LESS_EQ expr                                                     # LEqNode
+    | expr LEFT_ARROW expr                                                  # AssignNode
     | expr LESS expr                                                        # LtNode
     | expr EQUALS expr                                                      # EqNode
     | expr GREATER_EQ expr                                                  # GEqNode

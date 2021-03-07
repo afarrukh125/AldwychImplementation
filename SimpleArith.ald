@@ -1,3 +1,14 @@
+#main(args)->()
+{
+ a<-3;
+ b<-5;
+ c<-10;
+
+ addTwo(x,y,z)->res;
+
+ print(res);
+}
+
 #addTwo(a,b,c)->r
 {
  a>0, b>0 || r=a+b;

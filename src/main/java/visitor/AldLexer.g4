@@ -50,6 +50,7 @@ PARENT_OPEN                 : '(' ;
 PARENT_CLOSE                : ')' ;
 
 ARROW                       : '->';
+LEFT_ARROW                  : '<-';
 PRED_SEPARATOR              : '||';
 HASH                        : '#';
 EQUALS                      : '=';

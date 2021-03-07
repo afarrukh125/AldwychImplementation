@@ -98,6 +98,13 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
+    public TreeNode visitAssignNode(AldParser.AssignNodeContext ctx) {
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+        return new AssignNode(left, right);
+    }
+
+    @Override
     public TreeNode visitBody(AldParser.BodyContext ctx) {
         BodyNode bodyNode = new BodyNode();
 

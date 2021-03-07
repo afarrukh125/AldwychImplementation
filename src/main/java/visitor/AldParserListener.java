@@ -322,4 +322,16 @@ public interface AldParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitEqNode(AldParser.EqNodeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AssignNode}
+	 * labeled alternative in {@link AldParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignNode(AldParser.AssignNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AssignNode}
+	 * labeled alternative in {@link AldParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignNode(AldParser.AssignNodeContext ctx);
 }
