@@ -1,14 +1,15 @@
 package visitor.customised;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import helpers.MethodTable;
 import helpers.ValueTable;
 import nodes.*;
 import nodes.data.*;
+import sun.reflect.generics.tree.Tree;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
 public class ExecutionVisitor implements CustomVisitor<Object, Object> {
@@ -25,13 +26,13 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     public Object visit(ClassNode classNode, Object data) {
         data = new Object();
 
-        for(SequentialProcedureNode procedureNode : classNode.getSequentialProcedureNodes())
+        for (SequentialProcedureNode procedureNode : classNode.getSequentialProcedureNodes())
             methodTable.addMethod(procedureNode.getHeadingNode().getName(), procedureNode);
 
-        for(ProcedureNode procedureNode : classNode.getProcedures())
+        for (ProcedureNode procedureNode : classNode.getProcedures())
             methodTable.addMethod(procedureNode.getHeadingNode().getName(), procedureNode);
 
-        for(SequentialProcedureNode seqNode : classNode.getSequentialProcedureNodes())
+        for (SequentialProcedureNode seqNode : classNode.getSequentialProcedureNodes())
             visit(seqNode, data);
         return null;
     }
@@ -41,20 +42,23 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         List<AskNode> asks = ruleNode.getAsks();
         List<TellNode> tells = ruleNode.getTells();
 
-        Map<AskNode, String> predMap = new HashMap<>();
-
         for (AskNode askNode : asks) {
-            predMap.put(askNode, (String) visit(askNode, data));
+            String result = (String) visit(askNode, data);
+            if (!Boolean.parseBoolean(result))
+                return null;
         }
 
+        String result = null;
         for (TellNode tellNode : tells)
-            visit(tellNode, data);
-        return null;
+            result = (String) visit(tellNode, data);
+        return result;
     }
 
     @Override
     public Object visit(FinalRuleNode finalRuleNode, Object data) {
-        return null;
+        for (TellNode tellNode : finalRuleNode.getTells())
+            visit(tellNode.getExpressionNode(), data);
+        return finalRuleNode;
     }
 
     @Override
@@ -63,13 +67,50 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
-    public Object visit(BodyNode bodyNode, Object data) {
-        for (RegularRuleNode regularRuleNode : bodyNode.getRegularRules())
-            visit(regularRuleNode, data);
+    public Object visit(ProcedureNode procedureNode, Object data) {
+        visit(procedureNode.getHeadingNode(), data);
 
-        // TODO implement final rule handling
-        visit(bodyNode.getFinalRule(), data);
-        return null;
+        return visit(procedureNode.getBody(), procedureNode.getHeadingNode().getWriters().getWriterNodes());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object visit(BodyNode bodyNode, Object data) {
+        List<WriterNode> writers = (List<WriterNode>) data;
+        String lastWriterVariable = writers.get(writers.size()-1).getName();
+
+        int numRules = bodyNode.getRegularRules().size();
+
+        ExecutorService executorService = Executors.newFixedThreadPool(numRules);
+        CompletionService<String> completionService = new ExecutorCompletionService<>(executorService);
+
+        for (RegularRuleNode regularRuleNode : bodyNode.getRegularRules())
+            completionService.submit(() -> (String) visit(regularRuleNode, data));
+
+        int receivedCount = 0;
+        String resultingValue = null;
+
+        while(!executorService.isTerminated() && receivedCount < numRules) {
+            try {
+                Future<String> resultFuture = completionService.take();
+                String resultNode = resultFuture.get();
+                if(resultNode != null) {
+                    resultingValue = (String) valueTable.findInScope(lastWriterVariable);
+                    executorService.shutdownNow();
+                }
+                receivedCount++;
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(resultingValue == null) {
+            if(!executorService.isTerminated())
+                executorService.shutdownNow();
+            visit(bodyNode.getFinalRule(), data);
+            return (String) valueTable.findInScope(lastWriterVariable);
+        }
+        return resultingValue;
     }
 
 
@@ -78,12 +119,13 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         valueTable.enterScope();
         visit(sequentialProcedureNode.getHeadingNode(), data);
         visit(sequentialProcedureNode.getSequentialBody(), data);
-        return  null;
+        valueTable.exitScope();
+        return null;
     }
 
     @Override
     public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
-        for(ExpressionNode expressionNode : sequentialBodyNode.getExpressions())
+        for (ExpressionNode expressionNode : sequentialBodyNode.getExpressions())
             visit(expressionNode, data);
         return null;
     }
@@ -103,15 +145,16 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
         String procedureName = dispatchNode.getName();
 
-        if(methodTable.canHandle(procedureName)) {
-            List<String> dispatchParams = dispatchNode.getParams()
-                    .stream()
-                    .map(e -> (String) visit(e, data))
-                    .collect(Collectors.toList());
+        if (methodTable.canHandle(procedureName)) {
+            List<String> dispatchParams = new ArrayList<>();
+
+            for(ExpressionNode expressionNode : dispatchNode.getParams()) {
+                Object result = visit(expressionNode, data);
+                dispatchParams.add((String) result);
+            }
 
             return methodTable.handleDefaultMethod(procedureName, dispatchParams);
-        }
-        else {
+        } else {
             Subroutine procedureNode = methodTable.getMethodByName(procedureName);
 
             List<String> formalParameters = procedureNode.getHeadingNode().getReaders().getReaderNodes()
@@ -136,7 +179,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
             Object result = procedureNode.accept(this, data);
             valueTable.exitScope();
-            if(dispatchNode.getWriter() != null)
+            if (dispatchNode.getWriter() != null)
                 valueTable.addVariable(dispatchNode.getWriter(), result);
             return result;
         }
@@ -154,7 +197,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
         return left.equals(right);
     }
-
 
 
     @Override
@@ -204,11 +246,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         return Integer.toString(left + right);
     }
 
-    @Override
-    public Object visit(ProcedureNode procedureNode, Object data) {
-        visit(procedureNode.getHeadingNode(), data);
-        return visit(procedureNode.getBody(), data);
-    }
 
     @Override
     public Object visit(ReaderContainerNode readerContainerNode, Object data) {
@@ -260,7 +297,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(IdentifierNode identifierNode, Object data) {
         String identifierNodeValue = identifierNode.getNodeValue();
-        if(valueTable.findInScope(identifierNodeValue) == null)
+        if (valueTable.findInScope(identifierNodeValue) == null)
             return identifierNodeValue;
         return valueTable.findInScope(identifierNode.getNodeValue());
     }
