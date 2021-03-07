@@ -1,29 +1,38 @@
 package visitor.customised;
 
+import helpers.MethodTable;
 import helpers.ValueTable;
 import nodes.*;
 import nodes.data.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     private final ValueTable valueTable;
+    private final MethodTable methodTable;
 
     public ExecutionVisitor() {
         valueTable = new ValueTable();
+        methodTable = new MethodTable();
     }
 
     @Override
     public Object visit(ClassNode classNode, Object data) {
         data = new Object();
 
+        for(SequentialProcedureNode procedureNode : classNode.getSequentialProcedureNodes())
+            methodTable.addMethod(procedureNode.getHeadingNode().getName(), procedureNode);
+
+        for(ProcedureNode procedureNode : classNode.getProcedures())
+            methodTable.addMethod(procedureNode.getHeadingNode().getName(), procedureNode);
+
         for(SequentialProcedureNode seqNode : classNode.getSequentialProcedureNodes())
             visit(seqNode, data);
-        for (ProcedureNode procedureNode : classNode.getProcedures())
-            visit(procedureNode, data);
         return null;
     }
 
@@ -58,6 +67,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         for (RegularRuleNode regularRuleNode : bodyNode.getRegularRules())
             visit(regularRuleNode, data);
 
+        // TODO implement final rule handling
         visit(bodyNode.getFinalRule(), data);
         return null;
     }
@@ -90,7 +100,46 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(DispatchNode dispatchNode, Object data) {
-        return null;
+
+        String procedureName = dispatchNode.getName();
+
+        if(methodTable.canHandle(procedureName)) {
+            List<String> dispatchParams = dispatchNode.getParams()
+                    .stream()
+                    .map(e -> (String) visit(e, data))
+                    .collect(Collectors.toList());
+
+            return methodTable.handleDefaultMethod(procedureName, dispatchParams);
+        }
+        else {
+            Subroutine procedureNode = methodTable.getMethodByName(procedureName);
+
+            List<String> formalParameters = procedureNode.getHeadingNode().getReaders().getReaderNodes()
+                    .stream()
+                    .map(ReaderNode::getName)
+                    .collect(Collectors.toList());
+
+            List<String> dispatchParams = dispatchNode.getParams()
+                    .stream()
+                    .map(e -> (String) visit(e, data))
+                    .collect(Collectors.toList());
+
+            valueTable.enterScope();
+            for (int i = 0; i < dispatchNode.getParams().size(); i++) {
+                // The name of the variable as it is known in the context of the procedure
+                // e.g. a b c in #p(a, b, c)
+                String formalName = formalParameters.get(i);
+                // e.g. x y z in meth(x, y, z) - the actual dispatch call
+                String param = dispatchParams.get(i);
+                valueTable.addVariable(param, valueTable.findInScope(formalName));
+            }
+
+            Object result = procedureNode.accept(this, data);
+            valueTable.exitScope();
+            if(dispatchNode.getWriter() != null)
+                valueTable.addVariable(dispatchNode.getWriter(), result);
+            return result;
+        }
     }
 
     @Override
@@ -157,10 +206,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ProcedureNode procedureNode, Object data) {
-        valueTable.enterScope();
         visit(procedureNode.getHeadingNode(), data);
-        visit(procedureNode.getBody(), data);
-        return null;
+        return visit(procedureNode.getBody(), data);
     }
 
     @Override
@@ -184,27 +231,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
      */
     @Override
     public Object visit(ExpressionNode expressionNode, Object data) {
-        if (expressionNode instanceof GTNode)
-            return visit((GTNode) expressionNode, data);
-        if (expressionNode instanceof LTNode)
-            return visit((LTNode) expressionNode, data);
-        if (expressionNode instanceof EqNode)
-            return visit((EqNode) expressionNode, data);
-        if (expressionNode instanceof IdentifierNode)
-            return visit((IdentifierNode) expressionNode, data);
-        if (expressionNode instanceof StringConstNode)
-            return visit((StringConstNode) expressionNode, data);
-        if (expressionNode instanceof IntegerNode)
-            return visit((IntegerNode) expressionNode, data);
-        if(expressionNode instanceof DispatchNode)
-            return visit((DispatchNode) expressionNode, data);
-        if(expressionNode instanceof PlusNode)
-            return visit((PlusNode) expressionNode, data);
-        if(expressionNode instanceof AssignNode)
-            return visit((AssignNode) expressionNode, data);
-
-
-        throw new IllegalArgumentException("No expression node to visit for this: " + expressionNode.getClass().getSimpleName());
+        return expressionNode.accept(this, data);
     }
 
     @Override

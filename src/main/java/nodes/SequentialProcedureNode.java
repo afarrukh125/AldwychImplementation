@@ -2,7 +2,7 @@ package nodes;
 
 import visitor.customised.CustomVisitor;
 
-public class SequentialProcedureNode extends TreeNode {
+public class SequentialProcedureNode extends Subroutine {
 
     private final HeadingNode headingNode;
     private final SequentialBodyNode body;
@@ -12,6 +12,7 @@ public class SequentialProcedureNode extends TreeNode {
         this.body = body;
     }
 
+    @Override
     public HeadingNode getHeadingNode() {
         return headingNode;
     }
