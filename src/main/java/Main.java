@@ -34,15 +34,17 @@ public class Main {
             AldParser parser = new AldParser(new CommonTokenStream(lexer));
             ParseTree tree = parser.aldwychClass();
             TreeNode result = new AldTreeBuilder().visit(tree);
-            System.out.println(result);
 
             SemanticVisitor visitor = new SemanticVisitor();
             result.accept(visitor, null);
 
-            if(!visitor.getErrors().isEmpty()) {
+            List<String> semanticErrors = visitor.getErrors();
+            if(!semanticErrors.isEmpty()) {
                 System.err.println("Failed compilation: ");
-                for(String s : visitor.getErrors())
-                    System.out.println(s);
+                for(String s : semanticErrors)
+                    System.err.println("    " + s);
+                System.out.println("Compilation terminated with " + semanticErrors.size() + " errors.");
+                System.exit(-1);
             }
 
             ExecutionVisitor executionVisitor = new ExecutionVisitor();

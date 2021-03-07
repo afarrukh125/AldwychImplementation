@@ -1,4 +1,4 @@
-#addTwo(a,b,c)->r
+#assignString(a,b,c)->r
 {
  a>0, b>0 || r="no";
  a>0, c>0 || r="yes";

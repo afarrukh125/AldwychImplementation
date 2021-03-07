@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class SemanticVisitor implements CustomVisitor<Void, Object> {
 
-    private List<String> errors;
+    private final List<String> errors;
 
     public SemanticVisitor() {
         super();
@@ -31,7 +31,7 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
      * @param ruleNode The rule node
      * @param data The data for this particular instance will be data about the {@link helpers.HeadingStringData} so we can
      *             verify the readers and writers are being used properly within the rule if they are identifiers
-     * @return {@link Void void}
+     * @return {@link Object void}
      */
     @Override
     public Void visit(RegularRuleNode ruleNode, Object data) {
@@ -80,6 +80,17 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
 
     @Override
     public Void visit(FinalRuleNode finalRuleNode, Object data) {
+        HeadingStringData headingStringData = (HeadingStringData) data;
+        Set<String> writers = headingStringData.getWriters();
+        String procedureName = headingStringData.getProcedureName();
+
+        for(TellNode tellNode : finalRuleNode.getTells()) {
+            if(tellNode.getExpressionNode() instanceof BinOpNode) {
+                BinOpNode binOpNode = (BinOpNode) tellNode.getExpressionNode();
+                checkAndReportBinOpNode(procedureName, binOpNode, writers, Mode.WRITE);
+            }
+        }
+
         return null;
     }
 

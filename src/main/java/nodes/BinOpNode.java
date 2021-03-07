@@ -1,6 +1,5 @@
 package nodes;
 
-import helpers.Constants;
 import nodes.data.ExpressionNode;
 
 public abstract class BinOpNode extends ExpressionNode {

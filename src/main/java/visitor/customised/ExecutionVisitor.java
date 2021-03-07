@@ -6,7 +6,7 @@ import nodes.data.*;
 
 import java.util.List;
 
-public class ExecutionVisitor implements CustomVisitor<Void, Object> {
+public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     private final ValueTable valueTable;
 
@@ -15,31 +15,31 @@ public class ExecutionVisitor implements CustomVisitor<Void, Object> {
     }
 
     @Override
-    public Void visit(ClassNode classNode, Object data) {
+    public Object visit(ClassNode classNode, Object data) {
         for(ProcedureNode procedureNode : classNode.getProcedures())
             visit(procedureNode, data);
         return null;
     }
 
     @Override
-    public Void visit(RegularRuleNode ruleNode, Object data) {
+    public Object visit(RegularRuleNode ruleNode, Object data) {
         List<AskNode> asks = ruleNode.getAsks();
         List<TellNode> tells = ruleNode.getTells();
         return null;
     }
 
     @Override
-    public Void visit(FinalRuleNode finalRuleNode, Object data) {
+    public Object visit(FinalRuleNode finalRuleNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(AskNode askNode, Object data) {
+    public Object visit(AskNode askNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(BodyNode bodyNode, Object data) {
+    public Object visit(BodyNode bodyNode, Object data) {
         for(RegularRuleNode regularRuleNode : bodyNode.getRegularRules())
             visit(regularRuleNode, data);
 
@@ -48,116 +48,116 @@ public class ExecutionVisitor implements CustomVisitor<Void, Object> {
     }
 
     @Override
-    public Void visit(DispatchNode dispatchNode, Object data) {
+    public Object visit(DispatchNode dispatchNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(DivNode divNode, Object data) {
+    public Object visit(DivNode divNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(EqNode eqNode, Object data) {
+    public Object visit(EqNode eqNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(GEqNode gEqNode, Object data) {
+    public Object visit(GEqNode gEqNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(GTNode gtNode, Object data) {
+    public Object visit(GTNode gtNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(HeadingNode headingNode, Object data) {
+    public Object visit(HeadingNode headingNode, Object data) {
         visit(headingNode.getReaders(), data);
         visit(headingNode.getWriters(), data);
         return null;
     }
 
     @Override
-    public Void visit(LEqNode lEqNode, Object data) {
+    public Object visit(LEqNode lEqNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(LTNode ltNode, Object data) {
+    public Object visit(LTNode ltNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(MulNode mulNode, Object data) {
+    public Object visit(MulNode mulNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(PlusNode plusNode, Object data) {
+    public Object visit(PlusNode plusNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(ProcedureNode procedureNode, Object data) {
+    public Object visit(ProcedureNode procedureNode, Object data) {
         visit(procedureNode.getHeadingNode(), data);
         visit(procedureNode.getBody(), data);
         return null;
     }
 
     @Override
-    public Void visit(ReaderContainerNode readerContainerNode, Object data) {
+    public Object visit(ReaderContainerNode readerContainerNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(WriterContainerNode writerContainerNode, Object data) {
+    public Object visit(WriterContainerNode writerContainerNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(ReaderNode readerNode, Object data) {
+    public Object visit(ReaderNode readerNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(ExpressionNode expressionNode, Object data) {
+    public Object visit(ExpressionNode expressionNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(SubNode subNode, Object data) {
+    public Object visit(SubNode subNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(TellNode tellNode, Object data) {
+    public Object visit(TellNode tellNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(WriterNode writerNode, Object data) {
+    public Object visit(WriterNode writerNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(BooleanNode booleanNode, Object data) {
+    public Object visit(BooleanNode booleanNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(IdentifierNode identifierNode, Object data) {
+    public Object visit(IdentifierNode identifierNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(IntegerNode integerNode, Object data) {
+    public Object visit(IntegerNode integerNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(StringConstNode stringConstNode, Object data) {
+    public Object visit(StringConstNode stringConstNode, Object data) {
         return null;
     }
 }
