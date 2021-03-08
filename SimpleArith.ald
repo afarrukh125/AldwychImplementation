@@ -1,8 +1,8 @@
 #main(args)->()
 {
- a<-3;
- b<-5;
- c<-10;
+ x<-3;
+ y<-5;
+ z<-10;
 
  addTwo(x,y,z)->res;
 

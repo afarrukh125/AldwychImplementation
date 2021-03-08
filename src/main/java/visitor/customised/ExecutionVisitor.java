@@ -136,7 +136,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         String left = (String) visit(assignNode.getLeft(), data);
         String right = (String) visit(assignNode.getRight(), data);
         valueTable.addVariable(left, right);
-        return right;
+        return null;
     }
 
     @Override
@@ -161,21 +161,26 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                     .map(ReaderNode::getName)
                     .collect(Collectors.toList());
 
-            List<String> dispatchParams = dispatchNode.getParams()
-                    .stream()
-                    .map(e -> (String) visit(e, data))
-                    .collect(Collectors.toList());
+            List<String> dispatchParams = new ArrayList<>();
+            for(ExpressionNode exp : dispatchNode.getParams()) {
+                Object dispatchParam = visit(exp, data);
+                dispatchParams.add((String) dispatchParam);
+            }
 
             valueTable.enterScope();
-            for (int i = 0; i < dispatchNode.getParams().size(); i++) {
+            for (int i = 0; i < dispatchParams.size(); i++) {
                 // The name of the variable as it is known in the context of the procedure
                 // e.g. a b c in #p(a, b, c)
                 String formalName = formalParameters.get(i);
+
                 // e.g. x y z in meth(x, y, z) - the actual dispatch call
                 String param = dispatchParams.get(i);
+
                 Object paramValue = valueTable.findInScope(param);
+
                 if(paramValue == null)
                     paramValue = param;
+
                 valueTable.addVariable(formalName, paramValue);
             }
 
