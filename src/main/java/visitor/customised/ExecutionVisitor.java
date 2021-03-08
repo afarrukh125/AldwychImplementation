@@ -108,7 +108,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             if(!executorService.isTerminated())
                 executorService.shutdownNow();
             visit(bodyNode.getFinalRule(), data);
-            return (String) valueTable.findInScope(lastWriterVariable);
+            return valueTable.findInScope(lastWriterVariable);
         }
         return resultingValue;
     }
@@ -135,9 +135,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     public Object visit(AssignNode assignNode, Object data) {
         String left = (String) visit(assignNode.getLeft(), data);
         String right = (String) visit(assignNode.getRight(), data);
-
         valueTable.addVariable(left, right);
-        return null;
+        return right;
     }
 
     @Override
@@ -174,7 +173,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 String formalName = formalParameters.get(i);
                 // e.g. x y z in meth(x, y, z) - the actual dispatch call
                 String param = dispatchParams.get(i);
-                valueTable.addVariable(param, valueTable.findInScope(formalName));
+                Object paramValue = valueTable.findInScope(param);
+                if(paramValue == null)
+                    paramValue = param;
+                valueTable.addVariable(formalName, paramValue);
             }
 
             Object result = procedureNode.accept(this, data);
@@ -195,7 +197,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         String left = (String) visit(eqNode.getLeft(), data);
         String right = (String) visit(eqNode.getRight(), data);
 
-        return left.equals(right);
+        return Boolean.toString(left.equals(right));
     }
 
 
@@ -273,10 +275,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(SubNode subNode, Object data) {
-        IntegerNode left = (IntegerNode) visit(subNode.getLeft(), data);
-        IntegerNode right = (IntegerNode) visit(subNode.getRight(), data);
+        int left = Integer.parseInt((String) visit(subNode.getLeft(), data));
+        int right = Integer.parseInt((String) visit(subNode.getRight(), data));
 
-        return left.getNodeValue() + right.getNodeValue();
+        return Integer.toString(left - right);
     }
 
     @Override
@@ -299,7 +301,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         String identifierNodeValue = identifierNode.getNodeValue();
         if (valueTable.findInScope(identifierNodeValue) == null)
             return identifierNodeValue;
-        return valueTable.findInScope(identifierNode.getNodeValue());
+        return valueTable.findInScope(identifierNodeValue);
     }
 
 

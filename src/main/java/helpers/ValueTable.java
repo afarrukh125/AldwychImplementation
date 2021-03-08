@@ -3,6 +3,7 @@ package helpers;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Keeps track of variable values in the current scope and can enter and exit scopes
@@ -34,7 +35,8 @@ public class ValueTable {
      * @return The value of the identifier if found, null otherwise TODO find a better way to handle not-found values
      */
     public Object findInScope(String identifier) {
-        for (Entry tableEntry : table) {
+        for(int i = table.size() -1; i>= 0; i--) {
+            Entry tableEntry = table.get(i);
             Object value = tableEntry.getValue(identifier);
             if (value != null)
                 return tableEntry.getValue(identifier);
@@ -50,7 +52,7 @@ public class ValueTable {
         private final Map<String, Object> entry;
 
         public Entry() {
-            entry = new HashMap<>();
+            entry = new ConcurrentHashMap<>();
         }
 
         public void addIdentifier(String identifier, Object value) {
