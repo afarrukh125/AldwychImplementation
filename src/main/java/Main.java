@@ -29,7 +29,6 @@ public class Main {
 
     private static void runAll(List<String> fileNames) throws IOException {
         for (String fileName : fileNames) {
-            System.out.println("Running " + fileName);
             AldLexer lexer = new AldLexer(new ANTLRFileStream(fileName));
             AldParser parser = new AldParser(new CommonTokenStream(lexer));
             ParseTree tree = parser.aldwychClass();
@@ -50,7 +49,6 @@ public class Main {
             ExecutionVisitor executionVisitor = new ExecutionVisitor();
             result.accept(executionVisitor, null);
 
-            System.out.println("Completed running " + fileName + "\n");
         }
     }
 }
