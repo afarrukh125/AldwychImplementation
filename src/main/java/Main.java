@@ -32,8 +32,11 @@ public class Main {
             AldLexer lexer = new AldLexer(new ANTLRFileStream(fileName));
             AldParser parser = new AldParser(new CommonTokenStream(lexer));
             ParseTree tree = parser.aldwychClass();
+
+            // Frontend layer
             TreeNode result = new AldTreeBuilder().visit(tree);
 
+            // Semantic layer
             SemanticVisitor visitor = new SemanticVisitor();
             result.accept(visitor, null);
 
@@ -46,6 +49,7 @@ public class Main {
                 System.exit(-1);
             }
 
+            // Executing the code
             ExecutionVisitor executionVisitor = new ExecutionVisitor();
             result.accept(executionVisitor, null);
 

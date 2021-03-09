@@ -1,11 +1,9 @@
 package visitor.customised;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import helpers.MethodTable;
 import helpers.ValueTable;
 import nodes.*;
 import nodes.data.*;
-import sun.reflect.generics.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +75,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(BodyNode bodyNode, Object data) {
         List<WriterNode> writers = (List<WriterNode>) data;
-        String lastWriterVariable = writers.get(writers.size()-1).getName();
+        String lastWriterVariable = writers.get(writers.size() - 1).getName();
 
         int numRules = bodyNode.getRegularRules().size();
 
@@ -90,26 +88,28 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         int receivedCount = 0;
         String resultingValue = null;
 
-        while(!executorService.isTerminated() && receivedCount < numRules) {
+        while (!executorService.isTerminated() && receivedCount < numRules) {
             try {
                 Future<String> resultFuture = completionService.take();
                 String resultNode = resultFuture.get();
-                if(resultNode != null) {
+                if (resultNode != null) {
                     resultingValue = (String) valueTable.findInScope(lastWriterVariable);
                     executorService.shutdownNow();
                 }
+                
                 receivedCount++;
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
         }
 
-        if(resultingValue == null) {
-            if(!executorService.isTerminated())
+        if (resultingValue == null) {
+            if (!executorService.isTerminated())
                 executorService.shutdownNow();
             visit(bodyNode.getFinalRule(), data);
             return valueTable.findInScope(lastWriterVariable);
         }
+
         return resultingValue;
     }
 
@@ -147,7 +147,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         if (methodTable.canHandle(procedureName)) {
             List<String> dispatchParams = new ArrayList<>();
 
-            for(ExpressionNode expressionNode : dispatchNode.getParams()) {
+            for (ExpressionNode expressionNode : dispatchNode.getParams()) {
                 Object result = visit(expressionNode, data);
                 dispatchParams.add((String) result);
             }
@@ -162,7 +162,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                     .collect(Collectors.toList());
 
             List<String> dispatchParams = new ArrayList<>();
-            for(ExpressionNode exp : dispatchNode.getParams()) {
+            for (ExpressionNode exp : dispatchNode.getParams()) {
                 Object dispatchParam = visit(exp, data);
                 dispatchParams.add((String) dispatchParam);
             }
@@ -178,7 +178,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
                 Object paramValue = valueTable.findInScope(param);
 
-                if(paramValue == null)
+                if (paramValue == null)
                     paramValue = param;
 
                 valueTable.addVariable(formalName, paramValue);
@@ -194,7 +194,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(DivNode divNode, Object data) {
-        return null;
+        int left = parseIntegerOperand(divNode.getLeft(), data);
+        int right = parseIntegerOperand(divNode.getRight(), data);
+
+        return Integer.toString(left / right);
     }
 
     @Override
@@ -208,15 +211,16 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(GEqNode gEqNode, Object data) {
-        return null;
+        int left = parseIntegerOperand(gEqNode.getLeft(), data);
+        int right = parseIntegerOperand(gEqNode.getRight(), data);
+
+        return Boolean.toString(left >= right);
     }
 
     @Override
     public Object visit(GTNode gtNode, Object data) {
-        String leftString = (String) visit(gtNode.getLeft(), data);
-        String rightString = (String) visit(gtNode.getRight(), data);
-        int left = Integer.parseInt(leftString);
-        int right = Integer.parseInt(rightString);
+        int left = parseIntegerOperand(gtNode.getLeft(), data);
+        int right = parseIntegerOperand(gtNode.getRight(), data);
 
         return Boolean.toString(left > right);
     }
@@ -230,25 +234,32 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(LEqNode lEqNode, Object data) {
-        return null;
+        int left = parseIntegerOperand(lEqNode.getLeft(), data);
+        int right = parseIntegerOperand(lEqNode.getRight(), data);
+
+        return Boolean.toString(left <= right);
     }
 
     @Override
     public Object visit(LTNode ltNode, Object data) {
-        return null;
+        int left = parseIntegerOperand(ltNode.getLeft(), data);
+        int right = parseIntegerOperand(ltNode.getRight(), data);
+
+        return Boolean.toString(left < right);
     }
 
     @Override
     public Object visit(MulNode mulNode, Object data) {
-        return null;
+        int left = parseIntegerOperand(mulNode.getLeft(), data);
+        int right = parseIntegerOperand(mulNode.getRight(), data);
+
+        return Integer.toString(left * right);
     }
 
     @Override
     public Object visit(PlusNode plusNode, Object data) {
-        String leftString = (String) visit(plusNode.getLeft(), data);
-        String rightString = (String) visit(plusNode.getRight(), data);
-        int left = Integer.parseInt(leftString);
-        int right = Integer.parseInt(rightString);
+        int left = parseIntegerOperand(plusNode.getLeft(), data);
+        int right = parseIntegerOperand(plusNode.getRight(), data);
 
         return Integer.toString(left + right);
     }
@@ -269,19 +280,16 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         return null;
     }
 
-    /**
-     * Portal for other expression nodes to be casted to here
-     * TODO complete method description, redo this JavaDoc comment
-     */
     @Override
     public Object visit(ExpressionNode expressionNode, Object data) {
+        // Done differently to allow dynamic dispatch TODO investigate
         return expressionNode.accept(this, data);
     }
 
     @Override
     public Object visit(SubNode subNode, Object data) {
-        int left = Integer.parseInt((String) visit(subNode.getLeft(), data));
-        int right = Integer.parseInt((String) visit(subNode.getRight(), data));
+        int left = parseIntegerOperand(subNode.getLeft(), data);
+        int right = parseIntegerOperand(subNode.getRight(), data);
 
         return Integer.toString(left - right);
     }
@@ -318,5 +326,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(StringConstNode stringConstNode, Object data) {
         return stringConstNode.getNodeValue();
+    }
+
+    private <T extends ExpressionNode> int parseIntegerOperand(T operand, Object data) {
+        String parsedOperand = (String) visit(operand, data);
+        return Integer.parseInt(parsedOperand);
     }
 }
