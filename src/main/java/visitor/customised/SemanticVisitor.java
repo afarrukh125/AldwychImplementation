@@ -50,12 +50,8 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
             }
         }
 
-        for(TellNode tellNode : ruleNode.getTells()) {
-            if(tellNode.getExpressionNode() instanceof BinOpNode) {
-                BinOpNode binOpNode = (BinOpNode) tellNode.getExpressionNode();
-                checkAndReportBinOpNode(procedureName, binOpNode, writers, Mode.WRITE);
-            }
-        }
+        // No need to check for variables existing in tells; we can create new variables on the fly to store the result of calls
+        // See SimpleMult as an example
 
         return null;
     }
@@ -243,11 +239,6 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
 
     @Override
     public Void visit(SequentialBodyNode sequentialBodyNode, Object data) {
-        return null;
-    }
-
-    @Override
-    public Void visit(AssignNode assignNode, Object data) {
         return null;
     }
 

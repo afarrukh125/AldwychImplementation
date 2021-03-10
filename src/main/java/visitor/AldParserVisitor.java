@@ -195,11 +195,4 @@ public interface AldParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitEqNode(AldParser.EqNodeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code AssignNode}
-	 * labeled alternative in {@link AldParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssignNode(AldParser.AssignNodeContext ctx);
 }

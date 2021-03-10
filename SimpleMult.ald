@@ -1,7 +1,7 @@
 #main(args)->()
 {
- x<-5;
- y<-10;
+ x=5;
+ y=10;
 
  multiply(x,y)->z;
 
@@ -10,9 +10,9 @@
 
 #multiply(a,b)->r
 {
- a=0 || r<-0;
- a=1 || r<-b;
- a>1 || a1<-a-1, multiply(a1,b)->r1, r<-r1+b;
+ a=0 || r=0;
+ a=1 || r=b;
+ a>1 || a1=a-1, multiply(a1,b)->r1, r=r1+b;
      :
-     || r<-0
+     || r=0
 }

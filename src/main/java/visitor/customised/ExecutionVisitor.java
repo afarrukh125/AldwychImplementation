@@ -1,5 +1,6 @@
 package visitor.customised;
 
+import helpers.Flag;
 import helpers.MethodTable;
 import helpers.ValueTable;
 import nodes.*;
@@ -46,6 +47,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 return null;
         }
 
+        // In the context of a tell, the equals symbol behaves differently, so we must change the semantics
+        data = Flag.ASSIGN;
         String result = null;
         for (TellNode tellNode : tells)
             result = (String) visit(tellNode, data);
@@ -55,7 +58,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(FinalRuleNode finalRuleNode, Object data) {
         for (TellNode tellNode : finalRuleNode.getTells())
-            visit(tellNode.getExpressionNode(), data);
+            visit(tellNode, data);
         return finalRuleNode;
     }
 
@@ -67,7 +70,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(ProcedureNode procedureNode, Object data) {
         visit(procedureNode.getHeadingNode(), data);
-
         return visit(procedureNode.getBody(), procedureNode.getHeadingNode().getWriters().getWriterNodes());
     }
 
@@ -96,7 +98,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                     resultingValue = (String) valueTable.findInScope(lastWriterVariable);
                     executorService.shutdownNow();
                 }
-                
+
                 receivedCount++;
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
@@ -117,6 +119,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(SequentialProcedureNode sequentialProcedureNode, Object data) {
         valueTable.enterScope();
+        data = Flag.ASSIGN;
         visit(sequentialProcedureNode.getHeadingNode(), data);
         visit(sequentialProcedureNode.getSequentialBody(), data);
         valueTable.exitScope();
@@ -127,15 +130,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
         for (ExpressionNode expressionNode : sequentialBodyNode.getExpressions())
             visit(expressionNode, data);
-        return null;
-    }
-
-
-    @Override
-    public Object visit(AssignNode assignNode, Object data) {
-        String left = (String) visit(assignNode.getLeft(), data);
-        String right = (String) visit(assignNode.getRight(), data);
-        valueTable.addVariable(left, right);
         return null;
     }
 
@@ -204,6 +198,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     public Object visit(EqNode eqNode, Object data) {
         String left = (String) visit(eqNode.getLeft(), data);
         String right = (String) visit(eqNode.getRight(), data);
+
+        // Depending on the flag, EqNode can imply a comparison or an assignment
+        if (data == Flag.ASSIGN) {
+            valueTable.addVariable(left, right);
+            return null;
+        }
 
         return Boolean.toString(left.equals(right));
     }

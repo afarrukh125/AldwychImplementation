@@ -42,10 +42,10 @@ public class Main {
 
             List<String> semanticErrors = visitor.getErrors();
             if(!semanticErrors.isEmpty()) {
-                System.err.println("Failed compilation: ");
+                System.err.println("Failed to run program: ");
                 for(String s : semanticErrors)
                     System.err.println("    " + s);
-                System.out.println("Compilation terminated with " + semanticErrors.size() + " errors.");
+                System.err.println("\nExecution failed with " + semanticErrors.size() + " errors.");
                 System.exit(-1);
             }
 
