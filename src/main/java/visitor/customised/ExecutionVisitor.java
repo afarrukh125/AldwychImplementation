@@ -82,9 +82,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
         String resultingValue;
 
-        for(RuleSetNode ruleSet : bodyNode.getRulesets()) {
+        for (RuleSetNode ruleSet : bodyNode.getRulesets()) {
             resultingValue = (String) visit(ruleSet, data);
-            if(resultingValue != null)
+            if (resultingValue != null)
                 return resultingValue;
         }
 
@@ -105,9 +105,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
+        String lastExpressionEvaluted = null;
         for (ExpressionNode expressionNode : sequentialBodyNode.getExpressions())
-            visit(expressionNode, data);
-        return null;
+            lastExpressionEvaluted = (String) visit(expressionNode, data);
+        return lastExpressionEvaluted;
     }
 
     @SuppressWarnings("unchecked")
@@ -143,7 +144,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             }
         }
 
-        if(!executorService.isTerminated())
+        if (!executorService.isTerminated())
             executorService.shutdownNow();
 
         return resultingValue;
@@ -286,17 +287,23 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ReaderContainerNode readerContainerNode, Object data) {
-        return null;
+        String lastReaderName = null;
+        for (ReaderNode readerNode : readerContainerNode.getReaderNodes())
+            lastReaderName = (String) visit(readerNode, data);
+        return lastReaderName;
     }
 
     @Override
     public Object visit(WriterContainerNode writerContainerNode, Object data) {
-        return null;
+        String lastWriterNode = null;
+        for (WriterNode readerNode : writerContainerNode.getWriterNodes())
+            lastWriterNode = (String) visit(readerNode, data);
+        return lastWriterNode;
     }
 
     @Override
     public Object visit(ReaderNode readerNode, Object data) {
-        return null;
+        return readerNode.getName();
     }
 
     @Override
@@ -320,7 +327,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(WriterNode writerNode, Object data) {
-        return null;
+        return writerNode.getName();
     }
 
     @Override
@@ -333,7 +340,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         String identifierNodeValue = identifierNode.getNodeValue();
         if (valueTable.findInScope(identifierNodeValue) == null)
             return identifierNodeValue;
-        if(data == Flag.ID_ONLY)
+        if (data == Flag.ID_ONLY)
             return identifierNodeValue;
         return valueTable.findInScope(identifierNodeValue);
     }

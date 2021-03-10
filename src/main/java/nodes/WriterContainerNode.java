@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WriterContainerNode extends TreeNode{
+public class WriterContainerNode extends TreeNode {
 
     List<WriterNode> writers;
 
