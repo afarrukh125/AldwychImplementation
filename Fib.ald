@@ -1,5 +1,5 @@
 #main(args)->() {
- x = 5;
+ x = 9;
  fib(x)->rx;
  print(rx);
 }

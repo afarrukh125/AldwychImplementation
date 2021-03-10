@@ -195,7 +195,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             }
 
             Object result = procedureNode.accept(this, data);
-            //valueTable.exitScope();
+            valueTable.exitScope();
             if (dispatchNode.getWriter() != null)
                 valueTable.addVariable(dispatchNode.getWriter(), result);
             return result;
