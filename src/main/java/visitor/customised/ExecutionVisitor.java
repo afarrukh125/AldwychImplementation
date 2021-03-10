@@ -195,7 +195,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             }
 
             Object result = procedureNode.accept(this, data);
-            valueTable.exitScope();
+            //valueTable.exitScope();
             if (dispatchNode.getWriter() != null)
                 valueTable.addVariable(dispatchNode.getWriter(), result);
             return result;
@@ -212,16 +212,19 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(EqNode eqNode, Object data) {
-        String left = (String) visit(eqNode.getLeft(), data);
-        String right = (String) visit(eqNode.getRight(), data);
+
 
         // Depending on the flag, EqNode can imply a comparison or an assignment
         if (data == Flag.ASSIGN) {
+            String left = (String) visit(eqNode.getLeft(), Flag.ID_ONLY);
+            String right = (String) visit(eqNode.getRight(), data);
             valueTable.addVariable(left, right);
-            return null;
+            return left;
+        } else {
+            String left = (String) visit(eqNode.getLeft(), data);
+            String right = (String) visit(eqNode.getRight(), data);
+            return Boolean.toString(left.equals(right));
         }
-
-        return Boolean.toString(left.equals(right));
     }
 
 
@@ -329,6 +332,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     public Object visit(IdentifierNode identifierNode, Object data) {
         String identifierNodeValue = identifierNode.getNodeValue();
         if (valueTable.findInScope(identifierNodeValue) == null)
+            return identifierNodeValue;
+        if(data == Flag.ID_ONLY)
             return identifierNodeValue;
         return valueTable.findInScope(identifierNodeValue);
     }

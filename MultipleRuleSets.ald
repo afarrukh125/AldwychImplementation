@@ -3,18 +3,21 @@
  x=0;
  y=5;
  z=10;
+ m=2;
 
- chooseValue(x,y,z)->res;
+ chooseValue(x,y,z,m)->res;
 
  print(res);
 }
 
-#chooseValue(a,b,c)->r
+#chooseValue(a,b,c,d)->r
 {
  a>0 || r=a;
    :
- b>0 || r=b;
+
+ d>0 || r=d;
  c>0 || r=c;
+  b>0 || r=b;
    :
  || r=0
 }
