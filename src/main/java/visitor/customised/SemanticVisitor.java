@@ -1,7 +1,9 @@
 package visitor.customised;
 
+import helpers.Flag;
 import helpers.HeadingStringData;
 import helpers.Mode;
+import helpers.ValueTable;
 import nodes.*;
 import nodes.data.*;
 
@@ -11,17 +13,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class SemanticVisitor implements CustomVisitor<Void, Object> {
+public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     private final List<String> errors;
+    private final ValueTable valueTable;
 
     public SemanticVisitor() {
         super();
         errors = new ArrayList<>();
+        valueTable = new ValueTable();
     }
 
     @Override
-    public Void visit(ClassNode classNode, Object data) {
+    public Object visit(ClassNode classNode, Object data) {
+
+        for(SequentialProcedureNode sequentialProcedureNode : classNode.getSequentialProcedureNodes())
+            visit(sequentialProcedureNode, data);
 
         for(ProcedureNode procedureNode : classNode.getProcedures())
             visit(procedureNode, data);
@@ -34,10 +41,10 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
      * @param ruleNode The rule node
      * @param data The data for this particular instance will be data about the {@link helpers.HeadingStringData} so we can
      *             verify the readers and writers are being used properly within the rule if they are identifiers
-     * @return {@link Object void}
+     * @return {@link Object Object}
      */
     @Override
-    public Void visit(RegularRuleNode ruleNode, Object data) {
+    public Object visit(RegularRuleNode ruleNode, Object data) {
         HeadingStringData headingStringData = (HeadingStringData) data;
         Set<String> readers = headingStringData.getReaders();
         Set<String> writers = headingStringData.getWriters();
@@ -51,7 +58,7 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
         }
 
         // No need to check for variables existing in tells; we can create new variables on the fly to store the result of calls
-        // See SimpleMult as an example
+        // See SimpleMult.ald as an example
 
         return null;
     }
@@ -78,7 +85,7 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
     }
 
     @Override
-    public Void visit(FinalRuleNode finalRuleNode, Object data) {
+    public Object visit(FinalRuleNode finalRuleNode, Object data) {
         HeadingStringData headingStringData = (HeadingStringData) data;
         Set<String> writers = headingStringData.getWriters();
         String procedureName = headingStringData.getProcedureName();
@@ -94,67 +101,67 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
     }
 
     @Override
-    public Void visit(AskNode askNode, Object data) {
+    public Object visit(AskNode askNode, Object data) {
+        return visit(askNode.getExpressionNode(), data);
+    }
+
+    @Override
+    public Object visit(BodyNode bodyNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(BodyNode bodyNode, Object data) {
+    public Object visit(DispatchNode dispatchNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(DispatchNode dispatchNode, Object data) {
+    public Object visit(DivNode divNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(DivNode divNode, Object data) {
+    public Object visit(EqNode eqNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(EqNode eqNode, Object data) {
+    public Object visit(GEqNode gEqNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(GEqNode gEqNode, Object data) {
+    public Object visit(GTNode gtNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(GTNode gtNode, Object data) {
+    public Object visit(HeadingNode headingNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(HeadingNode headingNode, Object data) {
+    public Object visit(LEqNode lEqNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(LEqNode lEqNode, Object data) {
+    public Object visit(LTNode ltNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(LTNode ltNode, Object data) {
+    public Object visit(MulNode mulNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(MulNode mulNode, Object data) {
+    public Object visit(PlusNode plusNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(PlusNode plusNode, Object data) {
-        return null;
-    }
-
-    @Override
-    public Void visit(ProcedureNode procedureNode, Object data) {
+    public Object visit(ProcedureNode procedureNode, Object data) {
 
         // Index the readers and writers into sets so we can look up easier when validating readers and writers
         Set<String> readersAsStrings =  procedureNode.getHeadingNode().getReaders().getReaderNodes()
@@ -178,67 +185,73 @@ public class SemanticVisitor implements CustomVisitor<Void, Object> {
     }
 
     @Override
-    public Void visit(ReaderContainerNode readerContainerNode, Object data) {
+    public Object visit(ReaderContainerNode readerContainerNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(WriterContainerNode writerContainerNode, Object data) {
+    public Object visit(WriterContainerNode writerContainerNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(ReaderNode readerNode, Object data) {
+    public Object visit(ReaderNode readerNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(ExpressionNode expressionNode, Object data) {
+    public Object visit(ExpressionNode expressionNode, Object data) {
+        expressionNode.accept(this, data);
         return null;
     }
 
     @Override
-    public Void visit(SubNode subNode, Object data) {
+    public Object visit(SubNode subNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(TellNode tellNode, Object data) {
+    public Object visit(TellNode tellNode, Object data) {
+        visit(tellNode.getExpressionNode(), data);
         return null;
     }
 
     @Override
-    public Void visit(WriterNode writerNode, Object data) {
+    public Object visit(WriterNode writerNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(BooleanNode booleanNode, Object data) {
+    public Object visit(BooleanNode booleanNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(IdentifierNode identifierNode, Object data) {
+    public Object visit(IdentifierNode identifierNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(IntegerNode integerNode, Object data) {
+    public Object visit(IntegerNode integerNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(StringConstNode stringConstNode, Object data) {
+    public Object visit(StringConstNode stringConstNode, Object data) {
         return null;
     }
 
     @Override
-    public Void visit(SequentialProcedureNode sequentialProcedureNode, Object data) {
+    public Object visit(SequentialProcedureNode sequentialProcedureNode, Object data) {
+        visit(sequentialProcedureNode.getSequentialBody(), data);
         return null;
     }
 
     @Override
-    public Void visit(SequentialBodyNode sequentialBodyNode, Object data) {
+    public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
+        data = Flag.ASSIGN;
+        for(ExpressionNode expr : sequentialBodyNode.getExpressions())
+            visit(expr, data);
         return null;
     }
 
