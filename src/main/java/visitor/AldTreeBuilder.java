@@ -249,7 +249,6 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
         List<ExpressionNode> exprs = new ArrayList<>();
         for(AldParser.ExprContext exprContext : ctx.expr())
             exprs.add((ExpressionNode) visit(exprContext));
-        List<TerminalNode> ids = ctx.ID();
 
         if(ctx.ID().size() == 1)
             return new DispatchNode(ctx.ID(0).getText(), exprs, null);
