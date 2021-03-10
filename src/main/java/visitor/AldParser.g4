@@ -35,7 +35,11 @@ writers
     | PARENT_OPEN (ID COMMA)* ID PARENT_CLOSE;
 
 body
-    : (regularrule SEMICOLON COLON?)*  COLON finalrule
+    : ruleset+ finalrule
+    ;
+
+ruleset
+    : (regularrule SEMICOLON)+ COLON
     ;
 
 regularrule
