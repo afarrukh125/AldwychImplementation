@@ -3,7 +3,7 @@ package nodes;
 import visitor.customised.CustomVisitor;
 
 public class WriterNode extends TreeNode {
-    private String name;
+    private final String name;
 
     public WriterNode(String name) {
         this.name = name;

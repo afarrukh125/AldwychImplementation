@@ -8,7 +8,7 @@ import java.util.List;
 
 public class BodyNode extends TreeNode {
 
-    private List<RuleSetNode> rulesets;
+    private final List<RuleSetNode> rulesets;
     private FinalRuleNode finalRule;
 
     public BodyNode() {

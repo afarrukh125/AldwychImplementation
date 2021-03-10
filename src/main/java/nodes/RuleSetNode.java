@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RuleSetNode extends TreeNode {
 
-    private List<RegularRuleNode> regularRules;
+    private final List<RegularRuleNode> regularRules;
 
     public RuleSetNode() {
         regularRules = new ArrayList<>();

@@ -1,9 +1,9 @@
 package helpers.rules;
 
-import nodes.data.ExpressionNode;
+import nodes.ExpressionNode;
 
 public interface RuleComponent {
 
-    public ExpressionNode getExpressionNode();
+    ExpressionNode getExpressionNode();
 
 }

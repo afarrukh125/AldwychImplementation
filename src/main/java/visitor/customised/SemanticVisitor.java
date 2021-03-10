@@ -4,9 +4,7 @@ import helpers.Flag;
 import helpers.HeadingStringData;
 import helpers.Mode;
 import helpers.ValueTable;
-import helpers.rules.RuleSet;
 import nodes.*;
-import nodes.data.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,20 +26,19 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(ClassNode classNode, Object data) {
 
-        for(SequentialProcedureNode sequentialProcedureNode : classNode.getSequentialProcedureNodes())
+        for (SequentialProcedureNode sequentialProcedureNode : classNode.getSequentialProcedureNodes())
             visit(sequentialProcedureNode, data);
 
-        for(ProcedureNode procedureNode : classNode.getProcedures())
+        for (ProcedureNode procedureNode : classNode.getProcedures())
             visit(procedureNode, data);
 
         return null;
     }
 
     /**
-     *
      * @param ruleNode The rule node
-     * @param data The data for this particular instance will be data about the {@link helpers.HeadingStringData} so we can
-     *             verify the readers and writers are being used properly within the rule if they are identifiers
+     * @param data     The data for this particular instance will be data about the {@link helpers.HeadingStringData} so we can
+     *                 verify the readers and writers are being used properly within the rule if they are identifiers
      * @return {@link Object Object}
      */
     @Override
@@ -51,8 +48,8 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
         Set<String> writers = headingStringData.getWriters();
         String procedureName = headingStringData.getProcedureName();
 
-        for(AskNode askNode : ruleNode.getAsks()) {
-            if(askNode.getExpressionNode() instanceof BinOpNode) {
+        for (AskNode askNode : ruleNode.getAsks()) {
+            if (askNode.getExpressionNode() instanceof BinOpNode) {
                 BinOpNode binOpNode = (BinOpNode) askNode.getExpressionNode();
                 checkAndReportBinOpNode(procedureName, binOpNode, readers, Mode.READ);
             }
@@ -66,21 +63,22 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     /**
      * Checks all the {@link IdentifierNode}s for validity in their usage
+     *
      * @param procedureName The name of the procedure
-     * @param binOpNode The {@link BinOpNode} to check
-     * @param variables The possible {@link IdentifierNode}s we are looking for to compare to from the procedure heading
-     * @param mode The {@link helpers.Mode} to check for
+     * @param binOpNode     The {@link BinOpNode} to check
+     * @param variables     The possible {@link IdentifierNode}s we are looking for to compare to from the procedure heading
+     * @param mode          The {@link helpers.Mode} to check for
      */
     private void checkAndReportBinOpNode(String procedureName, BinOpNode binOpNode, Collection<String> variables, Mode mode) {
-        if(binOpNode.getLeft() instanceof IdentifierNode) {
+        if (binOpNode.getLeft() instanceof IdentifierNode) {
             IdentifierNode leftNode = ((IdentifierNode) binOpNode.getLeft());
-            if(!variables.contains(leftNode.getNodeValue()))
+            if (!variables.contains(leftNode.getNodeValue()))
                 this.addError(leftNode.getNodeValue() + " does not have " + mode.getMode() + " access in procedure " + procedureName);
         }
 
-        if(binOpNode.getRight() instanceof IdentifierNode) {
+        if (binOpNode.getRight() instanceof IdentifierNode) {
             IdentifierNode rightNode = ((IdentifierNode) binOpNode.getRight());
-            if(!variables.contains(rightNode.getNodeValue()))
+            if (!variables.contains(rightNode.getNodeValue()))
                 this.addError(rightNode.getNodeValue() + " does not have " + mode.getMode() + " access in procedure " + procedureName);
         }
     }
@@ -91,8 +89,8 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
         Set<String> writers = headingStringData.getWriters();
         String procedureName = headingStringData.getProcedureName();
 
-        for(TellNode tellNode : finalRuleNode.getTells()) {
-            if(tellNode.getExpressionNode() instanceof BinOpNode) {
+        for (TellNode tellNode : finalRuleNode.getTells()) {
+            if (tellNode.getExpressionNode() instanceof BinOpNode) {
                 BinOpNode binOpNode = (BinOpNode) tellNode.getExpressionNode();
                 checkAndReportBinOpNode(procedureName, binOpNode, writers, Mode.WRITE);
             }
@@ -103,7 +101,7 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(RuleSetNode ruleSetNode, Object data) {
-        for(RegularRuleNode regularRuleNode : ruleSetNode.getRegularRules())
+        for (RegularRuleNode regularRuleNode : ruleSetNode.getRegularRules())
             visit(regularRuleNode, data);
         return null;
     }
@@ -115,7 +113,7 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(BodyNode bodyNode, Object data) {
-        for(RuleSetNode ruleSetNode : bodyNode.getRulesets())
+        for (RuleSetNode ruleSetNode : bodyNode.getRulesets())
             visit(ruleSetNode, data);
         visit(bodyNode.getFinalRule(), data);
         return null;
@@ -176,7 +174,7 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     public Object visit(ProcedureNode procedureNode, Object data) {
 
         // Index the readers and writers into sets so we can look up easier when validating readers and writers
-        Set<String> readersAsStrings =  procedureNode.getHeadingNode().getReaders().getReaderNodes()
+        Set<String> readersAsStrings = procedureNode.getHeadingNode().getReaders().getReaderNodes()
                 .stream()
                 .map(ReaderNode::getName)
                 .collect(Collectors.toSet());
@@ -259,7 +257,7 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
         data = Flag.ASSIGN;
-        for(ExpressionNode expr : sequentialBodyNode.getExpressions())
+        for (ExpressionNode expr : sequentialBodyNode.getExpressions())
             visit(expr, data);
         return null;
     }

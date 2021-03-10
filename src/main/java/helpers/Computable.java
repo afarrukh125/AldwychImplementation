@@ -5,5 +5,5 @@ package helpers;
  */
 public interface Computable<T> {
 
-    public T compute();
+    T compute();
 }

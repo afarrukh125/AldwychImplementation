@@ -1,7 +1,6 @@
 package nodes;
 
 import helpers.rules.RuleComponent;
-import nodes.data.ExpressionNode;
 import visitor.customised.CustomVisitor;
 
 public class TellNode extends TreeNode implements RuleComponent {

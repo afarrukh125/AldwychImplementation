@@ -4,7 +4,7 @@ import visitor.customised.CustomVisitor;
 
 public class ReaderNode extends TreeNode {
 
-    private String name;
+    private final String name;
 
     public ReaderNode(String name) {
         this.name = name;

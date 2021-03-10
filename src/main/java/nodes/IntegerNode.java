@@ -1,8 +1,8 @@
-package nodes.data;
+package nodes;
 
 import visitor.customised.CustomVisitor;
 
-public class IntegerNode extends Node<Integer> {
+public class IntegerNode extends SingleValueNode<Integer> {
     public IntegerNode(Integer value) {
         super(value);
     }

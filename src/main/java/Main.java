@@ -41,9 +41,9 @@ public class Main {
             result.accept(visitor, null);
 
             List<String> semanticErrors = visitor.getErrors();
-            if(!semanticErrors.isEmpty()) {
+            if (!semanticErrors.isEmpty()) {
                 System.err.println("Failed to run program: ");
-                for(String s : semanticErrors)
+                for (String s : semanticErrors)
                     System.err.println("    " + s);
                 System.err.println("\nExecution failed with " + semanticErrors.size() + " errors.");
                 System.exit(-1);

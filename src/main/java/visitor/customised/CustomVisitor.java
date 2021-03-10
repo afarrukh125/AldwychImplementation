@@ -1,7 +1,6 @@
 package visitor.customised;
 
 import nodes.*;
-import nodes.data.*;
 
 public interface CustomVisitor<T, D> {
 

@@ -1,7 +1,5 @@
 package nodes;
 
-import nodes.data.ExpressionNode;
-
 public abstract class BinOpNode extends ExpressionNode {
 
     private final ExpressionNode left;

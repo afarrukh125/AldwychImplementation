@@ -1,9 +1,12 @@
-package nodes.data;
+package nodes;
 
-import nodes.TreeNode;
 import visitor.customised.CustomVisitor;
 
-public class ExpressionNode extends TreeNode {
+public class StringConstNode extends SingleValueNode<String> {
+    public StringConstNode(String value) {
+        super(value);
+    }
+
     @Override
     public <T, D> T accept(CustomVisitor<T, D> v, D data) {
         return v.visit(this, data);

@@ -1,7 +1,6 @@
 package visitor;
 
 import nodes.*;
-import nodes.data.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
@@ -19,10 +18,10 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
         for (AldParser.DeclarationContext decl : ctx.declaration()) {
             TreeNode result = visit(decl);
-            if(decl instanceof AldParser.ProcedureNodeContext)
+            if (decl instanceof AldParser.ProcedureNodeContext)
                 classNode.addProcedureNode((ProcedureNode) result);
 
-            if(decl instanceof AldParser.SequentialProcedureNodeContext)
+            if (decl instanceof AldParser.SequentialProcedureNodeContext)
                 classNode.addSequentialProcedureNode((SequentialProcedureNode) result);
 
         }
@@ -66,7 +65,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitReaders(AldParser.ReadersContext ctx) {
         ReaderContainerNode readers = new ReaderContainerNode();
 
-        for(TerminalNode tn : ctx.ID())
+        for (TerminalNode tn : ctx.ID())
             readers.addReaderNode(new ReaderNode(tn.getText()));
 
         return readers;
@@ -92,7 +91,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     @Override
     public TreeNode visitSeqbody(AldParser.SeqbodyContext ctx) {
         SequentialBodyNode sequentialBodyNode = new SequentialBodyNode();
-        for(AldParser.ExprContext exprContext : ctx.expr())
+        for (AldParser.ExprContext exprContext : ctx.expr())
             sequentialBodyNode.addExpression((ExpressionNode) visit(exprContext));
         return sequentialBodyNode;
     }
@@ -101,7 +100,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitBody(AldParser.BodyContext ctx) {
         BodyNode bodyNode = new BodyNode();
 
-        for(AldParser.RulesetContext rulesetContext : ctx.ruleset())
+        for (AldParser.RulesetContext rulesetContext : ctx.ruleset())
             bodyNode.addRuleSet((RuleSetNode) visit(rulesetContext));
 
         bodyNode.setFinalRule((FinalRuleNode) visit(ctx.finalrule()));
@@ -124,12 +123,12 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitRegularrule(AldParser.RegularruleContext ctx) {
         RegularRuleNode regularRuleNode = new RegularRuleNode();
 
-        for(AldParser.AskContext askContext : ctx.ask()) {
+        for (AldParser.AskContext askContext : ctx.ask()) {
             AskNode askNode = (AskNode) visit(askContext);
             regularRuleNode.addAsk(askNode);
         }
 
-        for(AldParser.TellContext tellContext : ctx.tell()) {
+        for (AldParser.TellContext tellContext : ctx.tell()) {
             TellNode tellNode = (TellNode) visit(tellContext);
             regularRuleNode.addTell(tellNode);
         }
@@ -153,7 +152,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitFinalrule(AldParser.FinalruleContext ctx) {
         FinalRuleNode node = new FinalRuleNode();
 
-        for(AldParser.TellContext tellContext : ctx.tell()) {
+        for (AldParser.TellContext tellContext : ctx.tell()) {
             TellNode tellNode = (TellNode) visit(tellContext);
             node.addTell(tellNode);
         }
@@ -247,10 +246,10 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     @Override
     public TreeNode visitDispatchNode(AldParser.DispatchNodeContext ctx) {
         List<ExpressionNode> exprs = new ArrayList<>();
-        for(AldParser.ExprContext exprContext : ctx.expr())
+        for (AldParser.ExprContext exprContext : ctx.expr())
             exprs.add((ExpressionNode) visit(exprContext));
 
-        if(ctx.ID().size() == 1)
+        if (ctx.ID().size() == 1)
             return new DispatchNode(ctx.ID(0).getText(), exprs, null);
         return new DispatchNode(ctx.ID(0).getText(), exprs, ctx.ID(1).getText());
     }

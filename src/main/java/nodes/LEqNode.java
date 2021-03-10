@@ -1,6 +1,5 @@
 package nodes;
 
-import nodes.data.ExpressionNode;
 import visitor.customised.CustomVisitor;
 
 public class LEqNode extends BinOpNode {

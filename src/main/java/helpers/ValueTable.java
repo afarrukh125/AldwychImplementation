@@ -1,6 +1,5 @@
 package helpers;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,7 +34,7 @@ public class ValueTable {
      * @return The value of the identifier if found, null otherwise TODO find a better way to handle not-found values
      */
     public Object findInScope(String identifier) {
-        for(int i = table.size() -1; i>= 0; i--) {
+        for (int i = table.size() - 1; i >= 0; i--) {
             Entry tableEntry = table.get(i);
             Object value = tableEntry.getValue(identifier);
             if (value != null)

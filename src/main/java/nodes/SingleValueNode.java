@@ -1,9 +1,9 @@
-package nodes.data;
+package nodes;
 
-public abstract class Node<T> extends ExpressionNode {
+public abstract class SingleValueNode<T> extends ExpressionNode {
     private final T nodeValue;
 
-    public Node(T value) {
+    public SingleValueNode(T value) {
         nodeValue = value;
     }
 
