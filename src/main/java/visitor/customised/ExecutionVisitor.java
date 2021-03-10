@@ -57,6 +57,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(FinalRuleNode finalRuleNode, Object data) {
+        data = Flag.ASSIGN;
         for (TellNode tellNode : finalRuleNode.getTells())
             visit(tellNode, data);
         return finalRuleNode;
@@ -79,40 +80,16 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         List<WriterNode> writers = (List<WriterNode>) data;
         String lastWriterVariable = writers.get(writers.size() - 1).getName();
 
-        int numRules = bodyNode.getRegularRules().size();
+        String resultingValue;
 
-        ExecutorService executorService = Executors.newFixedThreadPool(numRules);
-        CompletionService<String> completionService = new ExecutorCompletionService<>(executorService);
-
-        for (RegularRuleNode regularRuleNode : bodyNode.getRegularRules())
-            completionService.submit(() -> (String) visit(regularRuleNode, data));
-
-        int receivedCount = 0;
-        String resultingValue = null;
-
-        while (!executorService.isTerminated() && receivedCount < numRules) {
-            try {
-                Future<String> resultFuture = completionService.take();
-                String resultNode = resultFuture.get();
-                if (resultNode != null) {
-                    resultingValue = (String) valueTable.findInScope(lastWriterVariable);
-                    executorService.shutdownNow();
-                }
-
-                receivedCount++;
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
+        for(RuleSetNode ruleSet : bodyNode.getRulesets()) {
+            resultingValue = (String) visit(ruleSet, data);
+            if(resultingValue != null)
+                return resultingValue;
         }
 
-        if (resultingValue == null) {
-            if (!executorService.isTerminated())
-                executorService.shutdownNow();
-            visit(bodyNode.getFinalRule(), data);
-            return valueTable.findInScope(lastWriterVariable);
-        }
-
-        return resultingValue;
+        visit(bodyNode.getFinalRule(), data);
+        return valueTable.findInScope(lastWriterVariable);
     }
 
 
@@ -131,6 +108,45 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         for (ExpressionNode expressionNode : sequentialBodyNode.getExpressions())
             visit(expressionNode, data);
         return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Object visit(RuleSetNode ruleSetNode, Object data) {
+        List<WriterNode> writers = (List<WriterNode>) data;
+        String lastWriterVariable = writers.get(writers.size() - 1).getName();
+
+        String resultingValue = null;
+
+        int numRules = ruleSetNode.getRegularRules().size();
+
+        ExecutorService executorService = Executors.newFixedThreadPool(numRules);
+        CompletionService<String> completionService = new ExecutorCompletionService<>(executorService);
+
+        for (RegularRuleNode regularRuleNode : ruleSetNode.getRegularRules())
+            completionService.submit(() -> (String) visit(regularRuleNode, data));
+
+        int receivedCount = 0;
+
+        while (!executorService.isTerminated() && receivedCount < numRules) {
+            try {
+                Future<String> resultFuture = completionService.take();
+                String resultNode = resultFuture.get();
+                if (resultNode != null) {
+                    resultingValue = (String) valueTable.findInScope(lastWriterVariable);
+                    executorService.shutdownNow();
+                }
+
+                receivedCount++;
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(!executorService.isTerminated())
+            executorService.shutdownNow();
+
+        return resultingValue;
     }
 
     @Override

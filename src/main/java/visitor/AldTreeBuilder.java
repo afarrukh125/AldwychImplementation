@@ -101,12 +101,23 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitBody(AldParser.BodyContext ctx) {
         BodyNode bodyNode = new BodyNode();
 
-        for (AldParser.RegularruleContext regularruleContext : ctx.regularrule())
-            bodyNode.addRegularRule((RegularRuleNode) visit(regularruleContext));
+        for(AldParser.RulesetContext rulesetContext : ctx.ruleset())
+            bodyNode.addRuleSet((RuleSetNode) visit(rulesetContext));
 
         bodyNode.setFinalRule((FinalRuleNode) visit(ctx.finalrule()));
-
         return bodyNode;
+    }
+
+    @Override
+    public TreeNode visitRuleset(AldParser.RulesetContext ctx) {
+
+        RuleSetNode ruleSetNode = new RuleSetNode();
+
+        for (AldParser.RegularruleContext regularruleContext : ctx.regularrule())
+            ruleSetNode.addRegularRule((RegularRuleNode) visit(regularruleContext));
+
+        return ruleSetNode;
+
     }
 
     @Override

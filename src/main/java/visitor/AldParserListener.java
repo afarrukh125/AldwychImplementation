@@ -123,6 +123,16 @@ public interface AldParserListener extends ParseTreeListener {
 	 */
 	void exitBody(AldParser.BodyContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AldParser#ruleset}.
+	 * @param ctx the parse tree
+	 */
+	void enterRuleset(AldParser.RulesetContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AldParser#ruleset}.
+	 * @param ctx the parse tree
+	 */
+	void exitRuleset(AldParser.RulesetContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AldParser#regularrule}.
 	 * @param ctx the parse tree
 	 */

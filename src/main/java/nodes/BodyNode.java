@@ -8,27 +8,27 @@ import java.util.List;
 
 public class BodyNode extends TreeNode {
 
-    List<RegularRuleNode> regularRules;
-    FinalRuleNode finalRule;
+    private List<RuleSetNode> rulesets;
+    private FinalRuleNode finalRule;
 
     public BodyNode() {
-        this.regularRules = new ArrayList<>();
+        this.rulesets = new ArrayList<>();
     }
 
-    public void addRegularRule(RegularRuleNode regularRuleNode) {
-        regularRules.add(regularRuleNode);
+    public void addRuleSet(RuleSetNode ruleSetNode) {
+        rulesets.add(ruleSetNode);
     }
 
-    public void setFinalRule(FinalRuleNode finalRule) {
-        this.finalRule = finalRule;
-    }
-
-    public List<RegularRuleNode> getRegularRules() {
-        return Collections.unmodifiableList(regularRules);
+    public List<RuleSetNode> getRulesets() {
+        return Collections.unmodifiableList(rulesets);
     }
 
     public FinalRuleNode getFinalRule() {
         return finalRule;
+    }
+
+    public void setFinalRule(FinalRuleNode finalRule) {
+        this.finalRule = finalRule;
     }
 
     @Override

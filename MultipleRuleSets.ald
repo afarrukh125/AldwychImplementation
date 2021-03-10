@@ -1,0 +1,20 @@
+#main(args)->()
+{
+ x=0;
+ y=5;
+ z=10;
+
+ chooseValue(x,y,z)->res;
+
+ print(res);
+}
+
+#chooseValue(a,b,c)->r
+{
+ a>0 || r=a;
+   :
+ b>0 || r=b;
+ c>0 || r=c;
+   :
+ || r=0
+}

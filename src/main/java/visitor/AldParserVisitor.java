@@ -79,6 +79,12 @@ public interface AldParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBody(AldParser.BodyContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AldParser#ruleset}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRuleset(AldParser.RulesetContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AldParser#regularrule}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

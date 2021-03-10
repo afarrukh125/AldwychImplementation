@@ -4,6 +4,7 @@ import helpers.Flag;
 import helpers.HeadingStringData;
 import helpers.Mode;
 import helpers.ValueTable;
+import helpers.rules.RuleSet;
 import nodes.*;
 import nodes.data.*;
 
@@ -101,17 +102,28 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
+    public Object visit(RuleSetNode ruleSetNode, Object data) {
+        for(RegularRuleNode regularRuleNode : ruleSetNode.getRegularRules())
+            visit(regularRuleNode, data);
+        return null;
+    }
+
+    @Override
     public Object visit(AskNode askNode, Object data) {
         return visit(askNode.getExpressionNode(), data);
     }
 
     @Override
     public Object visit(BodyNode bodyNode, Object data) {
+        for(RuleSetNode ruleSetNode : bodyNode.getRulesets())
+            visit(ruleSetNode, data);
+        visit(bodyNode.getFinalRule(), data);
         return null;
     }
 
     @Override
     public Object visit(DispatchNode dispatchNode, Object data) {
+        // TODO analyse parameters for semantic analysis
         return null;
     }
 
@@ -177,10 +189,7 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
         HeadingStringData headingStringData =
                 new HeadingStringData(procedureNode.getHeadingNode().getName(), readersAsStrings, writersAsStrings);
 
-        for(RegularRuleNode regularRuleNode : procedureNode.getBody().getRegularRules())
-            visit(regularRuleNode, headingStringData);
-
-        visit(procedureNode.getBody().getFinalRule(), headingStringData);
+        visit(procedureNode.getBody(), headingStringData);
         return null;
     }
 

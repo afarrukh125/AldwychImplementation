@@ -62,4 +62,6 @@ public interface CustomVisitor<T, D> {
     T visit(SequentialProcedureNode sequentialProcedureNode, D data);
 
     T visit(SequentialBodyNode sequentialBodyNode, D data);
+
+    T visit(RuleSetNode ruleSetNode, D data);
 }
