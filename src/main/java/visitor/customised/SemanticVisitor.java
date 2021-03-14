@@ -45,7 +45,7 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     public Object visit(RegularRuleNode ruleNode, Object data) {
         HeadingStringData headingStringData = (HeadingStringData) data;
         Set<String> readers = headingStringData.getReaders();
-        Set<String> writers = headingStringData.getWriters();
+
         String procedureName = headingStringData.getProcedureName();
 
         for (AskNode askNode : ruleNode.getAsks()) {
@@ -76,11 +76,11 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
                 this.addError(leftNode.getNodeValue() + " does not have " + mode.getMode() + " access in procedure " + procedureName);
         }
 
-        if (binOpNode.getRight() instanceof IdentifierNode) {
-            IdentifierNode rightNode = ((IdentifierNode) binOpNode.getRight());
-            if (!variables.contains(rightNode.getNodeValue()))
-                this.addError(rightNode.getNodeValue() + " does not have " + mode.getMode() + " access in procedure " + procedureName);
-        }
+//        if (binOpNode.getRight() instanceof IdentifierNode) {
+//            IdentifierNode rightNode = ((IdentifierNode) binOpNode.getRight());
+//            if (!variables.contains(rightNode.getNodeValue()))
+//                this.addError(rightNode.getNodeValue() + " does not have " + mode.getMode() + " access in procedure " + procedureName);
+//        }
     }
 
     @Override

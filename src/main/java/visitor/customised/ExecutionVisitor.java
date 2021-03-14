@@ -59,9 +59,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(FinalRuleNode finalRuleNode, Object data) {
         data = Flag.ASSIGN;
+        String result = null;
         for (TellNode tellNode : finalRuleNode.getTells())
-            visit(tellNode, data);
-        return finalRuleNode;
+            result = (String) visit(tellNode, data);
+        return result;
     }
 
     @Override
@@ -106,10 +107,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
-        String lastExpressionEvaluted = null;
+        String lastExpressionEvaluated = null;
         for (ExpressionNode expressionNode : sequentialBodyNode.getExpressions())
-            lastExpressionEvaluted = (String) visit(expressionNode, data);
-        return lastExpressionEvaluted;
+            lastExpressionEvaluated = (String) visit(expressionNode, data);
+        return lastExpressionEvaluated;
     }
 
     @SuppressWarnings("unchecked")
@@ -137,9 +138,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             try {
                 Future<String> resultFuture = completionService.take();
                 String resultNode = resultFuture.get();
-                if (resultNode != null)
+                if (resultNode != null) {
                     executorService.shutdownNow();
-
+                    resultingValue = (String) valueTable.findInScope(lastWriterVariable);
+                }
                 receivedCount++;
             } catch (InterruptedException | ExecutionException ignored) {
                 // We want to interrupt computation that is occurring if we already received a result!
@@ -149,8 +151,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         if (!executorService.isTerminated())
             executorService.shutdownNow();
 
-        resultingValue = (String) valueTable.findInScope(lastWriterVariable);
-
+        // Null if no rule applicable, so final rule can apply
         return resultingValue;
     }
 

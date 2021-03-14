@@ -1,0 +1,26 @@
+#main(args)->()
+{
+ x = 5;
+ a = 9;
+
+ y = 6;
+ c = 10;
+
+ z = 7;
+
+ b = 2;
+ d = 4;
+
+ e = 8;
+
+ p(x, y, a, b, c, d, e)->res;
+ print(res);
+}
+
+#p(x,y,a,b,c,d,e)->z
+{
+ x=a || z=b;
+ y=c || z=d;
+     :
+     || z=e
+}
