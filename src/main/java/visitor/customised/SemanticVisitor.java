@@ -15,18 +15,18 @@ import java.util.stream.Collectors;
 public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     private final List<String> errors;
-    private final ValueTable valueTable;
 
     public SemanticVisitor() {
         super();
         errors = new ArrayList<>();
-        valueTable = new ValueTable();
     }
 
     @Override
     public Object visit(ClassNode classNode, Object data) {
 
         visit(classNode.getSequentialProcedureNode(), data);
+        if(classNode.getSequentialProcedureNode() == null)
+            addError("No sequential entry point procedure found. Please include exactly one.");
 
         for (ProcedureNode procedureNode : classNode.getProcedures())
             visit(procedureNode, data);
@@ -74,12 +74,6 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
             if (!variables.contains(leftNode.getNodeValue()))
                 this.addError(leftNode.getNodeValue() + " does not have " + mode.getMode() + " access in procedure " + procedureName);
         }
-
-//        if (binOpNode.getRight() instanceof IdentifierNode) {
-//            IdentifierNode rightNode = ((IdentifierNode) binOpNode.getRight());
-//            if (!variables.contains(rightNode.getNodeValue()))
-//                this.addError(rightNode.getNodeValue() + " does not have " + mode.getMode() + " access in procedure " + procedureName);
-//        }
     }
 
     @Override
