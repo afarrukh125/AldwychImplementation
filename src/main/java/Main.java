@@ -47,15 +47,8 @@ public class Main {
                 System.exit(-1);
             }
 
-            Map<Object, Integer> occs = new HashMap<>();
-
-            for (int i = 0; i < 1000; i++) {
-                // Executing the code
-                ExecutionVisitor executionVisitor = new ExecutionVisitor();
-                Object output = result.accept(executionVisitor, null);
-                occs.merge(output, 1, Integer::sum);
-            }
-            System.out.println(occs);
+            ExecutionVisitor executionVisitor = new ExecutionVisitor();
+            Object output = result.accept(executionVisitor, null);
 
 
         }

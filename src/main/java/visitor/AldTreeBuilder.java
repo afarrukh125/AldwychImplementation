@@ -14,16 +14,18 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitAldwychClass(AldParser.AldwychClassContext ctx) {
-        ClassNode classNode = new ClassNode();
+
+
+        // One sequential procedure per class
+        AldParser.SeqprocedureContext seqprocedureContext = ctx.seqprocedure();
+        SequentialProcedureNode seqProcedureResult = (SequentialProcedureNode) visit(seqprocedureContext);
+
+        ClassNode classNode = new ClassNode(seqProcedureResult);
 
         for (AldParser.DeclarationContext decl : ctx.declaration()) {
             TreeNode result = visit(decl);
             if (decl instanceof AldParser.ProcedureNodeContext)
                 classNode.addProcedureNode((ProcedureNode) result);
-
-            if (decl instanceof AldParser.SequentialProcedureNodeContext)
-                classNode.addSequentialProcedureNode((SequentialProcedureNode) result);
-
         }
 
         return classNode;
@@ -34,12 +36,6 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
         HeadingNode headingNode = (HeadingNode) visit(ctx.heading());
         BodyNode bodyNode = (BodyNode) visit(ctx.body());
         return new ProcedureNode(headingNode, bodyNode);
-    }
-
-    // TODO remove this when we get a nice variable ecosystem (no global variables)
-    @Override
-    public TreeNode visitDeclarationNode(AldParser.DeclarationNodeContext ctx) {
-        return super.visitDeclarationNode(ctx);
     }
 
     @Override

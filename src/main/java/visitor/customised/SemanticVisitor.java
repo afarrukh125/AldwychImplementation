@@ -26,8 +26,7 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(ClassNode classNode, Object data) {
 
-        for (SequentialProcedureNode sequentialProcedureNode : classNode.getSequentialProcedureNodes())
-            visit(sequentialProcedureNode, data);
+        visit(classNode.getSequentialProcedureNode(), data);
 
         for (ProcedureNode procedureNode : classNode.getProcedures())
             visit(procedureNode, data);

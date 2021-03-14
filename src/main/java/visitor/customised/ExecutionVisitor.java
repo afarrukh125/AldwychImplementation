@@ -25,16 +25,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     public Object visit(ClassNode classNode, Object data) {
         data = new Object();
 
-        for (SequentialProcedureNode procedureNode : classNode.getSequentialProcedureNodes())
-            methodTable.addMethod(procedureNode.getHeadingNode().getName(), procedureNode);
-
         for (ProcedureNode procedureNode : classNode.getProcedures())
             methodTable.addMethod(procedureNode.getHeadingNode().getName(), procedureNode);
 
-        Object lastExpressionResult = null;
-        for (SequentialProcedureNode seqNode : classNode.getSequentialProcedureNodes())
-            lastExpressionResult = visit(seqNode, data);
-        return lastExpressionResult;
+        return visit(classNode.getSequentialProcedureNode(), data);
     }
 
     @Override
@@ -93,7 +87,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         visit(bodyNode.getFinalRule(), data);
         return valueTable.findInScope(lastWriterVariable);
     }
-
 
     @Override
     public Object visit(SequentialProcedureNode sequentialProcedureNode, Object data) {

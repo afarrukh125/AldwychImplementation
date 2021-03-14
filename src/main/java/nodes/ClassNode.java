@@ -8,11 +8,11 @@ import java.util.List;
 
 public class ClassNode extends TreeNode {
     List<ProcedureNode> procedureNodeList;
-    List<SequentialProcedureNode> sequentialProcedureNodeList;
+    SequentialProcedureNode sequentialProcedureNode;
 
-    public ClassNode() {
+    public ClassNode(SequentialProcedureNode sequentialProcedureNode) {
         procedureNodeList = new ArrayList<>();
-        sequentialProcedureNodeList = new ArrayList<>();
+        this.sequentialProcedureNode = sequentialProcedureNode;
     }
 
     @Override
@@ -24,12 +24,8 @@ public class ClassNode extends TreeNode {
         procedureNodeList.add(procedureNode);
     }
 
-    public void addSequentialProcedureNode(SequentialProcedureNode sequentialProcedureNode) {
-        sequentialProcedureNodeList.add(sequentialProcedureNode);
-    }
-
-    public List<SequentialProcedureNode> getSequentialProcedureNodes() {
-        return Collections.unmodifiableList(sequentialProcedureNodeList);
+    public SequentialProcedureNode getSequentialProcedureNode() {
+        return sequentialProcedureNode;
     }
 
     public List<ProcedureNode> getProcedures() {
