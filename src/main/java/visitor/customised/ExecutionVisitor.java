@@ -30,9 +30,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         for (ProcedureNode procedureNode : classNode.getProcedures())
             methodTable.addMethod(procedureNode.getHeadingNode().getName(), procedureNode);
 
+        Object lastExpressionResult = null;
         for (SequentialProcedureNode seqNode : classNode.getSequentialProcedureNodes())
-            visit(seqNode, data);
-        return null;
+            lastExpressionResult = visit(seqNode, data);
+        return lastExpressionResult;
     }
 
     @Override
@@ -97,9 +98,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         valueTable.enterScope();
         data = Flag.ASSIGN;
         visit(sequentialProcedureNode.getHeadingNode(), data);
-        visit(sequentialProcedureNode.getSequentialBody(), data);
+        Object body = visit(sequentialProcedureNode.getSequentialBody(), data);
         valueTable.exitScope();
-        return null;
+        return body;
     }
 
     @Override

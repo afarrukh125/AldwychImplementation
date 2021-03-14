@@ -14,6 +14,6 @@ public class PrintMethod extends DefaultProcedure {
         if (params.size() != PARAM_SIZE)
             throw new IllegalArgumentException("Print takes one argument");
         System.out.println(params.get(0));
-        return null;
+        return params.get(0);
     }
 }
