@@ -8,7 +8,6 @@ import nodes.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
@@ -126,8 +125,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         ExecutorService executorService = Executors.newFixedThreadPool(numRules);
         CompletionService<String> completionService = new ExecutorCompletionService<>(executorService);
 
-        List<RegularRuleNode> ruleNodes = ruleSetNode.getRegularRules();
+        List<RegularRuleNode> ruleNodes = new ArrayList<>(ruleSetNode.getRegularRules());
         Collections.shuffle(ruleNodes);
+
         for (RegularRuleNode regularRuleNode : ruleNodes)
             completionService.submit(() -> (String) visit(regularRuleNode, data));
 
@@ -137,19 +137,19 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             try {
                 Future<String> resultFuture = completionService.take();
                 String resultNode = resultFuture.get();
-                if (resultNode != null) {
-                    resultingValue = (String) valueTable.findInScope(lastWriterVariable);
+                if (resultNode != null)
                     executorService.shutdownNow();
-                }
 
                 receivedCount++;
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+            } catch (InterruptedException | ExecutionException ignored) {
+                // We want to interrupt computation that is occurring if we already received a result!
             }
         }
 
         if (!executorService.isTerminated())
             executorService.shutdownNow();
+
+        resultingValue = (String) valueTable.findInScope(lastWriterVariable);
 
         return resultingValue;
     }
@@ -342,9 +342,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(IdentifierNode identifierNode, Object data) {
         String identifierNodeValue = identifierNode.getNodeValue();
-        if (valueTable.findInScope(identifierNodeValue) == null)
-            return identifierNodeValue;
-        if (data == Flag.ID_ONLY)
+        if (valueTable.findInScope(identifierNodeValue) == null || data == Flag.ID_ONLY)
             return identifierNodeValue;
         return valueTable.findInScope(identifierNodeValue);
     }
