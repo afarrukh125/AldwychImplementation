@@ -9,9 +9,7 @@ import visitor.customised.ExecutionVisitor;
 import visitor.customised.SemanticVisitor;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
@@ -49,9 +47,16 @@ public class Main {
                 System.exit(-1);
             }
 
-            // Executing the code
-            ExecutionVisitor executionVisitor = new ExecutionVisitor();
-            result.accept(executionVisitor, null);
+            Map<Object, Integer> occs = new HashMap<>();
+
+            for (int i = 0; i < 1000; i++) {
+                // Executing the code
+                ExecutionVisitor executionVisitor = new ExecutionVisitor();
+                Object output = result.accept(executionVisitor, null);
+                occs.merge(output, 1, Integer::sum);
+            }
+            System.out.println(occs);
+
 
         }
     }

@@ -19,7 +19,8 @@ public class RuleSetNode extends TreeNode {
     }
 
     public List<RegularRuleNode> getRegularRules() {
-        return Collections.unmodifiableList(regularRules);
+        // TODO decide if we want to return unmodifiable version or not
+        return regularRules;
     }
 
 

@@ -6,7 +6,9 @@ import helpers.ValueTable;
 import nodes.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
@@ -124,7 +126,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         ExecutorService executorService = Executors.newFixedThreadPool(numRules);
         CompletionService<String> completionService = new ExecutorCompletionService<>(executorService);
 
-        for (RegularRuleNode regularRuleNode : ruleSetNode.getRegularRules())
+        List<RegularRuleNode> ruleNodes = ruleSetNode.getRegularRules();
+        Collections.shuffle(ruleNodes);
+        for (RegularRuleNode regularRuleNode : ruleNodes)
             completionService.submit(() -> (String) visit(regularRuleNode, data));
 
         int receivedCount = 0;
