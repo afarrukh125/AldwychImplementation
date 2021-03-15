@@ -205,6 +205,20 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
+    public TreeNode visitStructureEqNode(AldParser.StructureEqNodeContext ctx) {
+
+        String variableName = ctx.ID(0).getText();
+        String structureName = ctx.ID(1).getText();
+
+        List<ExpressionNode> exprs = new ArrayList<>();
+
+        for(AldParser.ExprContext exprContext : ctx.expr())
+            exprs.add((ExpressionNode) visit(exprContext));
+
+        return new StructureNode(variableName, structureName, exprs);
+    }
+
+    @Override
     public TreeNode visitIntegerNode(AldParser.IntegerNodeContext ctx) {
         return new IntegerNode(ctx.getText());
     }

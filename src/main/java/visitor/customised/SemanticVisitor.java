@@ -254,6 +254,11 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
         return null;
     }
 
+    @Override
+    public Object visit(StructureNode structureNode) {
+        return null;
+    }
+
     private void addError(String message) {
         errors.add(message);
     }

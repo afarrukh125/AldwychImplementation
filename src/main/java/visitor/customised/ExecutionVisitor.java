@@ -300,6 +300,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
+    public Object visit(StructureNode structureNode) {
+        // TODO implement
+        return null;
+    }
+
+    @Override
     public Object visit(ReaderNode readerNode, Object data) {
         return readerNode.getName();
     }
