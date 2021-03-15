@@ -212,7 +212,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(EqNode eqNode, Object data) {
 
-
         // Depending on the flag, EqNode can imply a comparison or an assignment
         if (data == Flag.ASSIGN) {
             String left = (String) visit(eqNode.getLeft(), Flag.ID_ONLY);
@@ -301,11 +300,18 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(StructureNode structureNode, Object data) {
-        // TODO implement
-        if(data == Flag.ASSIGN) {
+        List<String> actualValues = new ArrayList<>();
+        for(ExpressionNode expr : structureNode.getValues())
+            actualValues.add((String) visit(expr, data));
 
+        // TODO decide if comparing string representations of structure name + values is ideal or not
+        String representation = structureNode.getStructureName() + "(" + actualValues.toString() + ")";
+        if(data == Flag.ASSIGN) {
+            valueTable.addVariable(structureNode.getVarName(), representation);
+            return representation;
         }
-        return null;
+        else
+            return Boolean.toString(representation.equals(valueTable.findInScope(structureNode.getVarName())));
     }
 
     @Override

@@ -8,12 +8,12 @@ import java.util.List;
 public class StructureNode extends ExpressionNode {
     private final String varName;
     private final String structureName;
-    private final List<ExpressionNode> params;
+    private final List<ExpressionNode> values;
 
-    public StructureNode(String varName, String structureName, List<ExpressionNode> params) {
+    public StructureNode(String varName, String structureName, List<ExpressionNode> values) {
         this.varName = varName;
         this.structureName = structureName;
-        this.params = params;
+        this.values = values;
     }
 
     public String getVarName() {
@@ -24,8 +24,8 @@ public class StructureNode extends ExpressionNode {
         return structureName;
     }
 
-    public List<ExpressionNode> getParams() {
-        return Collections.unmodifiableList(params);
+    public List<ExpressionNode> getValues() {
+        return Collections.unmodifiableList(values);
     }
 
     @Override
