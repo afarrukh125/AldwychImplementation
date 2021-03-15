@@ -3,7 +3,6 @@ package visitor.customised;
 import helpers.Flag;
 import helpers.HeadingStringData;
 import helpers.Mode;
-import helpers.ValueTable;
 import nodes.*;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     public Object visit(ClassNode classNode, Object data) {
 
         visit(classNode.getSequentialProcedureNode(), data);
-        if(classNode.getSequentialProcedureNode() == null)
+        if (classNode.getSequentialProcedureNode() == null)
             addError("No sequential entry point procedure found. Please include exactly one.");
 
         for (ProcedureNode procedureNode : classNode.getProcedures())
