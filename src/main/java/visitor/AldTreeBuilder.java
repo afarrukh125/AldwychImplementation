@@ -15,7 +15,6 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     @Override
     public TreeNode visitAldwychClass(AldParser.AldwychClassContext ctx) {
 
-
         // One sequential procedure per class
         AldParser.SeqprocedureContext seqprocedureContext = ctx.seqprocedure();
         SequentialProcedureNode seqProcedureResult = (SequentialProcedureNode) visit(seqprocedureContext);

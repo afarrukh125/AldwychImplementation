@@ -5,22 +5,23 @@ import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Keeps track of variable values in the current scope and can enter and exit scopes
+ * Keeps track of variable values for simple values in the current scope and can enter and exit scopes
  */
-public class ValueTable {
-    private final Stack<Entry> table;
+public class ValueTable<K, V> {
+    private final Stack<Entry<K, V>> table;
+    // TODO think of a way to use polymorphism and find common things between structures and array - two birds with one stone
 
     public ValueTable() {
         table = new Stack<>();
     }
 
-    public void addVariable(String identifier, Object value) {
-        Entry entry = table.peek();
-        entry.addIdentifier(identifier, value);
+    public void addVariable(K identifier, V value) {
+        Entry<K, V> entry = table.peek();
+        entry.addMapping(identifier, value);
     }
 
     public void enterScope() {
-        table.add(new Entry());
+        table.add(new Entry<>());
     }
 
     public void exitScope() {
@@ -33,9 +34,9 @@ public class ValueTable {
      * @param identifier The identifier to look for
      * @return The value of the identifier if found, null otherwise TODO find a better way to handle not-found values
      */
-    public Object findInScope(String identifier) {
+    public Object findInScope(K identifier) {
         for (int i = table.size() - 1; i >= 0; i--) {
-            Entry tableEntry = table.get(i);
+            Entry<K, V> tableEntry = table.get(i);
             Object value = tableEntry.getValue(identifier);
             if (value != null)
                 return tableEntry.getValue(identifier);
@@ -43,22 +44,22 @@ public class ValueTable {
         return null;
     }
 
-    public Entry getCurrentScope() {
+    public Entry<K, V> getCurrentScope() {
         return table.peek();
     }
 
-    public static class Entry {
-        private final Map<String, Object> entry;
+    static class Entry<K, V> {
+        private final Map<K, V> entry;
 
         public Entry() {
             entry = new ConcurrentHashMap<>();
         }
 
-        public void addIdentifier(String identifier, Object value) {
+        public void addMapping(K identifier, V value) {
             entry.put(identifier, value);
         }
 
-        public Object getValue(String identifier) {
+        public Object getValue(K identifier) {
             return entry.get(identifier);
         }
     }

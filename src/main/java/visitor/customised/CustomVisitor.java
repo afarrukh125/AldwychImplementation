@@ -29,7 +29,6 @@ public interface CustomVisitor<T, D> {
     T visit(LEqNode lEqNode, D data);
 
     T visit(LTNode ltNode, D data);
-
     T visit(MulNode mulNode, D data);
 
     T visit(PlusNode plusNode, D data);
@@ -64,5 +63,5 @@ public interface CustomVisitor<T, D> {
 
     T visit(RuleSetNode ruleSetNode, D data);
 
-    T visit(StructureNode structureNode);
+    T visit(StructureNode structureNode, D data);
 }

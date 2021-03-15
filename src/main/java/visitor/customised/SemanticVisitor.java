@@ -255,7 +255,7 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
-    public Object visit(StructureNode structureNode) {
+    public Object visit(StructureNode structureNode, Object data) {
         return null;
     }
 

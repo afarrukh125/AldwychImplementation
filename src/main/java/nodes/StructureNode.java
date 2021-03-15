@@ -30,6 +30,6 @@ public class StructureNode extends ExpressionNode {
 
     @Override
     public <T, D> T accept(CustomVisitor<T, D> v, D data) {
-        return v.visit(this);
+        return v.visit(this, data);
     }
 }

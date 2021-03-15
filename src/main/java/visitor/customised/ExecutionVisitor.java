@@ -13,18 +13,16 @@ import java.util.stream.Collectors;
 
 public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
-    private final ValueTable valueTable;
+    private final ValueTable<String, Object> valueTable;
     private final MethodTable methodTable;
 
     public ExecutionVisitor() {
-        valueTable = new ValueTable();
+        valueTable = new ValueTable<>();
         methodTable = new MethodTable();
     }
 
     @Override
     public Object visit(ClassNode classNode, Object data) {
-        data = new Object();
-
         for (ProcedureNode procedureNode : classNode.getProcedures())
             methodTable.addMethod(procedureNode.getHeadingNode().getName(), procedureNode);
 
@@ -136,8 +134,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                     resultingValue = (String) valueTable.findInScope(lastWriterVariable);
                 }
                 receivedCount++;
-            } catch (InterruptedException | ExecutionException ignored) {
+            } catch (InterruptedException ignored) {
                 // We want to interrupt computation that is occurring if we already received a result!
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
         }
 
@@ -300,8 +300,11 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
-    public Object visit(StructureNode structureNode) {
+    public Object visit(StructureNode structureNode, Object data) {
         // TODO implement
+        if(data == Flag.ASSIGN) {
+
+        }
         return null;
     }
 
