@@ -6,7 +6,7 @@
 
 #add(t)->res {
  t=three(v1,v2,v3) || addTwo(v1,v2,v3)->res;
- t=three(v1,v2,v3) || addTwo(v1, 150, 200)->res;
+ t=three(v1,v2,v3) || addTwo(100, 150, 200)->res;
                    :
                    || res=0
 }
