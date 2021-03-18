@@ -1,8 +1,8 @@
 package helpers;
 
-import java.util.Map;
 import java.util.Stack;
-import java.util.concurrent.ConcurrentHashMap;
+
+import static helpers.DataTable.Entry;
 
 /**
  * Keeps track of variable values for simple values in the current scope and can enter and exit scopes
@@ -34,7 +34,7 @@ public class ValueTable<K, V> {
      * @param identifier The identifier to look for
      * @return The value of the identifier if found, null otherwise TODO find a better way to handle not-found values
      */
-    public Object findInScope(K identifier) {
+    public V findInScope(K identifier) {
         for (int i = table.size() - 1; i >= 0; i--) {
             Entry<K, V> tableEntry = table.get(i);
             Object value = tableEntry.getValue(identifier);
@@ -48,19 +48,4 @@ public class ValueTable<K, V> {
         return table.peek();
     }
 
-    static class Entry<K, V> {
-        private final Map<K, V> entry;
-
-        public Entry() {
-            entry = new ConcurrentHashMap<>();
-        }
-
-        public void addMapping(K identifier, V value) {
-            entry.put(identifier, value);
-        }
-
-        public Object getValue(K identifier) {
-            return entry.get(identifier);
-        }
-    }
 }
