@@ -1,0 +1,21 @@
+#main(args)->() {
+ m = two(19, 12);
+ z = try(16, m);
+ add(z)->r;
+ print(r);
+}
+
+#add(t)->res {
+ t=try(a,t2), t2=two(v2,v3) || addTwo(a,v2,v3)->res;
+                            :
+                            || res=24
+}
+
+#addTwo(a,b,c)->r {
+
+ a>0, b>0 || r=a+b;
+ a>0, c>0 || r=a+c;
+ b>0, c>0 || r=b+c;
+          :
+          || r=0
+}

@@ -18,7 +18,7 @@ public abstract class GenericTest {
 
     @Test
     public final void performTest() throws IOException {
-        String result = ExecuteUtils.runAndReturn(fileName);
+        String result = ExecuteUtils.runAndReturn("testsuite/" + fileName);
         assert resultSet.contains(result);
     }
 }
