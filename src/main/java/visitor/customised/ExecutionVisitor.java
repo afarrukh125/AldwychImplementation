@@ -210,11 +210,14 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                     Structure found = structureTable.findInScope(param);
                     structureTable.addVariable(formalName, new Structure(found.getStructureName(), formalName, found.getValues()));
                 }
+
             }
 
             Object result = procedureNode.accept(this, data);
+
             valueTable.exitScope();
             structureTable.exitScope();
+
             if (dispatchNode.getWriter() != null)
                 valueTable.addVariable(dispatchNode.getWriter(), result);
             return result;
