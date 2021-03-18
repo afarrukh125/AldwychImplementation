@@ -178,8 +178,16 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
             List<String> dispatchParams = new ArrayList<>();
             for (ExpressionNode exp : dispatchNode.getParams()) {
-                Object dispatchParam = visit(exp, data);
-                dispatchParams.add((String) dispatchParam);
+                String rawPara = (String) visit(exp, Flag.ID_ONLY);
+
+                if(structureTable.findInScope(rawPara) != null) {
+                    structureTable.addVariable(rawPara, structureTable.findInScope(rawPara));
+                    dispatchParams.add(rawPara);
+                } else {
+
+                    Object dispatchParam = visit(exp, data);
+                    dispatchParams.add((String) dispatchParam);
+                }
             }
 
             valueTable.enterScope();
@@ -200,7 +208,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 valueTable.addVariable(formalName, paramValue);
 
                 if(structureTable.findInScope(param) != null)
-                    structureTable.addVariable(formalName, structureTable.findInScope(formalName));
+                    structureTable.addVariable(formalName, structureTable.findInScope(param));
             }
 
             Object result = procedureNode.accept(this, data);
@@ -328,7 +336,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             // Alias variables when you visit a structure node in a comparison sense
             Structure existingStructure = structureTable.findInScope(structureNode.getVarName());
 
-            if(existingStructure == null)
+            if(existingStructure == null || existingStructure.getValues().size() != structureNode.getValues().size())
                 return Boolean.toString(false);
 
             List<String> retrievedActuals = existingStructure.getValues();
@@ -400,6 +408,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     private <T extends ExpressionNode> int parseIntegerOperand(T operand, Object data) {
         String parsedOperand = (String) visit(operand, data);
-        return Integer.parseInt(parsedOperand);
+        try {
+            return Integer.parseInt(parsedOperand);
+        } catch (NumberFormatException e) {
+            return Integer.parseInt((String) valueTable.findInScope(parsedOperand));
+        }
     }
 }
