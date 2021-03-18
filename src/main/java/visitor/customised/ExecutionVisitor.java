@@ -1,9 +1,6 @@
 package visitor.customised;
 
-import helpers.Flag;
-import helpers.MethodTable;
-import helpers.Structure;
-import helpers.ValueTable;
+import helpers.*;
 import nodes.*;
 
 import java.util.ArrayList;
@@ -17,6 +14,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     private final ValueTable<String, Object> valueTable;
     private final ValueTable<String, Structure> structureTable;
     private final MethodTable methodTable;
+
+    private final String STRUCTURE_IDENTIFIER = "\u0000";
 
 
     public ExecutionVisitor() {
@@ -200,15 +199,17 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 // e.g. x y z in meth(x, y, z) - the actual dispatch call
                 String param = dispatchParams.get(i);
 
-                Object paramValue = valueTable.findInScope(param);
+                String paramValue = (String) valueTable.findInScope(param);
 
                 if (paramValue == null)
                     paramValue = param;
 
                 valueTable.addVariable(formalName, paramValue);
 
-                if(structureTable.findInScope(param) != null)
-                    structureTable.addVariable(formalName, structureTable.findInScope(param));
+                if(structureTable.findInScope(param) != null) {
+                    Structure found = structureTable.findInScope(param);
+                    structureTable.addVariable(formalName, new Structure(found.getStructureName(), formalName, found.getValues()));
+                }
             }
 
             Object result = procedureNode.accept(this, data);
@@ -240,6 +241,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         } else {
             String left = (String) visit(eqNode.getLeft(), data);
             String right = (String) visit(eqNode.getRight(), data);
+
+            if(left == null || right == null)
+                return Boolean.toString(false);
+
             return Boolean.toString(left.equals(right));
         }
     }
@@ -325,9 +330,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             actualValues.add((String) visit(expr, data));
 
         if (data == Flag.ASSIGN) {
-
             // TODO decide if comparing string representations of structure name + values is ideal or not
-            String representation = structureNode.getStructureName() + actualValues.toString();
+            String representation = structureNode.getStructureName() + actualValues.toString() + STRUCTURE_IDENTIFIER;
 
             valueTable.addVariable(structureNode.getVarName(), representation);
             structureTable.addVariable(structureNode.getVarName(), new Structure(structureNode.getStructureName(), structureNode.getVarName(), actualValues));
@@ -345,6 +349,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 ExpressionNode expr = structureNode.getValues().get(i);
 
                 String variableName = (String) visit(expr, data);
+
                 valueTable.addVariable(variableName, retrievedActuals.get(i));
             }
 
