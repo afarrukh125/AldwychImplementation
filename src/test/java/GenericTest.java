@@ -16,6 +16,13 @@ public abstract class GenericTest {
         this.fileName = fileName;
     }
 
+    public GenericTest(String fileName, int... expectedResults) {
+        this.fileName = fileName;
+        resultSet = new HashSet<>();
+        for(int x : expectedResults)
+            resultSet.add(Integer.toString(x));
+    }
+
     @Test
     public final void performTest() throws IOException {
         String result = ExecuteUtils.runAndReturn("testsuite/" + fileName);
