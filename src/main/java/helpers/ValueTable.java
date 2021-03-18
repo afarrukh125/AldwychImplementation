@@ -8,7 +8,7 @@ import static helpers.DataTable.Entry;
  * Keeps track of variable values for simple values in the current scope and can enter and exit scopes
  */
 public class ValueTable<K, V> {
-    private final Stack<Entry<K, V>> table;
+    private  Stack<Entry<K, V>> table;
     // TODO think of a way to use polymorphism and find common things between structures and array - two birds with one stone
 
     public ValueTable() {
@@ -42,6 +42,13 @@ public class ValueTable<K, V> {
             return tableEntry.getValue(identifier);
         }
         return null;
+    }
+
+    public ValueTable<K, V> copy() {
+        ValueTable<K, V> newTable = new ValueTable<>();
+        newTable.table = new Stack<>();
+        newTable.table.addAll(this.table);
+        return newTable;
     }
 
     public Entry<K, V> getCurrentScope() {

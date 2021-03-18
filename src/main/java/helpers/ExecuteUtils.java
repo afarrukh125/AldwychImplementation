@@ -44,7 +44,7 @@ public class ExecuteUtils {
         }
 
         ExecutionVisitor executionVisitor = new ExecutionVisitor();
-        Object output = result.accept(executionVisitor, null);
+        Object output = result.accept(executionVisitor, new ExecutionEnvironment());
 
         return (String) output;
     }

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MethodTable {
-    private final Map<String, Subroutine> methodTable;
+    private Map<String, Subroutine> methodTable;
     private final DefaultProcedureHandler handler;
 
     public MethodTable() {
@@ -35,5 +35,11 @@ public class MethodTable {
 
     public Object handleDefaultMethod(String methodName, List<String> params) {
         return handler.handleProcedure(methodName, params);
+    }
+
+    public MethodTable copy() {
+        MethodTable newTable = new MethodTable();
+        newTable.methodTable = new HashMap<>(this.methodTable);
+        return newTable;
     }
 }
