@@ -2,6 +2,7 @@ package visitor.customised;
 
 import helpers.Flag;
 import helpers.MethodTable;
+import helpers.Structure;
 import helpers.ValueTable;
 import nodes.*;
 
@@ -14,11 +15,14 @@ import java.util.stream.Collectors;
 public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     private final ValueTable<String, Object> valueTable;
+    private final ValueTable<String, Structure> structureTable;
     private final MethodTable methodTable;
+
 
     public ExecutionVisitor() {
         valueTable = new ValueTable<>();
         methodTable = new MethodTable();
+        structureTable = new ValueTable<>();
     }
 
     @Override
@@ -89,10 +93,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(SequentialProcedureNode sequentialProcedureNode, Object data) {
         valueTable.enterScope();
+        structureTable.enterScope();
         data = Flag.ASSIGN;
         visit(sequentialProcedureNode.getHeadingNode(), data);
         Object body = visit(sequentialProcedureNode.getSequentialBody(), data);
         valueTable.exitScope();
+        structureTable.exitScope();
         return body;
     }
 
@@ -177,6 +183,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             }
 
             valueTable.enterScope();
+            structureTable.enterScope();
             for (int i = 0; i < dispatchParams.size(); i++) {
                 // The name of the variable as it is known in the context of the procedure
                 // e.g. a b c in #p(a, b, c)
@@ -191,10 +198,14 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                     paramValue = param;
 
                 valueTable.addVariable(formalName, paramValue);
+
+                if(structureTable.findInScope(param) != null)
+                    structureTable.addVariable(formalName, structureTable.findInScope(formalName));
             }
 
             Object result = procedureNode.accept(this, data);
             valueTable.exitScope();
+            structureTable.exitScope();
             if (dispatchNode.getWriter() != null)
                 valueTable.addVariable(dispatchNode.getWriter(), result);
             return result;
@@ -298,20 +309,40 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         return lastWriterNode;
     }
 
+
     @Override
     public Object visit(StructureNode structureNode, Object data) {
         List<String> actualValues = new ArrayList<>();
-        for(ExpressionNode expr : structureNode.getValues())
+        for (ExpressionNode expr : structureNode.getValues())
             actualValues.add((String) visit(expr, data));
 
-        // TODO decide if comparing string representations of structure name + values is ideal or not
-        String representation = structureNode.getStructureName() + "(" + actualValues.toString() + ")";
-        if(data == Flag.ASSIGN) {
+        if (data == Flag.ASSIGN) {
+
+            // TODO decide if comparing string representations of structure name + values is ideal or not
+            String representation = structureNode.getStructureName() + actualValues.toString();
+
             valueTable.addVariable(structureNode.getVarName(), representation);
+            structureTable.addVariable(structureNode.getVarName(), new Structure(structureNode.getStructureName(), structureNode.getVarName(), actualValues));
             return representation;
+        } else {
+            // Alias variables when you visit a structure node in a comparison sense
+            Structure existingStructure = structureTable.findInScope(structureNode.getVarName());
+
+            if(existingStructure == null)
+                return Boolean.toString(false);
+
+            List<String> retrievedActuals = existingStructure.getValues();
+
+            for (int i = 0; i<structureNode.getValues().size(); i++) {
+                ExpressionNode expr = structureNode.getValues().get(i);
+
+                String variableName = (String) visit(expr, data);
+                valueTable.addVariable(variableName, retrievedActuals.get(i));
+            }
+
+            return Boolean.toString(existingStructure.getStructureName().equals(structureNode.getStructureName())
+                    && actualValues.size() == retrievedActuals.size());
         }
-        else
-            return Boolean.toString(representation.equals(valueTable.findInScope(structureNode.getVarName())));
     }
 
     @Override
