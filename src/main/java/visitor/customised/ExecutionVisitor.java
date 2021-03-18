@@ -331,11 +331,11 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
         if (data == Flag.ASSIGN) {
             // TODO decide if comparing string representations of structure name + values is ideal or not
-            String representation = structureNode.getStructureName() + actualValues.toString() + STRUCTURE_IDENTIFIER;
+            String representation = structureNode.getVarName() + STRUCTURE_IDENTIFIER;
 
             valueTable.addVariable(structureNode.getVarName(), representation);
             structureTable.addVariable(structureNode.getVarName(), new Structure(structureNode.getStructureName(), structureNode.getVarName(), actualValues));
-            return representation;
+            return structureNode.getVarName();
         } else {
             // Alias variables when you visit a structure node in a comparison sense
             Structure existingStructure = structureTable.findInScope(structureNode.getVarName());
@@ -349,6 +349,14 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 ExpressionNode expr = structureNode.getValues().get(i);
 
                 String variableName = (String) visit(expr, data);
+
+                if(retrievedActuals.get(i).contains(STRUCTURE_IDENTIFIER)) {
+                    String originalVariableName = retrievedActuals.get(i).replace(STRUCTURE_IDENTIFIER, "");
+                    Structure aliasedStructure = structureTable.findInScope(originalVariableName);
+
+                    Structure newStructure = new Structure(aliasedStructure.getStructureName(), variableName, aliasedStructure.getValues());
+                    structureTable.addVariable(variableName, newStructure);
+                }
 
                 valueTable.addVariable(variableName, retrievedActuals.get(i));
             }
