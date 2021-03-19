@@ -35,20 +35,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(RegularRuleNode ruleNode, Object data) {
         List<AskNode> asks = ruleNode.getAsks();
-        List<TellNode> tells = ruleNode.getTells();
-
         for (AskNode askNode : asks) {
             String result = (String) visit(askNode, data);
             if (!Boolean.parseBoolean(result))
                 return null;
         }
-
-        // In the context of a tell, the equals symbol behaves differently, so we must change the semantics
-        data = Flag.ASSIGN;
-        String result = null;
-        for (TellNode tellNode : tells)
-            result = (String) visit(tellNode, data);
-        return result;
+        return ruleNode;
     }
 
     @Override
@@ -115,28 +107,34 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         List<WriterNode> writers = (List<WriterNode>) data;
         String lastWriterVariable = writers.get(writers.size() - 1).getName();
 
-        String resultingValue = null;
-
         int numRules = ruleSetNode.getRegularRules().size();
 
         ExecutorService executorService = Executors.newFixedThreadPool(numRules);
-        CompletionService<String> completionService = new ExecutorCompletionService<>(executorService);
+        CompletionService<RegularRuleNode> completionService = new ExecutorCompletionService<>(executorService);
 
         List<RegularRuleNode> ruleNodes = new ArrayList<>(ruleSetNode.getRegularRules());
         Collections.shuffle(ruleNodes);
 
-        for (RegularRuleNode regularRuleNode : ruleNodes)
-            completionService.submit(() -> (String) visit(regularRuleNode, data));
+        // We run all the rules concurrently - and the choice is made based on the scheduling of the threads
+        // Now, the rule that returns first, and returns successfully, is the one whose tell is run.
+
+        // It was done this way because multiple dispatches occurring at the same time caused problems to shared variables
+        for (RegularRuleNode regularRuleNode : ruleNodes) {
+            Object finalData = data;
+            completionService.submit(() -> (RegularRuleNode) visit(regularRuleNode, finalData));
+        }
+
+        RegularRuleNode resultNode = null;
 
         int receivedCount = 0;
 
         while (!executorService.isTerminated() && receivedCount < numRules) {
             try {
-                Future<String> resultFuture = completionService.take();
-                String resultNode = resultFuture.get();
+                Future<RegularRuleNode> resultFuture = completionService.take();
+                resultNode = resultFuture.get();
                 if (resultNode != null) {
                     executorService.shutdownNow();
-                    resultingValue = (String) valueTable.findInScope(lastWriterVariable);
+                    break;
                 }
                 receivedCount++;
             } catch (InterruptedException ignored) {
@@ -146,11 +144,20 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             }
         }
 
+        if(resultNode != null) {
+            List<TellNode> tells = resultNode.getTells();
+
+            // In the context of a tell, the equals symbol behaves differently, so we must change the semantics
+            data = Flag.ASSIGN;
+            for (TellNode tellNode : tells)
+                visit(tellNode, data);
+        }
+
         if (!executorService.isTerminated())
             executorService.shutdownNow();
 
         // Null if no rule applicable, so final rule can apply
-        return resultingValue;
+        return valueTable.findInScope(lastWriterVariable);
     }
 
     @Override
