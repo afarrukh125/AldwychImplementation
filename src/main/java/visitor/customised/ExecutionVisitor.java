@@ -15,7 +15,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     private final ValueTable<String, Structure> structureTable;
     private final MethodTable methodTable;
 
-    private final String STRUCTURE_IDENTIFIER = "\u0000";
+    private static final String STRUCTURE_IDENTIFIER = "\u0000";
 
 
     public ExecutionVisitor() {
