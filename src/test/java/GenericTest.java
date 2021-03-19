@@ -25,7 +25,14 @@ public abstract class GenericTest {
 
     @Test
     public final void performTest() throws IOException {
-        String result = ExecuteUtils.runAndReturn("testsuite/" + fileName);
-        assert resultSet.contains(result);
+        Set<String> retrievedResults = new HashSet<>();
+
+        int attempts = 0;
+        while(!retrievedResults.equals(resultSet) && attempts < 1000) {
+            String result = ExecuteUtils.runAndReturn("testsuite/" + fileName);
+            retrievedResults.add(result);
+            attempts++;
+        }
+        assert retrievedResults.equals(resultSet);
     }
 }
