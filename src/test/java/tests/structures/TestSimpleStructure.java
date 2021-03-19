@@ -1,3 +1,7 @@
+package tests.structures;
+
+import tests.GenericTest;
+
 public class TestSimpleStructure extends GenericTest {
 
     private static final String FILE_NAME = "SimpleStructure.ald";

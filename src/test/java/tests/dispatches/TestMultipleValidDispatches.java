@@ -1,3 +1,7 @@
+package tests.dispatches;
+
+import tests.GenericTest;
+
 public class TestMultipleValidDispatches extends GenericTest {
 
     public TestMultipleValidDispatches() {

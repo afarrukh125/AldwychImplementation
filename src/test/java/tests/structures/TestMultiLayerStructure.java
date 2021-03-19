@@ -1,3 +1,6 @@
+package tests.structures;
+import tests.GenericTest;
+
 public class TestMultiLayerStructure extends GenericTest {
     private static final String FILE_NAME = "MultiLayerStructure.ald";
 

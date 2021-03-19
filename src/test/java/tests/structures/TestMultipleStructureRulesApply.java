@@ -1,3 +1,6 @@
+package tests.structures;
+import tests.GenericTest;
+
 public class TestMultipleStructureRulesApply extends GenericTest {
 
     private static final String FILE_NAME = "MultipleStructureRulesApply.ald";

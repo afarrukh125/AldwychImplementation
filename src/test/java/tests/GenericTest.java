@@ -1,3 +1,5 @@
+package tests;
+
 import helpers.ExecuteUtils;
 import org.junit.jupiter.api.Test;
 

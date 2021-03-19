@@ -1,3 +1,7 @@
+package tests.simple;
+
+import tests.GenericTest;
+
 public class TestSimpleArith extends GenericTest {
 
     private static final String ARITH_FILE = "SimpleArith.ald";

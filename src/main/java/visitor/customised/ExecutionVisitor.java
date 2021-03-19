@@ -1,6 +1,9 @@
 package visitor.customised;
 
-import helpers.*;
+import helpers.Flag;
+import helpers.MethodTable;
+import helpers.Structure;
+import helpers.ValueTable;
 import nodes.*;
 
 import java.util.ArrayList;
