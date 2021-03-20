@@ -1,6 +1,5 @@
 package nodes;
 
-import helpers.RuleComponent;
 import visitor.customised.CustomVisitor;
 
 public class AskNode extends TreeNode implements RuleComponent {

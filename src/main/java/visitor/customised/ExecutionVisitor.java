@@ -295,6 +295,17 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
+    public Object visit(NEqNode nEqNode, Object data) {
+        String left = (String) visit(nEqNode.getLeft(), data);
+        String right = (String) visit(nEqNode.getRight(), data);
+
+        if(left == null || right == null)
+            return Boolean.toString(false);
+
+        return Boolean.toString(left.equals(right));
+    }
+
+    @Override
     public Object visit(LTNode ltNode, Object data) {
         int left = parseIntegerOperand(ltNode.getLeft(), data);
         int right = parseIntegerOperand(ltNode.getRight(), data);

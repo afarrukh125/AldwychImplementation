@@ -148,6 +148,11 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
+    public Object visit(NEqNode nEqNode, Object data) {
+        return null;
+    }
+
+    @Override
     public Object visit(LTNode ltNode, Object data) {
         return null;
     }

@@ -253,6 +253,11 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
+    public TreeNode visitNEqNode(AldParser.NEqNodeContext ctx) {
+        return super.visitNEqNode(ctx);
+    }
+
+    @Override
     public TreeNode visitDispatchNode(AldParser.DispatchNodeContext ctx) {
         List<ExpressionNode> exprs = new ArrayList<>();
         for (AldParser.ExprContext exprContext : ctx.expr())

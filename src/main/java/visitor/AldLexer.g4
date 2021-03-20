@@ -57,6 +57,7 @@ GREATER_THAN                : '>';
 GREATER_EQ                  : '>=';
 LESS_EQ                     : '<=';
 LESS                        : '<';
+NOT_EQUAL                   : '!=';
 COMMA                       : ',';
 
 /* Arithmetic operations */

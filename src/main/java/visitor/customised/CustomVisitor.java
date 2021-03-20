@@ -28,6 +28,8 @@ public interface CustomVisitor<T, D> {
 
     T visit(LEqNode lEqNode, D data);
 
+    T visit(NEqNode nEqNode, D data);
+
     T visit(LTNode ltNode, D data);
     T visit(MulNode mulNode, D data);
 

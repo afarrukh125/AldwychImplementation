@@ -70,6 +70,7 @@ expr
     | expr EQUALS expr                                                      # EqNode
     | expr GREATER_EQ expr                                                  # GEqNode
     | expr GREATER_THAN expr                                                # GTNode
+    | expr NOT_EQUAL expr                                                   # NEqNode
     | ID                                                                    # IdentifierNode
     | INTEGER                                                               # IntegerNode
     | STRING_CONST                                                          # StringConstNode
