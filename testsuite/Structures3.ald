@@ -1,9 +1,6 @@
 #main(args)->()
 {
- b = two(22, 23);
- k = try(21, b);
- structurise(k)->r;
- print(r);
+    || b=two(22,23), k=try(21, b), structurise(k)->r, print(r);
 }
 
 #structurise(t)->res

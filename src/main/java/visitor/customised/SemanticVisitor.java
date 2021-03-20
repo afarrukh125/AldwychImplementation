@@ -77,14 +77,17 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(FinalRuleNode finalRuleNode, Object data) {
-        HeadingStringData headingStringData = (HeadingStringData) data;
-        Set<String> writers = headingStringData.getWriters();
-        String procedureName = headingStringData.getProcedureName();
 
-        for (TellNode tellNode : finalRuleNode.getTells()) {
-            if (tellNode.getExpressionNode() instanceof BinOpNode) {
-                BinOpNode binOpNode = (BinOpNode) tellNode.getExpressionNode();
-                checkAndReportBinOpNode(procedureName, binOpNode, writers, Mode.WRITE);
+        if(data != null) {
+            HeadingStringData headingStringData = (HeadingStringData) data;
+            Set<String> writers = headingStringData.getWriters();
+            String procedureName = headingStringData.getProcedureName();
+
+            for (TellNode tellNode : finalRuleNode.getTells()) {
+                if (tellNode.getExpressionNode() instanceof BinOpNode) {
+                    BinOpNode binOpNode = (BinOpNode) tellNode.getExpressionNode();
+                    checkAndReportBinOpNode(procedureName, binOpNode, writers, Mode.WRITE);
+                }
             }
         }
 
@@ -246,16 +249,8 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
-    public Object visit(SequentialProcedureNode sequentialProcedureNode, Object data) {
-        visit(sequentialProcedureNode.getSequentialBody(), data);
-        return null;
-    }
-
-    @Override
-    public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
-        data = Flag.ASSIGN;
-        for (ExpressionNode expr : sequentialBodyNode.getExpressions())
-            visit(expr, data);
+    public Object visit(MainProcedureNode mainProcedureNode, Object data) {
+        visit(mainProcedureNode.getFinalRuleNode(), data);
         return null;
     }
 

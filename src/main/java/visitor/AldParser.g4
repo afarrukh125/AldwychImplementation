@@ -3,19 +3,15 @@ parser grammar AldParser;
 options { tokenVocab = AldLexer; }
 
 aldwychClass
-    : seqprocedure (declaration)* EOF;
+    : (declaration)* mainprocedure (declaration)* EOF;
 
 declaration
     : heading CURLY_OPEN body CURLY_CLOSE                                   # ProcedureNode
     | ID EQUALS expr SEMICOLON                                              # DeclarationNode
     ;
 
-seqprocedure
-    : heading CURLY_OPEN seqbody CURLY_CLOSE                                # SequentialProcedureNode
-    ;
-
-seqbody
-    : (expr SEMICOLON)+
+mainprocedure
+    : heading CURLY_OPEN finalrule SEMICOLON CURLY_CLOSE                    # MainProcedureNode
     ;
 
 heading

@@ -59,9 +59,7 @@ public interface CustomVisitor<T, D> {
 
     T visit(StringConstNode stringConstNode, D data);
 
-    T visit(SequentialProcedureNode sequentialProcedureNode, D data);
-
-    T visit(SequentialBodyNode sequentialBodyNode, D data);
+    T visit(MainProcedureNode mainProcedureNode, D data);
 
     T visit(RuleSetNode ruleSetNode, D data);
 

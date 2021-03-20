@@ -85,23 +85,15 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
-    public Object visit(SequentialProcedureNode sequentialProcedureNode, Object data) {
+    public Object visit(MainProcedureNode mainProcedureNode, Object data) {
         valueTable.enterScope();
         structureTable.enterScope();
         data = Flag.ASSIGN;
-        visit(sequentialProcedureNode.getHeadingNode(), data);
-        Object body = visit(sequentialProcedureNode.getSequentialBody(), data);
+        visit(mainProcedureNode.getHeadingNode(), data);
+        Object body = visit(mainProcedureNode.getFinalRuleNode(), data);
         valueTable.exitScope();
         structureTable.exitScope();
         return body;
-    }
-
-    @Override
-    public Object visit(SequentialBodyNode sequentialBodyNode, Object data) {
-        String lastExpressionEvaluated = null;
-        for (ExpressionNode expressionNode : sequentialBodyNode.getExpressions())
-            lastExpressionEvaluated = (String) visit(expressionNode, data);
-        return lastExpressionEvaluated;
     }
 
     @SuppressWarnings("unchecked")

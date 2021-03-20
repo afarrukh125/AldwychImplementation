@@ -1,9 +1,5 @@
 #main(args)->() {
- m = two(18, 19);
- y = one(20);
- z = try(y, m);
- add(z)->r;
- print(r);
+        || m = two(18, 19), y = one(20), z = try(y, m), add(z)->r, print(r);
 }
 
 #add(t)->res {

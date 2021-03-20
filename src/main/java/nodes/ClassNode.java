@@ -8,11 +8,11 @@ import java.util.List;
 
 public class ClassNode extends TreeNode {
     List<ProcedureNode> procedureNodeList;
-    SequentialProcedureNode sequentialProcedureNode;
+    MainProcedureNode mainProcedureNode;
 
-    public ClassNode(SequentialProcedureNode sequentialProcedureNode) {
+    public ClassNode(MainProcedureNode mainProcedureNode) {
         procedureNodeList = new ArrayList<>();
-        this.sequentialProcedureNode = sequentialProcedureNode;
+        this.mainProcedureNode = mainProcedureNode;
     }
 
     @Override
@@ -24,8 +24,8 @@ public class ClassNode extends TreeNode {
         procedureNodeList.add(procedureNode);
     }
 
-    public SequentialProcedureNode getSequentialProcedureNode() {
-        return sequentialProcedureNode;
+    public MainProcedureNode getSequentialProcedureNode() {
+        return mainProcedureNode;
     }
 
     public List<ProcedureNode> getProcedures() {

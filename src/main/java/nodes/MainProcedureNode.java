@@ -2,14 +2,14 @@ package nodes;
 
 import visitor.customised.CustomVisitor;
 
-public class SequentialProcedureNode extends Subroutine {
+public class MainProcedureNode extends Subroutine {
 
     private final HeadingNode headingNode;
-    private final SequentialBodyNode body;
+    private final FinalRuleNode finalRuleNode;
 
-    public SequentialProcedureNode(HeadingNode headingNode, SequentialBodyNode body) {
+    public MainProcedureNode(HeadingNode headingNode, FinalRuleNode finalRuleNode) {
         this.headingNode = headingNode;
-        this.body = body;
+        this.finalRuleNode = finalRuleNode;
     }
 
     @Override
@@ -17,8 +17,8 @@ public class SequentialProcedureNode extends Subroutine {
         return headingNode;
     }
 
-    public SequentialBodyNode getSequentialBody() {
-        return body;
+    public FinalRuleNode getFinalRuleNode() {
+        return finalRuleNode;
     }
 
     @Override

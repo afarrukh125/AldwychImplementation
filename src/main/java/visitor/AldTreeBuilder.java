@@ -16,9 +16,9 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     public TreeNode visitAldwychClass(AldParser.AldwychClassContext ctx) {
 
         // One sequential procedure per class
-        AldParser.SeqprocedureContext seqprocedureContext = ctx.seqprocedure();
-        SequentialProcedureNode seqProcedureResult = (SequentialProcedureNode) visit(seqprocedureContext);
+        AldParser.MainprocedureContext mainProcedureContext = ctx.mainprocedure();
 
+        MainProcedureNode seqProcedureResult = (MainProcedureNode) visit(mainProcedureContext);
         ClassNode classNode = new ClassNode(seqProcedureResult);
 
         for (AldParser.DeclarationContext decl : ctx.declaration()) {
@@ -77,18 +77,10 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitSequentialProcedureNode(AldParser.SequentialProcedureNodeContext ctx) {
+    public TreeNode visitMainProcedureNode(AldParser.MainProcedureNodeContext ctx) {
         HeadingNode headingNode = (HeadingNode) visit(ctx.heading());
-        SequentialBodyNode bodyNode = (SequentialBodyNode) visit(ctx.seqbody());
-        return new SequentialProcedureNode(headingNode, bodyNode);
-    }
-
-    @Override
-    public TreeNode visitSeqbody(AldParser.SeqbodyContext ctx) {
-        SequentialBodyNode sequentialBodyNode = new SequentialBodyNode();
-        for (AldParser.ExprContext exprContext : ctx.expr())
-            sequentialBodyNode.addExpression((ExpressionNode) visit(exprContext));
-        return sequentialBodyNode;
+        FinalRuleNode finalRuleNode = (FinalRuleNode) visit(ctx.finalrule());
+        return new MainProcedureNode(headingNode, finalRuleNode);
     }
 
     @Override

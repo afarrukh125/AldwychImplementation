@@ -37,14 +37,7 @@ public class AldParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> impleme
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSequentialProcedureNode(AldParser.SequentialProcedureNodeContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitSeqbody(AldParser.SeqbodyContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMainProcedureNode(AldParser.MainProcedureNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

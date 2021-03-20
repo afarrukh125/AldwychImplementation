@@ -51,25 +51,13 @@ public class AldParserBaseListener implements AldParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSequentialProcedureNode(AldParser.SequentialProcedureNodeContext ctx) { }
+	@Override public void enterMainProcedureNode(AldParser.MainProcedureNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSequentialProcedureNode(AldParser.SequentialProcedureNodeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSeqbody(AldParser.SeqbodyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSeqbody(AldParser.SeqbodyContext ctx) { }
+	@Override public void exitMainProcedureNode(AldParser.MainProcedureNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

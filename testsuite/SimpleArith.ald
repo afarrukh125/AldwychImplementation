@@ -1,12 +1,6 @@
 #main(args)->()
 {
- x=3;
- y=5;
- z=10;
-
- addTwo(x,y,z)->res;
-
- print(res);
+    || x=3, y=5, z=10, addTwo(x,y,z)->res, print(res);
 }
 
 #addTwo(a,b,c)->r

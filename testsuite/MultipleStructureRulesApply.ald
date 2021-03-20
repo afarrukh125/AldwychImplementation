@@ -1,7 +1,5 @@
 #main(args)->() {
- m = three(59, 60, 61);
- add(m)->r;
- print(r);
+    || m=three(59, 60, 61), add(m)->r, print(r);
 }
 
 #add(t)->res {
