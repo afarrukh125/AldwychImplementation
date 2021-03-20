@@ -8,7 +8,7 @@ import java.util.List;
 
 public class WriterContainerNode extends TreeNode {
 
-    List<WriterNode> writers;
+    private final List<WriterNode> writers;
 
     public WriterContainerNode() {
         super();

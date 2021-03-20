@@ -1,4 +1,4 @@
-package visitor;// Generated from AldParser.g4 by ANTLR 4.5.3
+package visitor;// Generated from AldwychParser.g4 by ANTLR 4.5.3
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.tree.*;
 import java.util.List;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class AldParser extends Parser {
+public class AldwychParser extends Parser {
 	static { RuntimeMetaData.checkVersion("4.5.3", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
@@ -75,7 +75,7 @@ public class AldParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "visitor/AldParser.g4"; }
+	public String getGrammarFileName() { return "visitor/AldwychParser.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }
@@ -86,7 +86,7 @@ public class AldParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
-	public AldParser(TokenStream input) {
+	public AldwychParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
@@ -94,7 +94,7 @@ public class AldParser extends Parser {
 		public MainprocedureContext mainprocedure() {
 			return getRuleContext(MainprocedureContext.class,0);
 		}
-		public TerminalNode EOF() { return getToken(AldParser.EOF, 0); }
+		public TerminalNode EOF() { return getToken(AldwychParser.EOF, 0); }
 		public List<DeclarationContext> declaration() {
 			return getRuleContexts(DeclarationContext.class);
 		}
@@ -107,15 +107,15 @@ public class AldParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_aldwychClass; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterAldwychClass(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterAldwychClass(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitAldwychClass(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitAldwychClass(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitAldwychClass(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitAldwychClass(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -187,24 +187,24 @@ public class AldParser extends Parser {
 		}
 	}
 	public static class DeclarationNodeContext extends DeclarationContext {
-		public TerminalNode ID() { return getToken(AldParser.ID, 0); }
-		public TerminalNode EQUALS() { return getToken(AldParser.EQUALS, 0); }
+		public TerminalNode ID() { return getToken(AldwychParser.ID, 0); }
+		public TerminalNode EQUALS() { return getToken(AldwychParser.EQUALS, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
-		public TerminalNode SEMICOLON() { return getToken(AldParser.SEMICOLON, 0); }
+		public TerminalNode SEMICOLON() { return getToken(AldwychParser.SEMICOLON, 0); }
 		public DeclarationNodeContext(DeclarationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterDeclarationNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterDeclarationNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitDeclarationNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitDeclarationNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitDeclarationNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitDeclarationNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -212,23 +212,23 @@ public class AldParser extends Parser {
 		public HeadingContext heading() {
 			return getRuleContext(HeadingContext.class,0);
 		}
-		public TerminalNode CURLY_OPEN() { return getToken(AldParser.CURLY_OPEN, 0); }
+		public TerminalNode CURLY_OPEN() { return getToken(AldwychParser.CURLY_OPEN, 0); }
 		public BodyContext body() {
 			return getRuleContext(BodyContext.class,0);
 		}
-		public TerminalNode CURLY_CLOSE() { return getToken(AldParser.CURLY_CLOSE, 0); }
+		public TerminalNode CURLY_CLOSE() { return getToken(AldwychParser.CURLY_CLOSE, 0); }
 		public ProcedureNodeContext(DeclarationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterProcedureNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterProcedureNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitProcedureNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitProcedureNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitProcedureNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitProcedureNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -297,24 +297,24 @@ public class AldParser extends Parser {
 		public HeadingContext heading() {
 			return getRuleContext(HeadingContext.class,0);
 		}
-		public TerminalNode CURLY_OPEN() { return getToken(AldParser.CURLY_OPEN, 0); }
+		public TerminalNode CURLY_OPEN() { return getToken(AldwychParser.CURLY_OPEN, 0); }
 		public FinalruleContext finalrule() {
 			return getRuleContext(FinalruleContext.class,0);
 		}
-		public TerminalNode SEMICOLON() { return getToken(AldParser.SEMICOLON, 0); }
-		public TerminalNode CURLY_CLOSE() { return getToken(AldParser.CURLY_CLOSE, 0); }
+		public TerminalNode SEMICOLON() { return getToken(AldwychParser.SEMICOLON, 0); }
+		public TerminalNode CURLY_CLOSE() { return getToken(AldwychParser.CURLY_CLOSE, 0); }
 		public MainProcedureNodeContext(MainprocedureContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterMainProcedureNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterMainProcedureNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitMainProcedureNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitMainProcedureNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitMainProcedureNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitMainProcedureNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -362,15 +362,15 @@ public class AldParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_heading; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterHeading(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterHeading(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitHeading(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitHeading(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitHeading(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitHeading(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -399,23 +399,23 @@ public class AldParser extends Parser {
 	}
 
 	public static class NameContext extends ParserRuleContext {
-		public TerminalNode HASH() { return getToken(AldParser.HASH, 0); }
-		public TerminalNode ID() { return getToken(AldParser.ID, 0); }
+		public TerminalNode HASH() { return getToken(AldwychParser.HASH, 0); }
+		public TerminalNode ID() { return getToken(AldwychParser.ID, 0); }
 		public NameContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_name; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterName(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterName(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitName(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitName(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitName(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitName(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -447,7 +447,7 @@ public class AldParser extends Parser {
 		public ReadersContext readers() {
 			return getRuleContext(ReadersContext.class,0);
 		}
-		public TerminalNode ARROW() { return getToken(AldParser.ARROW, 0); }
+		public TerminalNode ARROW() { return getToken(AldwychParser.ARROW, 0); }
 		public WritersContext writers() {
 			return getRuleContext(WritersContext.class,0);
 		}
@@ -457,15 +457,15 @@ public class AldParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_formals; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterFormals(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterFormals(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitFormals(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitFormals(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitFormals(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitFormals(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -496,15 +496,15 @@ public class AldParser extends Parser {
 	}
 
 	public static class ReadersContext extends ParserRuleContext {
-		public List<TerminalNode> ID() { return getTokens(AldParser.ID); }
+		public List<TerminalNode> ID() { return getTokens(AldwychParser.ID); }
 		public TerminalNode ID(int i) {
-			return getToken(AldParser.ID, i);
+			return getToken(AldwychParser.ID, i);
 		}
-		public TerminalNode PARENT_OPEN() { return getToken(AldParser.PARENT_OPEN, 0); }
-		public TerminalNode PARENT_CLOSE() { return getToken(AldParser.PARENT_CLOSE, 0); }
-		public List<TerminalNode> COMMA() { return getTokens(AldParser.COMMA); }
+		public TerminalNode PARENT_OPEN() { return getToken(AldwychParser.PARENT_OPEN, 0); }
+		public TerminalNode PARENT_CLOSE() { return getToken(AldwychParser.PARENT_CLOSE, 0); }
+		public List<TerminalNode> COMMA() { return getTokens(AldwychParser.COMMA); }
 		public TerminalNode COMMA(int i) {
-			return getToken(AldParser.COMMA, i);
+			return getToken(AldwychParser.COMMA, i);
 		}
 		public ReadersContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -512,15 +512,15 @@ public class AldParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_readers; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterReaders(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterReaders(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitReaders(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitReaders(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitReaders(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitReaders(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -592,15 +592,15 @@ public class AldParser extends Parser {
 	}
 
 	public static class WritersContext extends ParserRuleContext {
-		public List<TerminalNode> ID() { return getTokens(AldParser.ID); }
+		public List<TerminalNode> ID() { return getTokens(AldwychParser.ID); }
 		public TerminalNode ID(int i) {
-			return getToken(AldParser.ID, i);
+			return getToken(AldwychParser.ID, i);
 		}
-		public TerminalNode PARENT_OPEN() { return getToken(AldParser.PARENT_OPEN, 0); }
-		public TerminalNode PARENT_CLOSE() { return getToken(AldParser.PARENT_CLOSE, 0); }
-		public List<TerminalNode> COMMA() { return getTokens(AldParser.COMMA); }
+		public TerminalNode PARENT_OPEN() { return getToken(AldwychParser.PARENT_OPEN, 0); }
+		public TerminalNode PARENT_CLOSE() { return getToken(AldwychParser.PARENT_CLOSE, 0); }
+		public List<TerminalNode> COMMA() { return getTokens(AldwychParser.COMMA); }
 		public TerminalNode COMMA(int i) {
-			return getToken(AldParser.COMMA, i);
+			return getToken(AldwychParser.COMMA, i);
 		}
 		public WritersContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -608,15 +608,15 @@ public class AldParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_writers; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterWriters(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterWriters(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitWriters(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitWriters(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitWriters(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitWriters(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -703,15 +703,15 @@ public class AldParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_body; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterBody(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterBody(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitBody(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitBody(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitBody(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitBody(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -753,16 +753,16 @@ public class AldParser extends Parser {
 	}
 
 	public static class RulesetContext extends ParserRuleContext {
-		public TerminalNode COLON() { return getToken(AldParser.COLON, 0); }
+		public TerminalNode COLON() { return getToken(AldwychParser.COLON, 0); }
 		public List<RegularruleContext> regularrule() {
 			return getRuleContexts(RegularruleContext.class);
 		}
 		public RegularruleContext regularrule(int i) {
 			return getRuleContext(RegularruleContext.class,i);
 		}
-		public List<TerminalNode> SEMICOLON() { return getTokens(AldParser.SEMICOLON); }
+		public List<TerminalNode> SEMICOLON() { return getTokens(AldwychParser.SEMICOLON); }
 		public TerminalNode SEMICOLON(int i) {
-			return getToken(AldParser.SEMICOLON, i);
+			return getToken(AldwychParser.SEMICOLON, i);
 		}
 		public RulesetContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -770,15 +770,15 @@ public class AldParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_ruleset; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterRuleset(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterRuleset(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitRuleset(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitRuleset(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitRuleset(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitRuleset(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -828,16 +828,16 @@ public class AldParser extends Parser {
 		public AskContext ask(int i) {
 			return getRuleContext(AskContext.class,i);
 		}
-		public TerminalNode PRED_SEPARATOR() { return getToken(AldParser.PRED_SEPARATOR, 0); }
+		public TerminalNode PRED_SEPARATOR() { return getToken(AldwychParser.PRED_SEPARATOR, 0); }
 		public List<TellContext> tell() {
 			return getRuleContexts(TellContext.class);
 		}
 		public TellContext tell(int i) {
 			return getRuleContext(TellContext.class,i);
 		}
-		public List<TerminalNode> COMMA() { return getTokens(AldParser.COMMA); }
+		public List<TerminalNode> COMMA() { return getTokens(AldwychParser.COMMA); }
 		public TerminalNode COMMA(int i) {
-			return getToken(AldParser.COMMA, i);
+			return getToken(AldwychParser.COMMA, i);
 		}
 		public RegularruleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -845,15 +845,15 @@ public class AldParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_regularrule; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterRegularrule(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterRegularrule(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitRegularrule(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitRegularrule(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitRegularrule(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitRegularrule(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -934,15 +934,15 @@ public class AldParser extends Parser {
 		public AskNodeContext(AskContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterAskNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterAskNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitAskNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitAskNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitAskNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitAskNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -987,15 +987,15 @@ public class AldParser extends Parser {
 		public TellNodeContext(TellContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterTellNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterTellNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitTellNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitTellNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitTellNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitTellNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1023,16 +1023,16 @@ public class AldParser extends Parser {
 	}
 
 	public static class FinalruleContext extends ParserRuleContext {
-		public TerminalNode PRED_SEPARATOR() { return getToken(AldParser.PRED_SEPARATOR, 0); }
+		public TerminalNode PRED_SEPARATOR() { return getToken(AldwychParser.PRED_SEPARATOR, 0); }
 		public List<TellContext> tell() {
 			return getRuleContexts(TellContext.class);
 		}
 		public TellContext tell(int i) {
 			return getRuleContext(TellContext.class,i);
 		}
-		public List<TerminalNode> COMMA() { return getTokens(AldParser.COMMA); }
+		public List<TerminalNode> COMMA() { return getTokens(AldwychParser.COMMA); }
 		public TerminalNode COMMA(int i) {
-			return getToken(AldParser.COMMA, i);
+			return getToken(AldwychParser.COMMA, i);
 		}
 		public FinalruleContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1040,15 +1040,15 @@ public class AldParser extends Parser {
 		@Override public int getRuleIndex() { return RULE_finalrule; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterFinalrule(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterFinalrule(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitFinalrule(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitFinalrule(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitFinalrule(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitFinalrule(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1105,68 +1105,68 @@ public class AldParser extends Parser {
 		}
 	}
 	public static class DispatchNodeContext extends ExprContext {
-		public List<TerminalNode> ID() { return getTokens(AldParser.ID); }
+		public List<TerminalNode> ID() { return getTokens(AldwychParser.ID); }
 		public TerminalNode ID(int i) {
-			return getToken(AldParser.ID, i);
+			return getToken(AldwychParser.ID, i);
 		}
-		public TerminalNode PARENT_OPEN() { return getToken(AldParser.PARENT_OPEN, 0); }
-		public TerminalNode PARENT_CLOSE() { return getToken(AldParser.PARENT_CLOSE, 0); }
+		public TerminalNode PARENT_OPEN() { return getToken(AldwychParser.PARENT_OPEN, 0); }
+		public TerminalNode PARENT_CLOSE() { return getToken(AldwychParser.PARENT_CLOSE, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode ARROW() { return getToken(AldParser.ARROW, 0); }
-		public List<TerminalNode> COMMA() { return getTokens(AldParser.COMMA); }
+		public TerminalNode ARROW() { return getToken(AldwychParser.ARROW, 0); }
+		public List<TerminalNode> COMMA() { return getTokens(AldwychParser.COMMA); }
 		public TerminalNode COMMA(int i) {
-			return getToken(AldParser.COMMA, i);
+			return getToken(AldwychParser.COMMA, i);
 		}
 		public DispatchNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterDispatchNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterDispatchNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitDispatchNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitDispatchNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitDispatchNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitDispatchNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class StructureEqNodeContext extends ExprContext {
-		public List<TerminalNode> ID() { return getTokens(AldParser.ID); }
+		public List<TerminalNode> ID() { return getTokens(AldwychParser.ID); }
 		public TerminalNode ID(int i) {
-			return getToken(AldParser.ID, i);
+			return getToken(AldwychParser.ID, i);
 		}
-		public TerminalNode EQUALS() { return getToken(AldParser.EQUALS, 0); }
-		public TerminalNode PARENT_OPEN() { return getToken(AldParser.PARENT_OPEN, 0); }
-		public TerminalNode PARENT_CLOSE() { return getToken(AldParser.PARENT_CLOSE, 0); }
+		public TerminalNode EQUALS() { return getToken(AldwychParser.EQUALS, 0); }
+		public TerminalNode PARENT_OPEN() { return getToken(AldwychParser.PARENT_OPEN, 0); }
+		public TerminalNode PARENT_CLOSE() { return getToken(AldwychParser.PARENT_CLOSE, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public List<TerminalNode> COMMA() { return getTokens(AldParser.COMMA); }
+		public List<TerminalNode> COMMA() { return getTokens(AldwychParser.COMMA); }
 		public TerminalNode COMMA(int i) {
-			return getToken(AldParser.COMMA, i);
+			return getToken(AldwychParser.COMMA, i);
 		}
 		public StructureEqNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterStructureEqNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterStructureEqNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitStructureEqNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitStructureEqNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitStructureEqNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitStructureEqNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1177,19 +1177,19 @@ public class AldParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode GREATER_EQ() { return getToken(AldParser.GREATER_EQ, 0); }
+		public TerminalNode GREATER_EQ() { return getToken(AldwychParser.GREATER_EQ, 0); }
 		public GEqNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterGEqNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterGEqNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitGEqNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitGEqNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitGEqNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitGEqNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1200,87 +1200,87 @@ public class AldParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode GREATER_THAN() { return getToken(AldParser.GREATER_THAN, 0); }
+		public TerminalNode GREATER_THAN() { return getToken(AldwychParser.GREATER_THAN, 0); }
 		public GTNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterGTNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterGTNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitGTNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitGTNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitGTNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitGTNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class IntegerNodeContext extends ExprContext {
-		public TerminalNode INTEGER() { return getToken(AldParser.INTEGER, 0); }
+		public TerminalNode INTEGER() { return getToken(AldwychParser.INTEGER, 0); }
 		public IntegerNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterIntegerNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterIntegerNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitIntegerNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitIntegerNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitIntegerNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitIntegerNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class IdentifierNodeContext extends ExprContext {
-		public TerminalNode ID() { return getToken(AldParser.ID, 0); }
+		public TerminalNode ID() { return getToken(AldwychParser.ID, 0); }
 		public IdentifierNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterIdentifierNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterIdentifierNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitIdentifierNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitIdentifierNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitIdentifierNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitIdentifierNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class TrueContext extends ExprContext {
-		public TerminalNode TRUE() { return getToken(AldParser.TRUE, 0); }
+		public TerminalNode TRUE() { return getToken(AldwychParser.TRUE, 0); }
 		public TrueContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterTrue(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterTrue(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitTrue(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitTrue(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitTrue(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitTrue(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class FalseContext extends ExprContext {
-		public TerminalNode FALSE() { return getToken(AldParser.FALSE, 0); }
+		public TerminalNode FALSE() { return getToken(AldwychParser.FALSE, 0); }
 		public FalseContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterFalse(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterFalse(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitFalse(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitFalse(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitFalse(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitFalse(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1291,19 +1291,19 @@ public class AldParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode LESS_EQ() { return getToken(AldParser.LESS_EQ, 0); }
+		public TerminalNode LESS_EQ() { return getToken(AldwychParser.LESS_EQ, 0); }
 		public LEqNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterLEqNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterLEqNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitLEqNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitLEqNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitLEqNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitLEqNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1314,36 +1314,36 @@ public class AldParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode LESS() { return getToken(AldParser.LESS, 0); }
+		public TerminalNode LESS() { return getToken(AldwychParser.LESS, 0); }
 		public LtNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterLtNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterLtNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitLtNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitLtNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitLtNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitLtNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 	public static class StringConstNodeContext extends ExprContext {
-		public TerminalNode STRING_CONST() { return getToken(AldParser.STRING_CONST, 0); }
+		public TerminalNode STRING_CONST() { return getToken(AldwychParser.STRING_CONST, 0); }
 		public StringConstNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterStringConstNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterStringConstNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitStringConstNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitStringConstNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitStringConstNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitStringConstNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1354,20 +1354,20 @@ public class AldParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode MULT_OPERATOR() { return getToken(AldParser.MULT_OPERATOR, 0); }
-		public TerminalNode DIV_OPERATOR() { return getToken(AldParser.DIV_OPERATOR, 0); }
+		public TerminalNode MULT_OPERATOR() { return getToken(AldwychParser.MULT_OPERATOR, 0); }
+		public TerminalNode DIV_OPERATOR() { return getToken(AldwychParser.DIV_OPERATOR, 0); }
 		public DivMultNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterDivMultNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterDivMultNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitDivMultNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitDivMultNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitDivMultNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitDivMultNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1378,20 +1378,20 @@ public class AldParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode MINUS_OPERATOR() { return getToken(AldParser.MINUS_OPERATOR, 0); }
-		public TerminalNode PLUS_OPERATOR() { return getToken(AldParser.PLUS_OPERATOR, 0); }
+		public TerminalNode MINUS_OPERATOR() { return getToken(AldwychParser.MINUS_OPERATOR, 0); }
+		public TerminalNode PLUS_OPERATOR() { return getToken(AldwychParser.PLUS_OPERATOR, 0); }
 		public MinusPlusNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterMinusPlusNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterMinusPlusNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitMinusPlusNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitMinusPlusNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitMinusPlusNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitMinusPlusNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1402,19 +1402,19 @@ public class AldParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode EQUALS() { return getToken(AldParser.EQUALS, 0); }
+		public TerminalNode EQUALS() { return getToken(AldwychParser.EQUALS, 0); }
 		public EqNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterEqNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterEqNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitEqNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitEqNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitEqNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitEqNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1425,19 +1425,19 @@ public class AldParser extends Parser {
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode NOT_EQUAL() { return getToken(AldParser.NOT_EQUAL, 0); }
+		public TerminalNode NOT_EQUAL() { return getToken(AldwychParser.NOT_EQUAL, 0); }
 		public NEqNodeContext(ExprContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).enterNEqNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterNEqNode(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldParserListener ) ((AldParserListener)listener).exitNEqNode(this);
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitNEqNode(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldParserVisitor ) return ((AldParserVisitor<? extends T>)visitor).visitNEqNode(this);
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitNEqNode(this);
 			else return visitor.visitChildren(this);
 		}
 	}

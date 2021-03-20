@@ -1,4 +1,4 @@
-lexer grammar AldLexer;
+lexer grammar AldwychLexer;
 
 // StringBuilder in case we need to do some post-processing
 @lexer::members {

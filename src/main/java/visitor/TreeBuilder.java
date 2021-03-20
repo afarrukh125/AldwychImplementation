@@ -10,20 +10,20 @@ import java.util.List;
  * Used to build our tree to then execute afterwards
  * This is done as a frontend step
  */
-public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
+public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
 
     @Override
-    public TreeNode visitAldwychClass(AldParser.AldwychClassContext ctx) {
+    public TreeNode visitAldwychClass(AldwychParser.AldwychClassContext ctx) {
 
         // One sequential procedure per class
-        AldParser.MainprocedureContext mainProcedureContext = ctx.mainprocedure();
+        AldwychParser.MainprocedureContext mainProcedureContext = ctx.mainprocedure();
 
         MainProcedureNode seqProcedureResult = (MainProcedureNode) visit(mainProcedureContext);
         ClassNode classNode = new ClassNode(seqProcedureResult);
 
-        for (AldParser.DeclarationContext decl : ctx.declaration()) {
+        for (AldwychParser.DeclarationContext decl : ctx.declaration()) {
             TreeNode result = visit(decl);
-            if (decl instanceof AldParser.ProcedureNodeContext)
+            if (decl instanceof AldwychParser.ProcedureNodeContext)
                 classNode.addProcedureNode((ProcedureNode) result);
         }
 
@@ -31,14 +31,14 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitProcedureNode(AldParser.ProcedureNodeContext ctx) {
+    public TreeNode visitProcedureNode(AldwychParser.ProcedureNodeContext ctx) {
         HeadingNode headingNode = (HeadingNode) visit(ctx.heading());
         BodyNode bodyNode = (BodyNode) visit(ctx.body());
         return new ProcedureNode(headingNode, bodyNode);
     }
 
     @Override
-    public TreeNode visitHeading(AldParser.HeadingContext ctx) {
+    public TreeNode visitHeading(AldwychParser.HeadingContext ctx) {
         ReaderContainerNode readers = (ReaderContainerNode) visit(ctx.formals().readers());
         WriterContainerNode writers = (WriterContainerNode) visit(ctx.formals().writers());
 
@@ -47,27 +47,27 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitName(AldParser.NameContext ctx) {
+    public TreeNode visitName(AldwychParser.NameContext ctx) {
         return super.visitName(ctx);
     }
 
     @Override
-    public TreeNode visitFormals(AldParser.FormalsContext ctx) {
+    public TreeNode visitFormals(AldwychParser.FormalsContext ctx) {
         return super.visitFormals(ctx);
     }
 
     @Override
-    public TreeNode visitReaders(AldParser.ReadersContext ctx) {
+    public TreeNode visitReaders(AldwychParser.ReadersContext ctx) {
         ReaderContainerNode readers = new ReaderContainerNode();
 
         for (TerminalNode tn : ctx.ID())
-            readers.addReaderNode(new ReaderNode(tn.getText()));
+            readers.addReader(new ReaderNode(tn.getText()));
 
         return readers;
     }
 
     @Override
-    public TreeNode visitWriters(AldParser.WritersContext ctx) {
+    public TreeNode visitWriters(AldwychParser.WritersContext ctx) {
         WriterContainerNode writers = new WriterContainerNode();
 
         for (TerminalNode writer : ctx.ID())
@@ -77,17 +77,17 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitMainProcedureNode(AldParser.MainProcedureNodeContext ctx) {
+    public TreeNode visitMainProcedureNode(AldwychParser.MainProcedureNodeContext ctx) {
         HeadingNode headingNode = (HeadingNode) visit(ctx.heading());
         FinalRuleNode finalRuleNode = (FinalRuleNode) visit(ctx.finalrule());
         return new MainProcedureNode(headingNode, finalRuleNode);
     }
 
     @Override
-    public TreeNode visitBody(AldParser.BodyContext ctx) {
+    public TreeNode visitBody(AldwychParser.BodyContext ctx) {
         BodyNode bodyNode = new BodyNode();
 
-        for (AldParser.RulesetContext rulesetContext : ctx.ruleset())
+        for (AldwychParser.RulesetContext rulesetContext : ctx.ruleset())
             bodyNode.addRuleSet((RuleSetNode) visit(rulesetContext));
 
         bodyNode.setFinalRule((FinalRuleNode) visit(ctx.finalrule()));
@@ -95,11 +95,11 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitRuleset(AldParser.RulesetContext ctx) {
+    public TreeNode visitRuleset(AldwychParser.RulesetContext ctx) {
 
         RuleSetNode ruleSetNode = new RuleSetNode();
 
-        for (AldParser.RegularruleContext regularruleContext : ctx.regularrule())
+        for (AldwychParser.RegularruleContext regularruleContext : ctx.regularrule())
             ruleSetNode.addRegularRule((RegularRuleNode) visit(regularruleContext));
 
         return ruleSetNode;
@@ -107,15 +107,15 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitRegularrule(AldParser.RegularruleContext ctx) {
+    public TreeNode visitRegularrule(AldwychParser.RegularruleContext ctx) {
         RegularRuleNode regularRuleNode = new RegularRuleNode();
 
-        for (AldParser.AskContext askContext : ctx.ask()) {
+        for (AldwychParser.AskContext askContext : ctx.ask()) {
             AskNode askNode = (AskNode) visit(askContext);
             regularRuleNode.addAsk(askNode);
         }
 
-        for (AldParser.TellContext tellContext : ctx.tell()) {
+        for (AldwychParser.TellContext tellContext : ctx.tell()) {
             TellNode tellNode = (TellNode) visit(tellContext);
             regularRuleNode.addTell(tellNode);
         }
@@ -124,22 +124,22 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitAskNode(AldParser.AskNodeContext ctx) {
+    public TreeNode visitAskNode(AldwychParser.AskNodeContext ctx) {
         ExpressionNode expressionNode = (ExpressionNode) visit(ctx.expr());
         return new AskNode(expressionNode);
     }
 
     @Override
-    public TreeNode visitTellNode(AldParser.TellNodeContext ctx) {
+    public TreeNode visitTellNode(AldwychParser.TellNodeContext ctx) {
         ExpressionNode expressionNode = (ExpressionNode) visit(ctx.expr());
         return new TellNode(expressionNode);
     }
 
     @Override
-    public TreeNode visitFinalrule(AldParser.FinalruleContext ctx) {
+    public TreeNode visitFinalrule(AldwychParser.FinalruleContext ctx) {
         FinalRuleNode node = new FinalRuleNode();
 
-        for (AldParser.TellContext tellContext : ctx.tell()) {
+        for (AldwychParser.TellContext tellContext : ctx.tell()) {
             TellNode tellNode = (TellNode) visit(tellContext);
             node.addTell(tellNode);
         }
@@ -147,7 +147,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitLtNode(AldParser.LtNodeContext ctx) {
+    public TreeNode visitLtNode(AldwychParser.LtNodeContext ctx) {
         ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
         ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
@@ -155,12 +155,12 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitStringConstNode(AldParser.StringConstNodeContext ctx) {
+    public TreeNode visitStringConstNode(AldwychParser.StringConstNodeContext ctx) {
         return new StringConstNode(ctx.getText());
     }
 
     @Override
-    public TreeNode visitGEqNode(AldParser.GEqNodeContext ctx) {
+    public TreeNode visitGEqNode(AldwychParser.GEqNodeContext ctx) {
         ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
         ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
@@ -168,7 +168,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitGTNode(AldParser.GTNodeContext ctx) {
+    public TreeNode visitGTNode(AldwychParser.GTNodeContext ctx) {
         ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
         ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
@@ -176,7 +176,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitDivMultNode(AldParser.DivMultNodeContext ctx) {
+    public TreeNode visitDivMultNode(AldwychParser.DivMultNodeContext ctx) {
         ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
         ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
@@ -186,7 +186,7 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitMinusPlusNode(AldParser.MinusPlusNodeContext ctx) {
+    public TreeNode visitMinusPlusNode(AldwychParser.MinusPlusNodeContext ctx) {
         ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
         ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
@@ -196,48 +196,48 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitStructureEqNode(AldParser.StructureEqNodeContext ctx) {
+    public TreeNode visitStructureEqNode(AldwychParser.StructureEqNodeContext ctx) {
 
         String variableName = ctx.ID(0).getText();
         String structureName = ctx.ID(1).getText();
 
         List<ExpressionNode> exprs = new ArrayList<>();
 
-        for(AldParser.ExprContext exprContext : ctx.expr())
+        for(AldwychParser.ExprContext exprContext : ctx.expr())
             exprs.add((ExpressionNode) visit(exprContext));
 
         return new StructureNode(variableName, structureName, exprs);
     }
 
     @Override
-    public TreeNode visitIntegerNode(AldParser.IntegerNodeContext ctx) {
+    public TreeNode visitIntegerNode(AldwychParser.IntegerNodeContext ctx) {
         return new IntegerNode(ctx.getText());
     }
 
     @Override
-    public TreeNode visitEqNode(AldParser.EqNodeContext ctx) {
+    public TreeNode visitEqNode(AldwychParser.EqNodeContext ctx) {
         ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
         ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
         return new EqNode(left, right);
     }
 
     @Override
-    public TreeNode visitIdentifierNode(AldParser.IdentifierNodeContext ctx) {
+    public TreeNode visitIdentifierNode(AldwychParser.IdentifierNodeContext ctx) {
         return new IdentifierNode(ctx.ID().getText());
     }
 
     @Override
-    public TreeNode visitTrue(AldParser.TrueContext ctx) {
+    public TreeNode visitTrue(AldwychParser.TrueContext ctx) {
         return new BooleanNode(true);
     }
 
     @Override
-    public TreeNode visitFalse(AldParser.FalseContext ctx) {
+    public TreeNode visitFalse(AldwychParser.FalseContext ctx) {
         return new BooleanNode(false);
     }
 
     @Override
-    public TreeNode visitLEqNode(AldParser.LEqNodeContext ctx) {
+    public TreeNode visitLEqNode(AldwychParser.LEqNodeContext ctx) {
         ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
         ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
@@ -245,14 +245,14 @@ public class AldTreeBuilder extends AldParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitNEqNode(AldParser.NEqNodeContext ctx) {
+    public TreeNode visitNEqNode(AldwychParser.NEqNodeContext ctx) {
         return super.visitNEqNode(ctx);
     }
 
     @Override
-    public TreeNode visitDispatchNode(AldParser.DispatchNodeContext ctx) {
+    public TreeNode visitDispatchNode(AldwychParser.DispatchNodeContext ctx) {
         List<ExpressionNode> exprs = new ArrayList<>();
-        for (AldParser.ExprContext exprContext : ctx.expr())
+        for (AldwychParser.ExprContext exprContext : ctx.expr())
             exprs.add((ExpressionNode) visit(exprContext));
 
         if (ctx.ID().size() == 1)

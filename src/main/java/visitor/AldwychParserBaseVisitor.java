@@ -1,223 +1,223 @@
-package visitor;// Generated from AldParser.g4 by ANTLR 4.5.3
+package visitor;// Generated from AldwychParser.g4 by ANTLR 4.5.3
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
- * This class provides an empty implementation of {@link AldParserVisitor},
+ * This class provides an empty implementation of {@link AldwychParserVisitor},
  * which can be extended to create a visitor which only needs to handle a subset
  * of the available methods.
  *
  * @param <T> The return type of the visit operation. Use {@link Void} for
  * operations with no return type.
  */
-public class AldParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements AldParserVisitor<T> {
+public class AldwychParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements AldwychParserVisitor<T> {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAldwychClass(AldParser.AldwychClassContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAldwychClass(AldwychParser.AldwychClassContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitProcedureNode(AldParser.ProcedureNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitProcedureNode(AldwychParser.ProcedureNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDeclarationNode(AldParser.DeclarationNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDeclarationNode(AldwychParser.DeclarationNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMainProcedureNode(AldParser.MainProcedureNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMainProcedureNode(AldwychParser.MainProcedureNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitHeading(AldParser.HeadingContext ctx) { return visitChildren(ctx); }
+	@Override public T visitHeading(AldwychParser.HeadingContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitName(AldParser.NameContext ctx) { return visitChildren(ctx); }
+	@Override public T visitName(AldwychParser.NameContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFormals(AldParser.FormalsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFormals(AldwychParser.FormalsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitReaders(AldParser.ReadersContext ctx) { return visitChildren(ctx); }
+	@Override public T visitReaders(AldwychParser.ReadersContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitWriters(AldParser.WritersContext ctx) { return visitChildren(ctx); }
+	@Override public T visitWriters(AldwychParser.WritersContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBody(AldParser.BodyContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBody(AldwychParser.BodyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRuleset(AldParser.RulesetContext ctx) { return visitChildren(ctx); }
+	@Override public T visitRuleset(AldwychParser.RulesetContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRegularrule(AldParser.RegularruleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitRegularrule(AldwychParser.RegularruleContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAskNode(AldParser.AskNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAskNode(AldwychParser.AskNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTellNode(AldParser.TellNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTellNode(AldwychParser.TellNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFinalrule(AldParser.FinalruleContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFinalrule(AldwychParser.FinalruleContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDispatchNode(AldParser.DispatchNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDispatchNode(AldwychParser.DispatchNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStructureEqNode(AldParser.StructureEqNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStructureEqNode(AldwychParser.StructureEqNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitGEqNode(AldParser.GEqNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitGEqNode(AldwychParser.GEqNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitGTNode(AldParser.GTNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitGTNode(AldwychParser.GTNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIntegerNode(AldParser.IntegerNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIntegerNode(AldwychParser.IntegerNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIdentifierNode(AldParser.IdentifierNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIdentifierNode(AldwychParser.IdentifierNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTrue(AldParser.TrueContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTrue(AldwychParser.TrueContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFalse(AldParser.FalseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFalse(AldwychParser.FalseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLEqNode(AldParser.LEqNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLEqNode(AldwychParser.LEqNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLtNode(AldParser.LtNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLtNode(AldwychParser.LtNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStringConstNode(AldParser.StringConstNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStringConstNode(AldwychParser.StringConstNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDivMultNode(AldParser.DivMultNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDivMultNode(AldwychParser.DivMultNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMinusPlusNode(AldParser.MinusPlusNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMinusPlusNode(AldwychParser.MinusPlusNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitEqNode(AldParser.EqNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitEqNode(AldwychParser.EqNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitNEqNode(AldParser.NEqNodeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitNEqNode(AldwychParser.NEqNodeContext ctx) { return visitChildren(ctx); }
 }

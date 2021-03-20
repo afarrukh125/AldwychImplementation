@@ -1,375 +1,375 @@
-package visitor;// Generated from AldParser.g4 by ANTLR 4.5.3
+package visitor;// Generated from AldwychParser.g4 by ANTLR 4.5.3
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link AldParserListener},
+ * This class provides an empty implementation of {@link AldwychParserListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class AldParserBaseListener implements AldParserListener {
+public class AldwychParserBaseListener implements AldwychParserListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAldwychClass(AldParser.AldwychClassContext ctx) { }
+	@Override public void enterAldwychClass(AldwychParser.AldwychClassContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAldwychClass(AldParser.AldwychClassContext ctx) { }
+	@Override public void exitAldwychClass(AldwychParser.AldwychClassContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProcedureNode(AldParser.ProcedureNodeContext ctx) { }
+	@Override public void enterProcedureNode(AldwychParser.ProcedureNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProcedureNode(AldParser.ProcedureNodeContext ctx) { }
+	@Override public void exitProcedureNode(AldwychParser.ProcedureNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclarationNode(AldParser.DeclarationNodeContext ctx) { }
+	@Override public void enterDeclarationNode(AldwychParser.DeclarationNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclarationNode(AldParser.DeclarationNodeContext ctx) { }
+	@Override public void exitDeclarationNode(AldwychParser.DeclarationNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMainProcedureNode(AldParser.MainProcedureNodeContext ctx) { }
+	@Override public void enterMainProcedureNode(AldwychParser.MainProcedureNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMainProcedureNode(AldParser.MainProcedureNodeContext ctx) { }
+	@Override public void exitMainProcedureNode(AldwychParser.MainProcedureNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHeading(AldParser.HeadingContext ctx) { }
+	@Override public void enterHeading(AldwychParser.HeadingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHeading(AldParser.HeadingContext ctx) { }
+	@Override public void exitHeading(AldwychParser.HeadingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterName(AldParser.NameContext ctx) { }
+	@Override public void enterName(AldwychParser.NameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitName(AldParser.NameContext ctx) { }
+	@Override public void exitName(AldwychParser.NameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFormals(AldParser.FormalsContext ctx) { }
+	@Override public void enterFormals(AldwychParser.FormalsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFormals(AldParser.FormalsContext ctx) { }
+	@Override public void exitFormals(AldwychParser.FormalsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReaders(AldParser.ReadersContext ctx) { }
+	@Override public void enterReaders(AldwychParser.ReadersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReaders(AldParser.ReadersContext ctx) { }
+	@Override public void exitReaders(AldwychParser.ReadersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWriters(AldParser.WritersContext ctx) { }
+	@Override public void enterWriters(AldwychParser.WritersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWriters(AldParser.WritersContext ctx) { }
+	@Override public void exitWriters(AldwychParser.WritersContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBody(AldParser.BodyContext ctx) { }
+	@Override public void enterBody(AldwychParser.BodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBody(AldParser.BodyContext ctx) { }
+	@Override public void exitBody(AldwychParser.BodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRuleset(AldParser.RulesetContext ctx) { }
+	@Override public void enterRuleset(AldwychParser.RulesetContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRuleset(AldParser.RulesetContext ctx) { }
+	@Override public void exitRuleset(AldwychParser.RulesetContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRegularrule(AldParser.RegularruleContext ctx) { }
+	@Override public void enterRegularrule(AldwychParser.RegularruleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRegularrule(AldParser.RegularruleContext ctx) { }
+	@Override public void exitRegularrule(AldwychParser.RegularruleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAskNode(AldParser.AskNodeContext ctx) { }
+	@Override public void enterAskNode(AldwychParser.AskNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAskNode(AldParser.AskNodeContext ctx) { }
+	@Override public void exitAskNode(AldwychParser.AskNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTellNode(AldParser.TellNodeContext ctx) { }
+	@Override public void enterTellNode(AldwychParser.TellNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTellNode(AldParser.TellNodeContext ctx) { }
+	@Override public void exitTellNode(AldwychParser.TellNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFinalrule(AldParser.FinalruleContext ctx) { }
+	@Override public void enterFinalrule(AldwychParser.FinalruleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFinalrule(AldParser.FinalruleContext ctx) { }
+	@Override public void exitFinalrule(AldwychParser.FinalruleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDispatchNode(AldParser.DispatchNodeContext ctx) { }
+	@Override public void enterDispatchNode(AldwychParser.DispatchNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDispatchNode(AldParser.DispatchNodeContext ctx) { }
+	@Override public void exitDispatchNode(AldwychParser.DispatchNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStructureEqNode(AldParser.StructureEqNodeContext ctx) { }
+	@Override public void enterStructureEqNode(AldwychParser.StructureEqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStructureEqNode(AldParser.StructureEqNodeContext ctx) { }
+	@Override public void exitStructureEqNode(AldwychParser.StructureEqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterGEqNode(AldParser.GEqNodeContext ctx) { }
+	@Override public void enterGEqNode(AldwychParser.GEqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitGEqNode(AldParser.GEqNodeContext ctx) { }
+	@Override public void exitGEqNode(AldwychParser.GEqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterGTNode(AldParser.GTNodeContext ctx) { }
+	@Override public void enterGTNode(AldwychParser.GTNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitGTNode(AldParser.GTNodeContext ctx) { }
+	@Override public void exitGTNode(AldwychParser.GTNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntegerNode(AldParser.IntegerNodeContext ctx) { }
+	@Override public void enterIntegerNode(AldwychParser.IntegerNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntegerNode(AldParser.IntegerNodeContext ctx) { }
+	@Override public void exitIntegerNode(AldwychParser.IntegerNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdentifierNode(AldParser.IdentifierNodeContext ctx) { }
+	@Override public void enterIdentifierNode(AldwychParser.IdentifierNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIdentifierNode(AldParser.IdentifierNodeContext ctx) { }
+	@Override public void exitIdentifierNode(AldwychParser.IdentifierNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTrue(AldParser.TrueContext ctx) { }
+	@Override public void enterTrue(AldwychParser.TrueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTrue(AldParser.TrueContext ctx) { }
+	@Override public void exitTrue(AldwychParser.TrueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFalse(AldParser.FalseContext ctx) { }
+	@Override public void enterFalse(AldwychParser.FalseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFalse(AldParser.FalseContext ctx) { }
+	@Override public void exitFalse(AldwychParser.FalseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLEqNode(AldParser.LEqNodeContext ctx) { }
+	@Override public void enterLEqNode(AldwychParser.LEqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLEqNode(AldParser.LEqNodeContext ctx) { }
+	@Override public void exitLEqNode(AldwychParser.LEqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLtNode(AldParser.LtNodeContext ctx) { }
+	@Override public void enterLtNode(AldwychParser.LtNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLtNode(AldParser.LtNodeContext ctx) { }
+	@Override public void exitLtNode(AldwychParser.LtNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStringConstNode(AldParser.StringConstNodeContext ctx) { }
+	@Override public void enterStringConstNode(AldwychParser.StringConstNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStringConstNode(AldParser.StringConstNodeContext ctx) { }
+	@Override public void exitStringConstNode(AldwychParser.StringConstNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDivMultNode(AldParser.DivMultNodeContext ctx) { }
+	@Override public void enterDivMultNode(AldwychParser.DivMultNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDivMultNode(AldParser.DivMultNodeContext ctx) { }
+	@Override public void exitDivMultNode(AldwychParser.DivMultNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMinusPlusNode(AldParser.MinusPlusNodeContext ctx) { }
+	@Override public void enterMinusPlusNode(AldwychParser.MinusPlusNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMinusPlusNode(AldParser.MinusPlusNodeContext ctx) { }
+	@Override public void exitMinusPlusNode(AldwychParser.MinusPlusNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEqNode(AldParser.EqNodeContext ctx) { }
+	@Override public void enterEqNode(AldwychParser.EqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEqNode(AldParser.EqNodeContext ctx) { }
+	@Override public void exitEqNode(AldwychParser.EqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNEqNode(AldParser.NEqNodeContext ctx) { }
+	@Override public void enterNEqNode(AldwychParser.NEqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNEqNode(AldParser.NEqNodeContext ctx) { }
+	@Override public void exitNEqNode(AldwychParser.NEqNodeContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -14,7 +14,7 @@ public class ReaderContainerNode extends TreeNode {
         readerNodes = new ArrayList<>();
     }
 
-    public void addReaderNode(ReaderNode node) {
+    public void addReader(ReaderNode node) {
         readerNodes.add(node);
     }
 

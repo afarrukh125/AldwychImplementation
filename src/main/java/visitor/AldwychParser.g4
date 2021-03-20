@@ -1,6 +1,6 @@
-parser grammar AldParser;
+parser grammar AldwychParser;
 
-options { tokenVocab = AldLexer; }
+options { tokenVocab = AldwychLexer; }
 
 aldwychClass
     : (declaration)* mainprocedure (declaration)* EOF;

@@ -4,9 +4,9 @@ import nodes.TreeNode;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import visitor.AldLexer;
-import visitor.AldParser;
-import visitor.AldTreeBuilder;
+import visitor.AldwychLexer;
+import visitor.AldwychParser;
+import visitor.TreeBuilder;
 import visitor.customised.ExecutionVisitor;
 import visitor.customised.SemanticVisitor;
 
@@ -23,12 +23,12 @@ public class ExecuteUtils {
      * @throws IOException File related issues, e.g. file not found
      */
     public static String runAndReturn(String fileName) throws IOException {
-        AldLexer lexer = new AldLexer(new ANTLRFileStream(fileName));
-        AldParser parser = new AldParser(new CommonTokenStream(lexer));
+        AldwychLexer lexer = new AldwychLexer(new ANTLRFileStream(fileName));
+        AldwychParser parser = new AldwychParser(new CommonTokenStream(lexer));
         ParseTree tree = parser.aldwychClass();
 
         // Frontend layer
-        TreeNode result = new AldTreeBuilder().visit(tree);
+        TreeNode result = new TreeBuilder().visit(tree);
 
         // Semantic layer
         SemanticVisitor visitor = new SemanticVisitor();
