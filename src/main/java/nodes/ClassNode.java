@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class ClassNode extends TreeNode {
-    List<ProcedureNode> procedureNodeList;
-    MainProcedureNode mainProcedureNode;
+    private final List<ProcedureNode> procedureNodeList;
+    private final MainProcedureNode mainProcedureNode;
 
     public ClassNode(MainProcedureNode mainProcedureNode) {
         procedureNodeList = new ArrayList<>();
@@ -24,7 +24,7 @@ public class ClassNode extends TreeNode {
         procedureNodeList.add(procedureNode);
     }
 
-    public MainProcedureNode getSequentialProcedureNode() {
+    public MainProcedureNode getMainProcedureNode() {
         return mainProcedureNode;
     }
 

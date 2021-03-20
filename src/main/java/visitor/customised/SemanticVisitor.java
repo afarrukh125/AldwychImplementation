@@ -1,6 +1,5 @@
 package visitor.customised;
 
-import helpers.Flag;
 import helpers.HeadingStringData;
 import helpers.Mode;
 import nodes.*;
@@ -23,9 +22,9 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(ClassNode classNode, Object data) {
 
-        visit(classNode.getSequentialProcedureNode(), data);
-        if (classNode.getSequentialProcedureNode() == null)
-            addError("No sequential entry point procedure found. Please include exactly one.");
+        visit(classNode.getMainProcedureNode(), data);
+        if (classNode.getMainProcedureNode() == null)
+            addError("No entry point procedure found. Please include exactly one.");
 
         for (ProcedureNode procedureNode : classNode.getProcedures())
             visit(procedureNode, data);

@@ -32,7 +32,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         for (ProcedureNode procedureNode : classNode.getProcedures())
             methodTable.addMethod(procedureNode.getHeadingNode().getName(), procedureNode);
 
-        return visit(classNode.getSequentialProcedureNode(), data);
+        return visit(classNode.getMainProcedureNode(), data);
     }
 
     @Override
@@ -342,7 +342,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(StructureNode structureNode, Object data) {
         List<String> actualValues = new ArrayList<>();
-        for (ExpressionNode expr : structureNode.getValues())
+        for (ExpressionNode expr : structureNode.getExpressions())
             actualValues.add((String) visit(expr, data));
 
         if (data == Flag.ASSIGN) {
@@ -356,13 +356,13 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             // Alias variables when you visit a structure node in a comparison sense
             Structure existingStructure = structureTable.findInScope(structureNode.getVarName());
 
-            if(existingStructure == null || existingStructure.getValues().size() != structureNode.getValues().size())
+            if(existingStructure == null || existingStructure.getValues().size() != structureNode.getExpressions().size())
                 return Boolean.toString(false);
 
             List<String> retrievedActuals = existingStructure.getValues();
 
-            for (int i = 0; i<structureNode.getValues().size(); i++) {
-                ExpressionNode expr = structureNode.getValues().get(i);
+            for (int i = 0; i<structureNode.getExpressions().size(); i++) {
+                ExpressionNode expr = structureNode.getExpressions().get(i);
 
                 String variableName = (String) visit(expr, data);
 
