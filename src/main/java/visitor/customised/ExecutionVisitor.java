@@ -89,7 +89,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         valueTable.enterScope();
         structureTable.enterScope();
         data = Flag.ASSIGN;
-        visit(mainProcedureNode.getHeadingNode(), data);
         Object body = visit(mainProcedureNode.getFinalRuleNode(), data);
         valueTable.exitScope();
         structureTable.exitScope();
@@ -423,7 +422,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             return identifierNodeValue;
         return valueTable.findInScope(identifierNodeValue);
     }
-
 
     @Override
     public Object visit(IntegerNode integerNode, Object data) {

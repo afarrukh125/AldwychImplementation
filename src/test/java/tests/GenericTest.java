@@ -10,19 +10,19 @@ import java.util.Set;
 
 public abstract class GenericTest {
 
-    private final Set<String> resultSet;
+    private final Set<String> expectedValues;
     private final String fileName;
 
     public GenericTest(String fileName, String... expectedResults) {
-        resultSet = new HashSet<>(Arrays.asList(expectedResults));
+        expectedValues = new HashSet<>(Arrays.asList(expectedResults));
         this.fileName = fileName;
     }
 
     public GenericTest(String fileName, int... expectedResults) {
         this.fileName = fileName;
-        resultSet = new HashSet<>();
+        expectedValues = new HashSet<>();
         for(int x : expectedResults)
-            resultSet.add(Integer.toString(x));
+            expectedValues.add(Integer.toString(x));
     }
 
     @Test
@@ -30,11 +30,11 @@ public abstract class GenericTest {
         Set<String> retrievedResults = new HashSet<>();
 
         int attempts = 0;
-        while(!retrievedResults.equals(resultSet) && attempts < 1000) {
+        while(!retrievedResults.equals(expectedValues) && attempts < 1000) {
             String result = ExecuteUtils.runAndReturn("testsuite/" + fileName);
             retrievedResults.add(result);
             attempts++;
         }
-        assert retrievedResults.equals(resultSet);
+        assert retrievedResults.equals(expectedValues);
     }
 }

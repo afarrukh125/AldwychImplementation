@@ -1,0 +1,9 @@
+#main(args)->() {
+ || x=5, doubleIfGreaterThan5(x)->res, print(res);
+}
+
+#doubleIfGreaterThan5(a)->result {
+ a>5 || result = a+a;
+     :
+     || result = a
+}
