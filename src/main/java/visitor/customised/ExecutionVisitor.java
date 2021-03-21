@@ -418,9 +418,13 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(IdentifierNode identifierNode, Object data) {
         String identifierNodeValue = identifierNode.getNodeValue();
-        if (valueTable.findInScope(identifierNodeValue) == null || data == Flag.ID_ONLY)
+        if(data == Flag.ID_ONLY)
             return identifierNodeValue;
-        return valueTable.findInScope(identifierNodeValue);
+
+        Object result = valueTable.findInScope(identifierNodeValue);
+        if (result == null)
+            return identifierNodeValue;
+        return result;
     }
 
     @Override

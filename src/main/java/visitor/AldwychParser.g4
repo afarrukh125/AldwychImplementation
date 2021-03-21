@@ -68,7 +68,7 @@ expr
     | expr GREATER_THAN expr                                                # GTNode
     | expr NOT_EQUAL expr                                                   # NEqNode
     | ID                                                                    # IdentifierNode
-    | INTEGER                                                               # IntegerNode
+    | (MINUS_OPERATOR? INTEGER)                                             # IntegerNode
     | STRING_CONST                                                          # StringConstNode
     | TRUE                                                                  # True
     | FALSE                                                                 # False
