@@ -62,7 +62,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ProcedureNode procedureNode, Object data) {
-        visit(procedureNode.getHeadingNode(), data);
         return visit(procedureNode.getBody(), procedureNode.getHeadingNode().getWriters().getWriterNodes());
     }
 
