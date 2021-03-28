@@ -64,4 +64,6 @@ public interface CustomVisitor<T, D> {
     T visit(RuleSetNode ruleSetNode, D data);
 
     T visit(StructureNode structureNode, D data);
+
+    T visit(ArrayNode arrayNode, D data);
 }

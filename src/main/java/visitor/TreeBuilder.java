@@ -259,4 +259,9 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
             return new DispatchNode(ctx.ID(0).getText(), exprs, null);
         return new DispatchNode(ctx.ID(0).getText(), exprs, ctx.ID(1).getText());
     }
+
+    @Override
+    public TreeNode visitArrayNode(AldwychParser.ArrayNodeContext ctx) {
+        return super.visitArrayNode(ctx);
+    }
 }

@@ -335,6 +335,18 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 */
 	void exitEqNode(AldwychParser.EqNodeContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ArrayNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayNode(AldwychParser.ArrayNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ArrayNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayNode(AldwychParser.ArrayNodeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NEqNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree

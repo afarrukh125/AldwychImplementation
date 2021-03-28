@@ -48,6 +48,8 @@ CURLY_OPEN                  : '{' ;
 CURLY_CLOSE                 : '}' ;
 PARENT_OPEN                 : '(' ;
 PARENT_CLOSE                : ')' ;
+SQ_OPEN                     : '[' ;
+SQ_CLOSE                    : ']' ;
 
 ARROW                       : '->';
 PRED_SEPARATOR              : '||';
