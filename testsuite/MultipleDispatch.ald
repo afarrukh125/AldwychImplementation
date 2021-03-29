@@ -1,19 +1,19 @@
 #main(args)->() {
-    || m=5, n=6, o=7, relay(m)->r, print(r);
+    || m<-5, n<-6, o<-7, relay(m)->r, print(r);
 }
 
 #relay(m, n, o)->res {
  m>0, n>0, o>0 || addTwo(m, n, o)->res;
  m>0, n>0, o>0 || addTwo(m*2, n*2, o*2)->res;
                :
-               || res=0
+               || res<-0
 }
 
 #addTwo(a,b,c)->r {
 
- a>0, b>0 || r=a+b;
- a>0, c>0 || r=a+c;
- b>0, c>0 || r=b+c;
+ a>0, b>0 || r<-a+b;
+ a>0, c>0 || r<-a+c;
+ b>0, c>0 || r<-b+c;
           :
-          || r=0
+          || r<-0
 }

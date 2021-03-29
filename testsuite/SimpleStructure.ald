@@ -1,18 +1,18 @@
 #main(args)->() {
-    || m=three(59,60,61), add(m)->r, print(r);
+    || m<-three(59,60,61), add(m)->r, print(r);
 }
 
 #add(t)->res {
- t=three(v1,v2,v3) || addTwo(v1,v2,v3)->res;
+ t==three(v1,v2,v3) || addTwo(v1,v2,v3)->res;
                    :
-                   || res=0
+                   || res<-0
 }
 
 #addTwo(a,b,c)->r {
 
- a>0, b>0 || r=a+b;
- a>0, c>0 || r=a+c;
- b>0, c>0 || r=b+c;
+ a>0, b>0 || r<-a+b;
+ a>0, c>0 || r<-a+c;
+ b>0, c>0 || r<-b+c;
           :
-          || r=0
+          || r<-0
 }

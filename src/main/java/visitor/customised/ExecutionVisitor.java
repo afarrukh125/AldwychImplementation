@@ -233,21 +233,44 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
+    public Object visit(DoubleEqualsNode doubleEqualsNode, Object data) {
+        String left = (String) visit(doubleEqualsNode.getLeft(), data);
+        String right = (String) visit(doubleEqualsNode.getRight(), data);
+
+        if(left == null || right == null)
+            return Boolean.toString(false);
+
+        return Boolean.toString(left.equals(right));
+    }
+
+    @Override
+    public Object visit(AssignNode assignNode, Object data) {
+        String left = (String) visit(assignNode.getLeft(), Flag.ID_ONLY);
+        String right = (String) visit(assignNode.getRight(), data);
+        valueTable.addVariable(left, right);
+        return left;
+    }
+
+    @Override
     public Object visit(EqNode eqNode, Object data) {
 
         // a=b in the context of an ask checks whether variable a is set to the string b.
         // a=b in the context of of a tell assigns the variable a to the string b
 
-        // To assign explicit values, the <- and == symbols are used
+        // To assign and compare explicit values, the <- and == symbols are used respectively
 
         // Depending on the flag, EqNode can imply a comparison or an assignment
-        String left = (String) visit(eqNode.getLeft(), Flag.ID_ONLY);
-        String right = (String) visit(eqNode.getRight(), Flag.ID_ONLY);
+
 
         if (data == Flag.EQ_SET) {
+            String left = (String) visit(eqNode.getLeft(), Flag.ID_ONLY);
+            String right = (String) visit(eqNode.getRight(), Flag.ID_ONLY);
             valueTable.addVariable(left, right);
             return left;
         } else {
+            String left = (String) visit(eqNode.getLeft(), null);
+            String right = (String) visit(eqNode.getRight(), null);
+
             if(left == null || right == null)
                 return Boolean.toString(false);
 

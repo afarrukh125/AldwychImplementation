@@ -218,12 +218,16 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitDoubleEqualsNode(AldwychParser.DoubleEqualsNodeContext ctx) {
-        return super.visitDoubleEqualsNode(ctx);
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+        return new DoubleEqualsNode(left, right);
     }
 
     @Override
     public TreeNode visitAssignNode(AldwychParser.AssignNodeContext ctx) {
-        return super.visitAssignNode(ctx);
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+        return new AssignNode(left, right);
     }
 
     @Override

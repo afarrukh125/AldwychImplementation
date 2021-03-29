@@ -11,6 +11,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SemanticVisitor implements CustomVisitor<Object, Object> {
+    @Override
+    public Object visit(DoubleEqualsNode doubleEqualsNode, Object data) {
+        // TODO implement
+        return null;
+    }
+
+    @Override
+    public Object visit(AssignNode assignNode, Object data) {
+        // TODO implement
+        return null;
+    }
 
     private final List<String> errors;
 

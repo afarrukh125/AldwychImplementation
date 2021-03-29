@@ -20,6 +20,10 @@ public interface CustomVisitor<T, D> {
 
     T visit(EqNode eqNode, D data);
 
+    T visit(DoubleEqualsNode doubleEqualsNode, D data);
+
+    T visit(AssignNode assignNode, D data);
+
     T visit(GEqNode gEqNode, D data);
 
     T visit(GTNode gtNode, D data);
