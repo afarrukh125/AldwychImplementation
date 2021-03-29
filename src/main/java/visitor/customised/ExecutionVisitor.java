@@ -415,10 +415,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         return writerNode.getName();
     }
 
-    @Override
-    public Object visit(BooleanNode booleanNode, Object data) {
-        return booleanNode.getNodeValue();
-    }
 
     @Override
     public Object visit(IdentifierNode identifierNode, Object data) {
@@ -435,11 +431,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(IntegerNode integerNode, Object data) {
         return Integer.toString(integerNode.getNodeValue());
-    }
-
-    @Override
-    public Object visit(StringConstNode stringConstNode, Object data) {
-        return stringConstNode.getNodeValue();
     }
 
     private <T extends ExpressionNode> int parseIntegerOperand(T operand, Object data) {

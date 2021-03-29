@@ -70,7 +70,4 @@ expr
     | SQ_OPEN (expr (COMMA expr)*)* SQ_CLOSE                                # ArrayNode
     | ID                                                                    # IdentifierNode
     | (MINUS_OPERATOR? INTEGER)                                             # IntegerNode
-    | STRING_CONST                                                          # StringConstNode
-    | TRUE                                                                  # True
-    | FALSE                                                                 # False
     ;

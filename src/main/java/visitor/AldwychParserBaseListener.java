@@ -267,30 +267,6 @@ public class AldwychParserBaseListener implements AldwychParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTrue(AldwychParser.TrueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTrue(AldwychParser.TrueContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFalse(AldwychParser.FalseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFalse(AldwychParser.FalseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterLEqNode(AldwychParser.LEqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -310,18 +286,6 @@ public class AldwychParserBaseListener implements AldwychParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitLtNode(AldwychParser.LtNodeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStringConstNode(AldwychParser.StringConstNodeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStringConstNode(AldwychParser.StringConstNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

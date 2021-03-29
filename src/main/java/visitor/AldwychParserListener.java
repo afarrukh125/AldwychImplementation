@@ -239,30 +239,6 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 */
 	void exitIdentifierNode(AldwychParser.IdentifierNodeContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code True}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterTrue(AldwychParser.TrueContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code True}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitTrue(AldwychParser.TrueContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code False}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterFalse(AldwychParser.FalseContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code False}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitFalse(AldwychParser.FalseContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code LEqNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree
@@ -286,18 +262,6 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLtNode(AldwychParser.LtNodeContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code StringConstNode}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterStringConstNode(AldwychParser.StringConstNodeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code StringConstNode}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitStringConstNode(AldwychParser.StringConstNodeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code DivMultNode}
 	 * labeled alternative in {@link AldwychParser#expr}.

@@ -147,20 +147,6 @@ public interface AldwychParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdentifierNode(AldwychParser.IdentifierNodeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code True}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTrue(AldwychParser.TrueContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code False}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFalse(AldwychParser.FalseContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code LEqNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree
@@ -174,13 +160,6 @@ public interface AldwychParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLtNode(AldwychParser.LtNodeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code StringConstNode}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStringConstNode(AldwychParser.StringConstNodeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code DivMultNode}
 	 * labeled alternative in {@link AldwychParser#expr}.

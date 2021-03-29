@@ -51,13 +51,9 @@ public interface CustomVisitor<T, D> {
 
     T visit(WriterNode writerNode, D data);
 
-    T visit(BooleanNode booleanNode, D data);
-
     T visit(IdentifierNode identifierNode, D data);
 
     T visit(IntegerNode integerNode, D data);
-
-    T visit(StringConstNode stringConstNode, D data);
 
     T visit(MainProcedureNode mainProcedureNode, D data);
 

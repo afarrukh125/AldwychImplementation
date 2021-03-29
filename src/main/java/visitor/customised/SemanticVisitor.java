@@ -228,22 +228,12 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
-    public Object visit(BooleanNode booleanNode, Object data) {
-        return null;
-    }
-
-    @Override
     public Object visit(IdentifierNode identifierNode, Object data) {
         return null;
     }
 
     @Override
     public Object visit(IntegerNode integerNode, Object data) {
-        return null;
-    }
-
-    @Override
-    public Object visit(StringConstNode stringConstNode, Object data) {
         return null;
     }
 

@@ -155,11 +155,6 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitStringConstNode(AldwychParser.StringConstNodeContext ctx) {
-        return new StringConstNode(ctx.getText());
-    }
-
-    @Override
     public TreeNode visitGEqNode(AldwychParser.GEqNodeContext ctx) {
         ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
         ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
@@ -224,16 +219,6 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
     @Override
     public TreeNode visitIdentifierNode(AldwychParser.IdentifierNodeContext ctx) {
         return new IdentifierNode(ctx.ID().getText());
-    }
-
-    @Override
-    public TreeNode visitTrue(AldwychParser.TrueContext ctx) {
-        return new BooleanNode(true);
-    }
-
-    @Override
-    public TreeNode visitFalse(AldwychParser.FalseContext ctx) {
-        return new BooleanNode(false);
     }
 
     @Override
