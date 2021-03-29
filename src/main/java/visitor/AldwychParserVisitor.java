@@ -23,13 +23,6 @@ public interface AldwychParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProcedureNode(AldwychParser.ProcedureNodeContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code DeclarationNode}
-	 * labeled alternative in {@link AldwychParser#declaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDeclarationNode(AldwychParser.DeclarationNodeContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code MainProcedureNode}
 	 * labeled alternative in {@link AldwychParser#mainprocedure}.
 	 * @param ctx the parse tree
@@ -147,6 +140,13 @@ public interface AldwychParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdentifierNode(AldwychParser.IdentifierNodeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code DoubleEqualsNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoubleEqualsNode(AldwychParser.DoubleEqualsNodeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code LEqNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree
@@ -195,4 +195,11 @@ public interface AldwychParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNEqNode(AldwychParser.NEqNodeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AssignNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignNode(AldwychParser.AssignNodeContext ctx);
 }

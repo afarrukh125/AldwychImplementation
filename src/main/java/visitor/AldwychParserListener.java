@@ -29,18 +29,6 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 */
 	void exitProcedureNode(AldwychParser.ProcedureNodeContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code DeclarationNode}
-	 * labeled alternative in {@link AldwychParser#declaration}.
-	 * @param ctx the parse tree
-	 */
-	void enterDeclarationNode(AldwychParser.DeclarationNodeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code DeclarationNode}
-	 * labeled alternative in {@link AldwychParser#declaration}.
-	 * @param ctx the parse tree
-	 */
-	void exitDeclarationNode(AldwychParser.DeclarationNodeContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code MainProcedureNode}
 	 * labeled alternative in {@link AldwychParser#mainprocedure}.
 	 * @param ctx the parse tree
@@ -239,6 +227,18 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 */
 	void exitIdentifierNode(AldwychParser.IdentifierNodeContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code DoubleEqualsNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterDoubleEqualsNode(AldwychParser.DoubleEqualsNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code DoubleEqualsNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitDoubleEqualsNode(AldwychParser.DoubleEqualsNodeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code LEqNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree
@@ -322,4 +322,16 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitNEqNode(AldwychParser.NEqNodeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AssignNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignNode(AldwychParser.AssignNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AssignNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignNode(AldwychParser.AssignNodeContext ctx);
 }

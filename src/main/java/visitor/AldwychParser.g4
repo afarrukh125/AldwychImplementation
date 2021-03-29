@@ -7,7 +7,6 @@ aldwychClass
 
 declaration
     : heading CURLY_OPEN body CURLY_CLOSE                                   # ProcedureNode
-    | ID EQUALS expr SEMICOLON                                              # DeclarationNode
     ;
 
 mainprocedure
@@ -21,7 +20,7 @@ name
     : HASH ID;
 
 formals
-    : readers ARROW writers;
+    : readers RIGHT_ARROW writers;
 
 readers
     : ID
@@ -58,12 +57,14 @@ finalrule
 
 expr
     : ID EQUALS ID PARENT_OPEN (expr (COMMA expr)*) PARENT_CLOSE            # StructureEqNode
-    | ID PARENT_OPEN ( expr (COMMA expr)*)? PARENT_CLOSE (ARROW ID)?        # DispatchNode
+    | ID PARENT_OPEN ( expr (COMMA expr)*)? PARENT_CLOSE (RIGHT_ARROW ID)?  # DispatchNode
     | <assoc=right> expr (MULT_OPERATOR | DIV_OPERATOR) expr                # DivMultNode
     | <assoc=right> expr (MINUS_OPERATOR | PLUS_OPERATOR) expr              # MinusPlusNode
     | expr LESS_EQ expr                                                     # LEqNode
     | expr LESS expr                                                        # LtNode
     | expr EQUALS expr                                                      # EqNode
+    | expr LEFT_ARROW expr                                                  # AssignNode
+    | expr EQUALS EQUALS expr                                               # DoubleEqualsNode
     | expr GREATER_EQ expr                                                  # GEqNode
     | expr GREATER_THAN expr                                                # GTNode
     | expr NOT_EQUAL expr                                                   # NEqNode

@@ -51,7 +51,8 @@ PARENT_CLOSE                : ')' ;
 SQ_OPEN                     : '[' ;
 SQ_CLOSE                    : ']' ;
 
-ARROW                       : '->';
+RIGHT_ARROW                 : '->';
+LEFT_ARROW                  : '<-';
 PRED_SEPARATOR              : '||';
 HASH                        : '#';
 EQUALS                      : '=';

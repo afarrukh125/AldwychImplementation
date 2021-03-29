@@ -7,7 +7,7 @@ package helpers;
  */
 public enum Flag {
 
-    ASSIGN,
+    EQ_SET,
     ID_ONLY
 
 }

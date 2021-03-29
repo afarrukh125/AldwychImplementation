@@ -48,7 +48,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(FinalRuleNode finalRuleNode, Object data) {
-        data = Flag.ASSIGN;
+        data = Flag.EQ_SET;
         String result = null;
         for (TellNode tellNode : finalRuleNode.getTells())
             result = (String) visit(tellNode, data);
@@ -87,7 +87,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     public Object visit(MainProcedureNode mainProcedureNode, Object data) {
         valueTable.enterScope();
         structureTable.enterScope();
-        data = Flag.ASSIGN;
+        data = Flag.EQ_SET;
         Object body = visit(mainProcedureNode.getFinalRuleNode(), data);
         valueTable.exitScope();
         structureTable.exitScope();
@@ -141,7 +141,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             List<TellNode> tells = resultNode.getTells();
 
             // In the context of a tell, the equals symbol behaves differently, so we must change the semantics
-            data = Flag.ASSIGN;
+            data = Flag.EQ_SET;
             for (TellNode tellNode : tells)
                 visit(tellNode, data);
         }
@@ -235,16 +235,19 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(EqNode eqNode, Object data) {
 
+        // a=b in the context of an ask checks whether variable a is set to the string b.
+        // a=b in the context of of a tell assigns the variable a to the string b
+
+        // To assign explicit values, the <- and == symbols are used
+
         // Depending on the flag, EqNode can imply a comparison or an assignment
-        if (data == Flag.ASSIGN) {
-            String left = (String) visit(eqNode.getLeft(), Flag.ID_ONLY);
-            String right = (String) visit(eqNode.getRight(), data);
+        String left = (String) visit(eqNode.getLeft(), Flag.ID_ONLY);
+        String right = (String) visit(eqNode.getRight(), Flag.ID_ONLY);
+
+        if (data == Flag.EQ_SET) {
             valueTable.addVariable(left, right);
             return left;
         } else {
-            String left = (String) visit(eqNode.getLeft(), data);
-            String right = (String) visit(eqNode.getRight(), data);
-
             if(left == null || right == null)
                 return Boolean.toString(false);
 
@@ -343,7 +346,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         for (ExpressionNode expr : structureNode.getExpressions())
             actualValues.add((String) visit(expr, data));
 
-        if (data == Flag.ASSIGN) {
+        if (data == Flag.EQ_SET) {
             // TODO decide if comparing string representations of structure name + values is ideal or not
             String representation = structureNode.getVarName() + STRUCTURE_IDENTIFIER;
 
