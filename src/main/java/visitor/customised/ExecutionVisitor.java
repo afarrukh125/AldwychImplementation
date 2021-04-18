@@ -18,7 +18,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     private final ValueTable<String, Structure> structureTable;
     private final MethodTable methodTable;
 
-    private static final String STRUCTURE_IDENTIFIER = "\u0000";
+    private static final String STRUCTURE_IDENTIFIER = "\0";
 
 
     public ExecutionVisitor() {
@@ -183,7 +183,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                     structureTable.addVariable(rawPara, structureTable.findInScope(rawPara));
                     dispatchParams.add(rawPara);
                 } else {
-
                     Object dispatchParam = visit(exp, data);
                     dispatchParams.add((String) dispatchParam);
                 }
