@@ -267,7 +267,18 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitArrayNode(AldwychParser.ArrayNodeContext ctx) {
-        // TODO implement
-        return super.visit(ctx);
+        // An array is essentially just sequential structures
+        StructureNode constituentStructure = new EmptyStructureNode();
+        int structCount = ctx.expr().size();
+        List<AldwychParser.ExprContext> exprs = ctx.expr();
+
+        for (int i = exprs.size()-1; i >=0; i--) {
+            List<ExpressionNode> expressionNodes = new ArrayList<>();
+            expressionNodes.add((ExpressionNode) visit(ctx.expr(i)));
+            expressionNodes.add(constituentStructure);
+            constituentStructure = new StructureNode("a"+structCount--, "list", expressionNodes);
+        }
+
+        return constituentStructure;
     }
 }

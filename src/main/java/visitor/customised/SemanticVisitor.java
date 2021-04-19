@@ -260,12 +260,6 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
         return null;
     }
 
-    @Override
-    public Object visit(ArrayNode arrayNode, Object data) {
-        // TODO implement
-        return null;
-    }
-
     private void addError(String message) {
         errors.add(message);
     }

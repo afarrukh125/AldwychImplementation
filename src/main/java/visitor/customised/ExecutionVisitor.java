@@ -406,12 +406,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
-    public Object visit(ArrayNode arrayNode, Object data) {
-        // TODO implement
-        return null;
-    }
-
-    @Override
     public Object visit(ReaderNode readerNode, Object data) {
         return readerNode.getName();
     }
