@@ -412,7 +412,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ExpressionNode expressionNode, Object data) {
-        // Done differently to allow dynamic dispatch TODO investigate
         return expressionNode.accept(this, data);
     }
 
