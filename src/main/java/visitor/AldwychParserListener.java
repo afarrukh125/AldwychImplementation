@@ -251,18 +251,6 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 */
 	void exitLEqNode(AldwychParser.LEqNodeContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code LtNode}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterLtNode(AldwychParser.LtNodeContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code LtNode}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitLtNode(AldwychParser.LtNodeContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code DivMultNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree
@@ -311,6 +299,18 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 */
 	void exitArrayNode(AldwychParser.ArrayNodeContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code OutputStructureNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterOutputStructureNode(AldwychParser.OutputStructureNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OutputStructureNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitOutputStructureNode(AldwychParser.OutputStructureNodeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NEqNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree
@@ -334,4 +334,16 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssignNode(AldwychParser.AssignNodeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code LTNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterLTNode(AldwychParser.LTNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code LTNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitLTNode(AldwychParser.LTNodeContext ctx);
 }

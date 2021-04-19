@@ -279,18 +279,6 @@ public class AldwychParserBaseListener implements AldwychParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLtNode(AldwychParser.LtNodeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLtNode(AldwychParser.LtNodeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterDivMultNode(AldwychParser.DivMultNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -339,6 +327,18 @@ public class AldwychParserBaseListener implements AldwychParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOutputStructureNode(AldwychParser.OutputStructureNodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOutputStructureNode(AldwychParser.OutputStructureNodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNEqNode(AldwychParser.NEqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -358,6 +358,18 @@ public class AldwychParserBaseListener implements AldwychParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAssignNode(AldwychParser.AssignNodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLTNode(AldwychParser.LTNodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLTNode(AldwychParser.LTNodeContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

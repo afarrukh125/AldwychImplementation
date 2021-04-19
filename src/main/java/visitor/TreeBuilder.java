@@ -147,11 +147,17 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitLtNode(AldwychParser.LtNodeContext ctx) {
+    public TreeNode visitLTNode(AldwychParser.LTNodeContext ctx) {
         ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
         ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
 
         return new LTNode(left, right);
+    }
+
+    @Override
+    public TreeNode visitOutputStructureNode(AldwychParser.OutputStructureNodeContext ctx) {
+        // TODO implement
+        return super.visitOutputStructureNode(ctx);
     }
 
     @Override
@@ -261,6 +267,7 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitArrayNode(AldwychParser.ArrayNodeContext ctx) {
-        return super.visitArrayNode(ctx);
+        // TODO implement
+        return super.visit(ctx);
     }
 }

@@ -59,7 +59,7 @@ EQUALS                      : '=';
 GREATER_THAN                : '>';
 GREATER_EQ                  : '>=';
 LESS_EQ                     : '<=';
-LESS                        : '<';
+LESS_THAN                        : '<';
 NOT_EQUAL                   : '!=';
 COMMA                       : ',';
 
@@ -80,7 +80,8 @@ WHITESPACE                  : [ \n\f\r\t\u000B]+ -> skip ;
 
 /* Identifiers (variable declarations)*/
 ID                          : LOWERCASE (LETTER|DIGIT|'_')*;
+STRUCTURE_ID                : UPPERCASE (LETTER|DIGIT|'_')*; // Structures that have an output variable must be defined as starting with a capital letter
 
 mode STRING_MODE;
-    STRING_TEXT             : ~[\\\n\r\u0000"]+ { buffer.append(getText()); } -> more; // Not any escape chars, or double comma, then just append
-    STRING_END              : '"' { setText(buffer.toString()); } -> type(STRING_CONST), popMode; // Get out of string mode if double quote encountered
+    STRING_TEXT             : ~[\\\n\r\u0000"]+ { buffer.append(getText()); } -> more;
+    STRING_END              : '"' { setText(buffer.toString()); } -> type(STRING_CONST), popMode;
