@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class StructureNode extends ExpressionNode {
-    private final String varName;
+    private String varName;
     private final String structureName;
     private final List<ExpressionNode> expressions;
 
@@ -21,6 +21,8 @@ public class StructureNode extends ExpressionNode {
     public String getVarName() {
         return varName;
     }
+
+    public void setVarName(String newName) {varName = newName;}
 
     public String getStructureName() {
         return structureName;

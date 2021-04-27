@@ -260,21 +260,28 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
         // Depending on the flag, EqNode can imply a comparison or an assignment
 
+        // Structures are handled differently in the context of an equals sign if the structure is converted from an array
+        if(eqNode.getRight() instanceof StructureNode) {
+            StructureNode right = (StructureNode) eqNode.getRight();
+            right.setVarName((String) visit(eqNode.getLeft(), data));
+            Object result = visit(right, data);
+            return result;
+        }
 
         if (data == Flag.EQ_SET) {
-            String left = (String) visit(eqNode.getLeft(), Flag.ID_ONLY);
-            String right = (String) visit(eqNode.getRight(), Flag.ID_ONLY);
-            valueTable.addVariable(left, right);
-            return left;
-        } else {
-            String left = (String) visit(eqNode.getLeft(), null);
-            String right = (String) visit(eqNode.getRight(), null);
+                String left = (String) visit(eqNode.getLeft(), Flag.ID_ONLY);
+                String right = (String) visit(eqNode.getRight(), Flag.ID_ONLY);
+                valueTable.addVariable(left, right);
+                return left;
+            } else {
+                String left = (String) visit(eqNode.getLeft(), null);
+                String right = (String) visit(eqNode.getRight(), null);
 
-            if(left == null || right == null)
-                return Boolean.toString(false);
+                if(left == null || right == null)
+                    return Boolean.toString(false);
 
-            return Boolean.toString(left.equals(right));
-        }
+                return Boolean.toString(left.equals(right));
+            }
     }
 
 
@@ -368,6 +375,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         for (ExpressionNode expr : structureNode.getExpressions())
             actualValues.add((String) visit(expr, data));
 
+        // If we are setting a variable to refer to a structure...
         if (data == Flag.EQ_SET) {
             // TODO decide if comparing string representations of structure name + values is ideal or not
             String representation = structureNode.getVarName() + STRUCTURE_IDENTIFIER;
@@ -389,10 +397,15 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
                 String variableName = (String) visit(expr, data);
 
+                // If we are simply comparing structures then we need to alias the parameters if they were formerly
+                // known to hold other structures
+                // For example, if we have the test t=two(4, v1), then we need to alias v1
+                // with the second parameter of the structure that is referred to by t
                 if(retrievedActuals.get(i).contains(STRUCTURE_IDENTIFIER)) {
                     String originalVariableName = retrievedActuals.get(i).replace(STRUCTURE_IDENTIFIER, "");
                     Structure aliasedStructure = structureTable.findInScope(originalVariableName);
 
+                    // Map the found structure to the variable (this is where the aliasing actually happens between v1 and the original value)
                     Structure newStructure = new Structure(aliasedStructure.getStructureName(), variableName, aliasedStructure.getValues());
                     structureTable.addVariable(variableName, newStructure);
                 }
