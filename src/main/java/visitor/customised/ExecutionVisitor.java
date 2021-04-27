@@ -401,7 +401,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 // known to hold other structures
                 // For example, if we have the test t=two(4, v1), then we need to alias v1
                 // with the second parameter of the structure that is referred to by t
-                if(retrievedActuals.get(i).contains(STRUCTURE_IDENTIFIER)) {
+                String retrievedActual = retrievedActuals.get(i);
+                String retrievedActualValue = (String) valueTable.findInScope(retrievedActual);
+                if(retrievedActual.contains(STRUCTURE_IDENTIFIER) || (retrievedActualValue != null && retrievedActualValue.contains(STRUCTURE_IDENTIFIER))) {
                     String originalVariableName = retrievedActuals.get(i).replace(STRUCTURE_IDENTIFIER, "");
                     Structure aliasedStructure = structureTable.findInScope(originalVariableName);
 

@@ -281,7 +281,7 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
             List<ExpressionNode> expressionNodes = new ArrayList<>();
             expressionNodes.add((ExpressionNode) visit(ctx.expr(i)));
             expressionNodes.add(constituentStructure);
-            constituentStructure = new StructureNode(HIDDEN_VAR_PREFIX + structCount-- + STRUCTURE_IDENTIFIER, "list", expressionNodes);
+            constituentStructure = new StructureNode(HIDDEN_VAR_PREFIX + structCount--, "list", expressionNodes);
         }
 
         return constituentStructure;

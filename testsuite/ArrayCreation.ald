@@ -3,7 +3,7 @@
 }
 
 #filter(arr)->(r) {
-  arr=list(a, b), b=list(c,d) || raw(a)->r;
+  arr=list(a, b), b=list(c,d), d=list(e, f) || raw(e)->r;
                  :
                  || r<-555
 }
