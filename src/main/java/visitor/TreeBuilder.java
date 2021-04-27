@@ -6,6 +6,8 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static visitor.customised.ExecutionVisitor.STRUCTURE_IDENTIFIER;
+
 /**
  * Used to build our tree to then execute afterwards
  * This is done as a frontend step
@@ -265,18 +267,21 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
         return new DispatchNode(ctx.ID(0).getText(), exprs, ctx.ID(1).getText());
     }
 
+    private static int structureCounter = 0;
+    private static final String HIDDEN_VAR_PREFIX = "WQ";
     @Override
     public TreeNode visitArrayNode(AldwychParser.ArrayNodeContext ctx) {
         // An array is essentially just sequential structures
         StructureNode constituentStructure = new EmptyStructureNode();
-        int structCount = ctx.expr().size();
+        int structCount = ctx.expr().size() + structureCounter;
+        structureCounter += structCount;
         List<AldwychParser.ExprContext> exprs = ctx.expr();
 
         for (int i = exprs.size()-1; i >=0; i--) {
             List<ExpressionNode> expressionNodes = new ArrayList<>();
             expressionNodes.add((ExpressionNode) visit(ctx.expr(i)));
             expressionNodes.add(constituentStructure);
-            constituentStructure = new StructureNode("a"+structCount--, "list", expressionNodes);
+            constituentStructure = new StructureNode(HIDDEN_VAR_PREFIX + structCount-- + STRUCTURE_IDENTIFIER, "list", expressionNodes);
         }
 
         return constituentStructure;

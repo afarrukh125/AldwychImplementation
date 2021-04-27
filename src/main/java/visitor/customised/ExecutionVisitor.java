@@ -18,7 +18,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     private final ValueTable<String, Structure> structureTable;
     private final MethodTable methodTable;
 
-    private static final String STRUCTURE_IDENTIFIER = "\0";
+    public static final String STRUCTURE_IDENTIFIER = "\0";
 
 
     public ExecutionVisitor() {
