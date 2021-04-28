@@ -295,7 +295,7 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
     }
 
     @Override
-    public TreeNode visitNullNode(AldwychParser.NullNodeContext ctx) {
+    public TreeNode visitEmptyNode(AldwychParser.EmptyNodeContext ctx) {
         return ListEndNode.getInstance();
     }
 }

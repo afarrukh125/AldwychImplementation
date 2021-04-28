@@ -9,7 +9,6 @@ import static helpers.DataTable.Entry;
  */
 public class ValueTable<K, V> {
     private final Stack<Entry<K, V>> table;
-    // TODO think of a way to use polymorphism and find common things between tests.structures and array - two birds with one stone
 
     public ValueTable() {
         table = new Stack<>();

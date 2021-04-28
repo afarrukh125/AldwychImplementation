@@ -17,8 +17,8 @@ public class AldwychParser extends Parser {
 		SQ_OPEN=7, SQ_CLOSE=8, RIGHT_ARROW=9, LEFT_ARROW=10, PRED_SEPARATOR=11, 
 		HASH=12, EQUALS=13, GREATER_THAN=14, GREATER_EQ=15, LESS_EQ=16, LESS_THAN=17, 
 		NOT_EQUAL=18, COMMA=19, PLUS_OPERATOR=20, MINUS_OPERATOR=21, MULT_OPERATOR=22, 
-		DIV_OPERATOR=23, TRUE=24, FALSE=25, NULL=26, INTEGER=27, BOOLEAN=28, STRING_CONST=29, 
-		WHITESPACE=30, ID=31, STRUCTURE_ID=32;
+		DIV_OPERATOR=23, TRUE=24, FALSE=25, EMPTY=26, INTEGER=27, BOOLEAN=28, 
+		STRING_CONST=29, WHITESPACE=30, ID=31, STRUCTURE_ID=32;
 	public static final int
 		RULE_aldwychClass = 0, RULE_declaration = 1, RULE_mainprocedure = 2, RULE_heading = 3, 
 		RULE_name = 4, RULE_formals = 5, RULE_readers = 6, RULE_writers = 7, RULE_body = 8, 
@@ -33,14 +33,14 @@ public class AldwychParser extends Parser {
 	private static final String[] _LITERAL_NAMES = {
 		null, "';'", "':'", "'{'", "'}'", "'('", "')'", "'['", "']'", "'->'", 
 		"'<-'", "'||'", "'#'", "'='", "'>'", "'>='", "'<='", "'<'", "'!='", "','", 
-		"'+'", "'-'", "'*'", "'/'", "'true'", "'false'", "'null'"
+		"'+'", "'-'", "'*'", "'/'", "'true'", "'false'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
 		null, "SEMICOLON", "COLON", "CURLY_OPEN", "CURLY_CLOSE", "PARENT_OPEN", 
 		"PARENT_CLOSE", "SQ_OPEN", "SQ_CLOSE", "RIGHT_ARROW", "LEFT_ARROW", "PRED_SEPARATOR", 
 		"HASH", "EQUALS", "GREATER_THAN", "GREATER_EQ", "LESS_EQ", "LESS_THAN", 
 		"NOT_EQUAL", "COMMA", "PLUS_OPERATOR", "MINUS_OPERATOR", "MULT_OPERATOR", 
-		"DIV_OPERATOR", "TRUE", "FALSE", "NULL", "INTEGER", "BOOLEAN", "STRING_CONST", 
+		"DIV_OPERATOR", "TRUE", "FALSE", "EMPTY", "INTEGER", "BOOLEAN", "STRING_CONST", 
 		"WHITESPACE", "ID", "STRUCTURE_ID"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
@@ -695,7 +695,7 @@ public class AldwychParser extends Parser {
 				setState(99); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SQ_OPEN) | (1L << MINUS_OPERATOR) | (1L << NULL) | (1L << INTEGER) | (1L << ID) | (1L << STRUCTURE_ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SQ_OPEN) | (1L << MINUS_OPERATOR) | (1L << EMPTY) | (1L << INTEGER) | (1L << ID) | (1L << STRUCTURE_ID))) != 0) );
 			setState(101);
 			finalrule();
 			}
@@ -764,7 +764,7 @@ public class AldwychParser extends Parser {
 				setState(108); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SQ_OPEN) | (1L << MINUS_OPERATOR) | (1L << NULL) | (1L << INTEGER) | (1L << ID) | (1L << STRUCTURE_ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SQ_OPEN) | (1L << MINUS_OPERATOR) | (1L << EMPTY) | (1L << INTEGER) | (1L << ID) | (1L << STRUCTURE_ID))) != 0) );
 			setState(110);
 			match(COLON);
 			}
@@ -1096,6 +1096,23 @@ public class AldwychParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class EmptyNodeContext extends ExprContext {
+		public TerminalNode EMPTY() { return getToken(AldwychParser.EMPTY, 0); }
+		public EmptyNodeContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterEmptyNode(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitEmptyNode(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitEmptyNode(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 	public static class StructureEqNodeContext extends ExprContext {
 		public List<TerminalNode> ID() { return getTokens(AldwychParser.ID); }
 		public TerminalNode ID(int i) {
@@ -1416,23 +1433,6 @@ public class AldwychParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class NullNodeContext extends ExprContext {
-		public TerminalNode NULL() { return getToken(AldwychParser.NULL, 0); }
-		public NullNodeContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).enterNullNode(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AldwychParserListener ) ((AldwychParserListener)listener).exitNullNode(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AldwychParserVisitor ) return ((AldwychParserVisitor<? extends T>)visitor).visitNullNode(this);
-			else return visitor.visitChildren(this);
-		}
-	}
 	public static class AssignNodeContext extends ExprContext {
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
@@ -1501,12 +1501,12 @@ public class AldwychParser extends Parser {
 			switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
 			case 1:
 				{
-				_localctx = new NullNodeContext(_localctx);
+				_localctx = new EmptyNodeContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
 				setState(143);
-				match(NULL);
+				match(EMPTY);
 				}
 				break;
 			case 2:
@@ -1524,7 +1524,7 @@ public class AldwychParser extends Parser {
 				match(PARENT_OPEN);
 				setState(156);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SQ_OPEN) | (1L << MINUS_OPERATOR) | (1L << NULL) | (1L << INTEGER) | (1L << ID) | (1L << STRUCTURE_ID))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SQ_OPEN) | (1L << MINUS_OPERATOR) | (1L << EMPTY) | (1L << INTEGER) | (1L << ID) | (1L << STRUCTURE_ID))) != 0)) {
 					{
 					setState(148);
 					expr(0);
@@ -1603,7 +1603,7 @@ public class AldwychParser extends Parser {
 				match(PARENT_OPEN);
 				setState(185);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SQ_OPEN) | (1L << MINUS_OPERATOR) | (1L << NULL) | (1L << INTEGER) | (1L << ID) | (1L << STRUCTURE_ID))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SQ_OPEN) | (1L << MINUS_OPERATOR) | (1L << EMPTY) | (1L << INTEGER) | (1L << ID) | (1L << STRUCTURE_ID))) != 0)) {
 					{
 					setState(177);
 					expr(0);
@@ -1652,7 +1652,7 @@ public class AldwychParser extends Parser {
 				setState(203);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SQ_OPEN) | (1L << MINUS_OPERATOR) | (1L << NULL) | (1L << INTEGER) | (1L << ID) | (1L << STRUCTURE_ID))) != 0)) {
+				while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SQ_OPEN) | (1L << MINUS_OPERATOR) | (1L << EMPTY) | (1L << INTEGER) | (1L << ID) | (1L << STRUCTURE_ID))) != 0)) {
 					{
 					{
 					setState(193);

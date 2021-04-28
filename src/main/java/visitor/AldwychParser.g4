@@ -56,7 +56,7 @@ finalrule
     ;
 
 expr
-    : NULL                                                                                # NullNode
+    : EMPTY                                                                               # EmptyNode
     | ID EQUALS ID PARENT_OPEN (expr (COMMA expr)*)? PARENT_CLOSE                         # StructureEqNode
     | STRUCTURE_ID EQUALS ID PARENT_OPEN (expr (COMMA expr)*) PARENT_CLOSE RIGHT_ARROW ID # OutputStructureNode
     | ID PARENT_OPEN ( expr (COMMA expr)*)? PARENT_CLOSE (RIGHT_ARROW ID)?                # DispatchNode

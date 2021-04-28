@@ -148,8 +148,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         if (!executorService.isTerminated())
             executorService.shutdownNow();
 
-        // Null if no rule applicable, so final rule can apply
-        return valueTable.findInScope(lastWriterVariable);
+        String returnValue = (String) valueTable.findInScope(lastWriterVariable);
+//        if(returnValue != null && returnValue.contains(STRUCTURE_IDENTIFIER))
+//            return structureTable.findInScope(returnValue.replace(STRUCTURE_IDENTIFIER, ""));
+        return returnValue;
     }
 
     @Override
@@ -158,6 +160,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         String procedureName = dispatchNode.getName();
 
         if (methodTable.canHandle(procedureName)) {
+            valueTable.enterScope();
+            structureTable.enterScope();
+
             List<String> dispatchParams = new ArrayList<>();
 
             for (ExpressionNode expressionNode : dispatchNode.getParams()) {
@@ -165,7 +170,13 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 dispatchParams.add((String) result);
             }
 
-            return methodTable.handleDefaultMethod(procedureName, dispatchParams);
+            Object result = methodTable.handleDefaultMethod(procedureName, dispatchParams);
+            if(dispatchNode.getWriter() != null)
+                valueTable.addVariable(dispatchNode.getWriter(), result);
+
+            valueTable.exitScope();
+            structureTable.exitScope();
+            return result;
         } else {
             Subroutine procedureNode = methodTable.getMethodByName(procedureName);
 

@@ -2,6 +2,7 @@ package helpers;
 
 import helpers.methods.DefaultProcedure;
 import helpers.methods.PrintMethod;
+import helpers.methods.TimeMethod;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,9 @@ public class DefaultProcedureHandler {
     }
 
     private void setup() {
-        addProcedure(new PrintMethod());
+        this
+                .addProcedure(new PrintMethod())
+                .addProcedure(new TimeMethod());
     }
 
     private DefaultProcedureHandler addProcedure(DefaultProcedure procedure) {

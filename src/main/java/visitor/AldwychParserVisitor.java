@@ -105,6 +105,13 @@ public interface AldwychParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDispatchNode(AldwychParser.DispatchNodeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code EmptyNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEmptyNode(AldwychParser.EmptyNodeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code StructureEqNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree
@@ -195,13 +202,6 @@ public interface AldwychParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitNEqNode(AldwychParser.NEqNodeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code NullNode}
-	 * labeled alternative in {@link AldwychParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNullNode(AldwychParser.NullNodeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AssignNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
