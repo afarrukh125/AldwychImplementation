@@ -18,6 +18,11 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
+    public Object visit(ListEndNode listEndNode, Object data) {
+        return null;
+    }
+
+    @Override
     public Object visit(AssignNode assignNode, Object data) {
         // TODO implement
         return null;
@@ -56,12 +61,12 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
         String procedureName = headingStringData.getProcedureName();
 
-        for (AskNode askNode : ruleNode.getAsks()) {
-            if (askNode.getExpressionNode() instanceof BinOpNode) {
-                BinOpNode binOpNode = (BinOpNode) askNode.getExpressionNode();
-                checkAndReportBinOpNode(procedureName, binOpNode, readers, Mode.READ);
-            }
-        }
+//        for (AskNode askNode : ruleNode.getAsks()) {
+//            if (askNode.getExpressionNode() instanceof BinOpNode) {
+//                BinOpNode binOpNode = (BinOpNode) askNode.getExpressionNode();
+//                checkAndReportBinOpNode(procedureName, binOpNode, readers, Mode.READ);
+//            }
+//        }
 
         // No need to check for variables existing in tells; we can create new variables on the fly to store the result of calls
         // See SimpleMult.ald as an example

@@ -65,4 +65,6 @@ public interface CustomVisitor<T, D> {
 
     T visit(StructureNode structureNode, D data);
 
+    T visit(ListEndNode listEndNode, D data);
+
 }

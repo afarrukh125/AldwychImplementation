@@ -212,6 +212,13 @@ public class AldwychParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitNullNode(AldwychParser.NullNodeContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitAssignNode(AldwychParser.AssignNodeContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

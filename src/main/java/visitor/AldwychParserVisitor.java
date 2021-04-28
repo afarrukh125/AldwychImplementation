@@ -196,6 +196,13 @@ public interface AldwychParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitNEqNode(AldwychParser.NEqNodeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code NullNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNullNode(AldwychParser.NullNodeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code AssignNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree

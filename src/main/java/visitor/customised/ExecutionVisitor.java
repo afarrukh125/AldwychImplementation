@@ -20,7 +20,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     public static final String STRUCTURE_IDENTIFIER = "\0";
 
-
     public ExecutionVisitor() {
         valueTable = new ValueTable<>();
         methodTable = new MethodTable();
@@ -109,7 +108,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         Collections.shuffle(ruleNodes);
 
         // We run all the rules concurrently - and the choice is made based on the scheduling of the threads
-        // Now, the rule that returns first, and returns successfully, is the one whose tell is run.
+        // Now, the rule that returns first, and returns successfully, is the one whose tell is run, i.e. it becomes empty
 
         // It was done this way because multiple dispatches occurring at the same time caused problems to shared variables
         for (RegularRuleNode regularRuleNode : ruleNodes) {
@@ -203,12 +202,14 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 if (paramValue == null)
                     paramValue = param;
 
-                valueTable.addVariable(formalName, paramValue);
-
+                // If the parameter refers to a structure in the nearest scope then...
                 if(structureTable.findInScope(param) != null) {
                     Structure found = structureTable.findInScope(param);
-                    structureTable.addVariable(formalName, new Structure(found.getStructureName(), formalName, found.getValues()));
+                    valueTable.addVariable(formalName, paramValue);
+                    structureTable.addVariable(formalName, found);
                 }
+                else
+                    valueTable.addVariable(formalName, paramValue);
 
             }
 
@@ -395,7 +396,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             for (int i = 0; i<structureNode.getExpressions().size(); i++) {
                 ExpressionNode expr = structureNode.getExpressions().get(i);
 
-                String variableName = (String) visit(expr, data);
+                String variableName = (String) visit(expr, Flag.ID_ONLY);
 
                 // If we are simply comparing structures then we need to alias the parameters if they were formerly
                 // known to hold other structures
@@ -410,9 +411,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                     // Map the found structure to the variable (this is where the aliasing actually happens between v1 and the original value)
                     Structure newStructure = new Structure(aliasedStructure.getStructureName(), variableName, aliasedStructure.getValues());
                     structureTable.addVariable(variableName, newStructure);
-                }
-
-                valueTable.addVariable(variableName, retrievedActuals.get(i));
+                    valueTable.addVariable(variableName+STRUCTURE_IDENTIFIER, retrievedActual);
+                } else
+                    valueTable.addVariable(variableName, retrievedActual);
             }
 
             return Boolean.toString(existingStructure.getStructureName().equals(structureNode.getStructureName())
@@ -428,6 +429,11 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(ExpressionNode expressionNode, Object data) {
         return expressionNode.accept(this, data);
+    }
+
+    @Override
+    public Object visit(ListEndNode listEndNode, Object data) {
+        return "listEnd";
     }
 
     @Override

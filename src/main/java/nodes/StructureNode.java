@@ -10,7 +10,7 @@ public class StructureNode extends ExpressionNode {
     private final String structureName;
     private final List<ExpressionNode> expressions;
 
-    public static final String DEFAULT_STRUCTURE_VAR_NAME = "NO_VAR";
+    public static final String DEFAULT_STRUCTURE_VAR_NAME = "empty";
 
     public StructureNode(String varName, String structureName, List<ExpressionNode> expressions) {
         this.varName = varName;
