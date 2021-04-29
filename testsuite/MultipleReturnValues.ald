@@ -1,0 +1,12 @@
+#main(args)->()
+{
+    || x=a,y=c, p(x,y)->(res, k), print(res), print(k);
+}
+
+#p(x,y)->z, m
+{
+ x=a || z=b, m=f;
+ y=c || z=d, m=g;
+     :
+     || z=e, m=h
+}
