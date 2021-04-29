@@ -43,6 +43,12 @@ public class ValueTable<K, V> {
         return null;
     }
 
+    public V findInNearestScope(K identifier) {
+        Entry<K, V> currentScope = table.peek();
+        return currentScope.getValue(identifier);
+    }
+
+
     public Entry<K, V> getCurrentScope() {
         return table.peek();
     }

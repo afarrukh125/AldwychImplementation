@@ -152,9 +152,26 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         if(returnValue instanceof String) {
             String stringReturnValue = (String) returnValue;
             if (stringReturnValue.contains(STRUCTURE_IDENTIFIER))
-                return structureTable.findInScope(stringReturnValue.replace(STRUCTURE_IDENTIFIER, ""));
+                return obtainCompleteStructure(structureTable.findInScope(stringReturnValue.replace(STRUCTURE_IDENTIFIER, "")));
         }
+        // Logic here to decide what to do with the values in the structure table! They are stored in there just complete the associations and return it
+        // Use the new method findInNearestScope to do this as cleanly as possible
+
+
         return returnValue;
+    }
+
+    // Recursively collapse a structure from its partial form into its true evaluated value
+    private Structure obtainCompleteStructure(Structure structure) {
+        List<Object> values = new ArrayList<>();
+        for(Object o : structure.getValues()) {
+            Structure nestedStructure = structureTable.findInScope((String) o);
+            if (nestedStructure !=null)
+                values.add(obtainCompleteStructure(nestedStructure));
+            else
+                values.add(o);
+        }
+        return new Structure(structure.getStructureName(), structure.getVarName(), values);
     }
 
     @Override
@@ -279,8 +296,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         if(eqNode.getRight() instanceof StructureNode) {
             StructureNode right = (StructureNode) eqNode.getRight();
             right.setVarName((String) visit(eqNode.getLeft(), data));
-            Object result = visit(right, data);
-            return result;
+            return visit(right, data);
         }
 
         if (data == Flag.EQ_SET) {
@@ -386,9 +402,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(StructureNode structureNode, Object data) {
-        List<String> actualValues = new ArrayList<>();
+        List<Object> actualValues = new ArrayList<>();
         for (ExpressionNode expr : structureNode.getExpressions())
-            actualValues.add((String) visit(expr, data));
+            actualValues.add(visit(expr, data));
 
         // If we are setting a variable to refer to a structure...
         if (data == Flag.EQ_SET) {
@@ -405,7 +421,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             if(existingStructure == null || existingStructure.getValues().size() != structureNode.getExpressions().size())
                 return Boolean.toString(false);
 
-            List<String> retrievedActuals = existingStructure.getValues();
+            List<Object> retrievedActuals = existingStructure.getValues();
 
             for (int i = 0; i<structureNode.getExpressions().size(); i++) {
                 ExpressionNode expr = structureNode.getExpressions().get(i);
@@ -416,10 +432,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 // known to hold other structures
                 // For example, if we have the test t=two(4, v1), then we need to alias v1
                 // with the second parameter of the structure that is referred to by t
-                String retrievedActual = retrievedActuals.get(i);
+                String retrievedActual = (String) retrievedActuals.get(i);
                 String retrievedActualValue = (String) valueTable.findInScope(retrievedActual);
                 if(retrievedActual.contains(STRUCTURE_IDENTIFIER) || (retrievedActualValue != null && retrievedActualValue.contains(STRUCTURE_IDENTIFIER))) {
-                    String originalVariableName = retrievedActuals.get(i).replace(STRUCTURE_IDENTIFIER, "");
+                    String originalVariableName = retrievedActual.replace(STRUCTURE_IDENTIFIER, "");
                     Structure aliasedStructure = structureTable.findInScope(originalVariableName);
 
                     // Map the found structure to the variable (this is where the aliasing actually happens between v1 and the original value)
@@ -447,7 +463,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ListEndNode listEndNode, Object data) {
-        return "listEnd";
+        return "empty";
     }
 
     @Override

@@ -3,7 +3,7 @@
 }
 
 #last(arr)->(r) {
-  arr=list(a, b), b=empty     || r=[a];
+  arr=list(a, b), b=empty     || r=[a, 6, 7];
   arr=list(a, b), b=list(c,d) || last(b)->r;
                               :
                               || r<-0

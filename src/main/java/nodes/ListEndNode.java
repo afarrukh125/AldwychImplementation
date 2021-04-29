@@ -2,6 +2,8 @@ package nodes;
 
 import visitor.customised.CustomVisitor;
 
+import static nodes.StructureNode.DEFAULT_STRUCTURE_VAR_NAME;
+
 public class ListEndNode extends ExpressionNode {
 
     private static ListEndNode instance;
@@ -21,6 +23,6 @@ public class ListEndNode extends ExpressionNode {
 
     @Override
     public String toString() {
-        return "listEnd";
+        return DEFAULT_STRUCTURE_VAR_NAME;
     }
 }
