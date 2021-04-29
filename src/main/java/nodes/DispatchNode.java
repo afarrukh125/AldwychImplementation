@@ -8,20 +8,20 @@ import java.util.List;
 public class DispatchNode extends ExpressionNode {
     private final String name;
     private final List<ExpressionNode> params;
-    private final String writer;
+    private final List<String> writers;
 
-    public DispatchNode(String name, List<ExpressionNode> params, String writer) {
+    public DispatchNode(String name, List<ExpressionNode> params, List<String> writers) {
         this.name = name;
         this.params = params;
-        this.writer = writer;
+        this.writers = writers;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getWriter() {
-        return writer;
+    public List<String> getWriters() {
+        return writers;
     }
 
     public List<ExpressionNode> getParams() {

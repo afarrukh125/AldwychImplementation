@@ -1,5 +1,4 @@
-package visitor;
-
+package visitor;// Generated from AldwychParser.g4 by ANTLR 4.5.3
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**

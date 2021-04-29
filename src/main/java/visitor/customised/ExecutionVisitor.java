@@ -1,11 +1,9 @@
 package visitor.customised;
 
-import helpers.Flag;
-import helpers.MethodTable;
-import helpers.Structure;
-import helpers.ValueTable;
+import helpers.*;
 import nodes.*;
 
+import javax.xml.transform.Result;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -72,14 +70,22 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
         Object resultingValue;
 
+        ResultWrapper resultWrapper = new ResultWrapper();
+
         for (RuleSetNode ruleSet : bodyNode.getRulesets()) {
             resultingValue = visit(ruleSet, data);
-            if (resultingValue != null)
-                return resultingValue;
+            if (resultingValue != null) {
+                for(WriterNode wn : writers)
+                    resultWrapper.addValue(valueTable.findInScope(wn.getName()));
+                return resultWrapper;
+            }
         }
 
         visit(bodyNode.getFinalRule(), data);
-        return valueTable.findInScope(lastWriterVariable);
+
+        for(WriterNode wn : writers)
+            resultWrapper.addValue(valueTable.findInScope(wn.getName()));
+        return resultWrapper;
     }
 
     @Override
@@ -191,8 +197,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             }
 
             Object result = methodTable.handleDefaultMethod(procedureName, dispatchParams);
-            if(dispatchNode.getWriter() != null)
-                valueTable.addVariable(dispatchNode.getWriter(), result);
+            List<String> writers = dispatchNode.getWriters();
+            if(!dispatchNode.getWriters().isEmpty())
+                for(String writer : writers)
+                    valueTable.addVariable(writer, result);
 
             valueTable.exitScope();
             structureTable.exitScope();
@@ -245,13 +253,18 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             }
 
             Object result = procedureNode.accept(this, data);
+            ResultWrapper results = (ResultWrapper) result;
 
             valueTable.exitScope();
             structureTable.exitScope();
 
-            if (dispatchNode.getWriter() != null)
-                valueTable.addVariable(dispatchNode.getWriter(), result);
-            return result;
+            List<String> writers = dispatchNode.getWriters();
+
+            if(!dispatchNode.getWriters().isEmpty())
+                for(int i = 0; i<writers.size(); i++)
+                    valueTable.addVariable(writers.get(i), results.getResults().get(i));
+
+            return results;
         }
     }
 

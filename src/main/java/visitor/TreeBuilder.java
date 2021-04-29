@@ -4,6 +4,8 @@ import nodes.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -261,8 +263,11 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
             exprs.add((ExpressionNode) visit(exprContext));
 
         if (ctx.ID().size() == 1)
-            return new DispatchNode(ctx.ID(0).getText(), exprs, null);
-        return new DispatchNode(ctx.ID(0).getText(), exprs, ctx.ID(1).getText());
+            return new DispatchNode(ctx.ID(0).getText(), exprs, Collections.emptyList());
+        List<String> writers = new ArrayList<>();
+        for(int i = 1; i<ctx.ID().size(); i++)
+            writers.add(ctx.ID(i).toString());
+        return new DispatchNode(ctx.ID(0).getText(), exprs, writers);
     }
 
     private static int structureCounter = 0;
