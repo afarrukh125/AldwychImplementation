@@ -11,6 +11,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SemanticVisitor implements CustomVisitor<Object, Object> {
+    private final List<String> errors;
+
+    public SemanticVisitor() {
+        super();
+        errors = new ArrayList<>();
+    }
+
     @Override
     public Object visit(DoubleEqualsNode doubleEqualsNode, Object data) {
         // TODO implement
@@ -28,13 +35,6 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
         return null;
     }
 
-    private final List<String> errors;
-
-    public SemanticVisitor() {
-        super();
-        errors = new ArrayList<>();
-    }
-
     @Override
     public Object visit(ClassNode classNode, Object data) {
 
@@ -48,28 +48,14 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
         return null;
     }
 
-    /**
-     * @param ruleNode The rule node
-     * @param data     The data for this particular instance will be data about the {@link helpers.HeadingStringData} so we can
-     *                 verify the readers and writers are being used properly within the rule if they are identifiers
-     * @return {@link Object Object}
-     */
     @Override
     public Object visit(RegularRuleNode ruleNode, Object data) {
-        HeadingStringData headingStringData = (HeadingStringData) data;
-        Set<String> readers = headingStringData.getReaders();
 
-        String procedureName = headingStringData.getProcedureName();
+        for (AskNode askNode : ruleNode.getAsks())
+            visit(askNode, data);
 
-//        for (AskNode askNode : ruleNode.getAsks()) {
-//            if (askNode.getExpressionNode() instanceof BinOpNode) {
-//                BinOpNode binOpNode = (BinOpNode) askNode.getExpressionNode();
-//                checkAndReportBinOpNode(procedureName, binOpNode, readers, Mode.READ);
-//            }
-//        }
-
-        // No need to check for variables existing in tells; we can create new variables on the fly to store the result of calls
-        // See SimpleMult.ald as an example
+        for (TellNode tellNode : ruleNode.getTells())
+            visit(tellNode, data);
 
         return null;
     }
@@ -93,7 +79,7 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(FinalRuleNode finalRuleNode, Object data) {
 
-        if(data != null) {
+        if (data != null) {
             HeadingStringData headingStringData = (HeadingStringData) data;
             Set<String> writers = headingStringData.getWriters();
             String procedureName = headingStringData.getProcedureName();
@@ -105,7 +91,6 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
                 }
             }
         }
-
         return null;
     }
 
@@ -131,27 +116,35 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(DispatchNode dispatchNode, Object data) {
-        // TODO analyse parameters for semantic analysis
+        // TODO analyse parameters for semantic analysis if type checking is added in future
         return null;
     }
 
     @Override
     public Object visit(DivNode divNode, Object data) {
+        visit(divNode.getLeft(), data);
+        visit(divNode.getRight(), data);
         return null;
     }
 
     @Override
     public Object visit(EqNode eqNode, Object data) {
+        visit(eqNode.getLeft(), data);
+        visit(eqNode.getRight(), data);
         return null;
     }
 
     @Override
     public Object visit(GEqNode gEqNode, Object data) {
+        visit(gEqNode.getLeft(), data);
+        visit(gEqNode.getRight(), data);
         return null;
     }
 
     @Override
     public Object visit(GTNode gtNode, Object data) {
+        visit(gtNode.getLeft(), data);
+        visit(gtNode.getRight(), data);
         return null;
     }
 
@@ -162,26 +155,36 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(LEqNode lEqNode, Object data) {
+        visit(lEqNode.getLeft(), data);
+        visit(lEqNode.getRight(), data);
         return null;
     }
 
     @Override
     public Object visit(NEqNode nEqNode, Object data) {
+        visit(nEqNode.getLeft(), data);
+        visit(nEqNode.getRight(), data);
         return null;
     }
 
     @Override
     public Object visit(LTNode ltNode, Object data) {
+        visit(ltNode.getLeft(), data);
+        visit(ltNode.getRight(), data);
         return null;
     }
 
     @Override
     public Object visit(MulNode mulNode, Object data) {
+        visit(mulNode.getLeft(), data);
+        visit(mulNode.getRight(), data);
         return null;
     }
 
     @Override
     public Object visit(PlusNode plusNode, Object data) {
+        visit(plusNode.getLeft(), data);
+        visit(plusNode.getRight(), data);
         return null;
     }
 
@@ -208,11 +211,15 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ReaderContainerNode readerContainerNode, Object data) {
+        for(ReaderNode rn : readerContainerNode.getReaderNodes())
+            visit(rn, data);
         return null;
     }
 
     @Override
     public Object visit(WriterContainerNode writerContainerNode, Object data) {
+        for(WriterNode wn : writerContainerNode.getWriterNodes())
+            visit(wn, data);
         return null;
     }
 
@@ -229,6 +236,8 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(SubNode subNode, Object data) {
+        visit(subNode.getLeft(), data);
+        visit(subNode.getRight(), data);
         return null;
     }
 
@@ -245,12 +254,12 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(IdentifierNode identifierNode, Object data) {
-        return null;
+        return identifierNode;
     }
 
     @Override
     public Object visit(IntegerNode integerNode, Object data) {
-        return null;
+        return integerNode;
     }
 
     @Override
@@ -261,7 +270,6 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(StructureNode structureNode, Object data) {
-        // TODO check structure parameter types are of correct length
         return null;
     }
 
