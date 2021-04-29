@@ -48,9 +48,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(FinalRuleNode finalRuleNode, Object data) {
         data = Flag.EQ_SET;
-        String result = null;
+        Object result = null;
         for (TellNode tellNode : finalRuleNode.getTells())
-            result = (String) visit(tellNode, data);
+            result = visit(tellNode, data);
         return result;
     }
 
@@ -70,10 +70,10 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         List<WriterNode> writers = (List<WriterNode>) data;
         String lastWriterVariable = writers.get(writers.size() - 1).getName();
 
-        String resultingValue;
+        Object resultingValue;
 
         for (RuleSetNode ruleSet : bodyNode.getRulesets()) {
-            resultingValue = (String) visit(ruleSet, data);
+            resultingValue = visit(ruleSet, data);
             if (resultingValue != null)
                 return resultingValue;
         }
@@ -148,9 +148,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         if (!executorService.isTerminated())
             executorService.shutdownNow();
 
-        String returnValue = (String) valueTable.findInScope(lastWriterVariable);
-//        if(returnValue != null && returnValue.contains(STRUCTURE_IDENTIFIER))
-//            return structureTable.findInScope(returnValue.replace(STRUCTURE_IDENTIFIER, ""));
+        Object returnValue = valueTable.findInScope(lastWriterVariable);
+        if(returnValue instanceof String) {
+            String stringReturnValue = (String) returnValue;
+            if (stringReturnValue.contains(STRUCTURE_IDENTIFIER))
+                return structureTable.findInScope(stringReturnValue.replace(STRUCTURE_IDENTIFIER, ""));
+        }
         return returnValue;
     }
 
@@ -163,11 +166,11 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             valueTable.enterScope();
             structureTable.enterScope();
 
-            List<String> dispatchParams = new ArrayList<>();
+            List<Object> dispatchParams = new ArrayList<>();
 
             for (ExpressionNode expressionNode : dispatchNode.getParams()) {
                 Object result = visit(expressionNode, data);
-                dispatchParams.add((String) result);
+                dispatchParams.add(result);
             }
 
             Object result = methodTable.handleDefaultMethod(procedureName, dispatchParams);

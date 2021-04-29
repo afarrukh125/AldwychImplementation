@@ -22,7 +22,7 @@ public class ExecuteUtils {
      * @return A string representing the output of that program
      * @throws IOException File related issues, e.g. file not found
      */
-    public static String runAndReturn(String fileName) throws IOException {
+    public static Object runAndReturn(String fileName) throws IOException {
         AldwychLexer lexer = new AldwychLexer(new ANTLRFileStream(fileName));
         AldwychParser parser = new AldwychParser(new CommonTokenStream(lexer));
         ParseTree tree = parser.aldwychClass();
@@ -46,6 +46,6 @@ public class ExecuteUtils {
         ExecutionVisitor executionVisitor = new ExecutionVisitor();
         Object output = result.accept(executionVisitor, null);
 
-        return (String) output;
+        return output;
     }
 }

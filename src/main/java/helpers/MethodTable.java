@@ -33,7 +33,7 @@ public class MethodTable {
         return handler.canHandle(methodName);
     }
 
-    public Object handleDefaultMethod(String methodName, List<String> params) {
+    public Object handleDefaultMethod(String methodName, List<Object> params) {
         return handler.handleProcedure(methodName, params);
     }
 }

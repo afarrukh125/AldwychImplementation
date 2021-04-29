@@ -18,6 +18,15 @@ public class Structure {
         return varName;
     }
 
+    @Override
+    public String toString() {
+        return "Structure{" +
+                "varName='" + varName + '\'' +
+                ", structureName='" + structureName + '\'' +
+                ", values=" + values +
+                '}';
+    }
+
     public String getStructureName() {
         return structureName;
     }

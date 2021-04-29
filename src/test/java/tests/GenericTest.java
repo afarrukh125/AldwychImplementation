@@ -27,11 +27,11 @@ public abstract class GenericTest {
 
     @Test
     public final void performTest() throws IOException {
-        Set<String> retrievedResults = new HashSet<>();
+        Set<Object> retrievedResults = new HashSet<>();
 
         int attempts = 0;
         while(!retrievedResults.equals(expectedValues) && attempts < 1000) {
-            String result = ExecuteUtils.runAndReturn("testsuite/" + fileName);
+            Object result = ExecuteUtils.runAndReturn("testsuite/" + fileName);
             retrievedResults.add(result);
             attempts++;
         }

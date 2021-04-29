@@ -35,7 +35,7 @@ public class DefaultProcedureHandler {
         return procedures.containsKey(procedureName);
     }
 
-    public Object handleProcedure(String procedureName, List<String> params) {
+    public Object handleProcedure(String procedureName, List<Object> params) {
         return procedures.get(procedureName).handle(params);
     }
 

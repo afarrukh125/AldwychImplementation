@@ -8,7 +8,7 @@ public class TimeMethod extends DefaultProcedure {
     }
 
     @Override
-    public Object handle(List<String> params) {
+    public Object handle(List<Object> params) {
         return Long.toString(System.currentTimeMillis());
     }
 }

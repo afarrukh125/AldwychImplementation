@@ -10,7 +10,7 @@ public class PrintMethod extends DefaultProcedure {
     }
 
     @Override
-    public Object handle(List<String> params) {
+    public Object handle(List<Object> params) {
         if (params.size() != PARAM_SIZE)
             throw new IllegalArgumentException("Print takes one argument");
         System.out.println(params.get(0));

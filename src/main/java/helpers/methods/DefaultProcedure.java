@@ -10,7 +10,7 @@ public abstract class DefaultProcedure {
         this.name = name;
     }
 
-    public abstract Object handle(List<String> params);
+    public abstract Object handle(List<Object> params);
 
     public String getName() {
         return name;
