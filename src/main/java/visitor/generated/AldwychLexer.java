@@ -1,4 +1,4 @@
-package visitor;// Generated from AldwychLexer.g4 by ANTLR 4.5.3
+package visitor.generated;// Generated from AldwychLexer.g4 by ANTLR 4.5.3
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.*;
@@ -92,7 +92,7 @@ public class AldwychLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "visitor/AldwychLexer.g4"; }
+	public String getGrammarFileName() { return "visitor/generated/AldwychLexer.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

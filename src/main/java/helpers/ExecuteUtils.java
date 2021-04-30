@@ -4,11 +4,11 @@ import nodes.TreeNode;
 import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import visitor.AldwychLexer;
-import visitor.AldwychParser;
 import visitor.TreeBuilder;
 import visitor.customised.ExecutionVisitor;
 import visitor.customised.SemanticVisitor;
+import visitor.generated.AldwychLexer;
+import visitor.generated.AldwychParser;
 
 import java.io.IOException;
 import java.util.List;

@@ -155,14 +155,11 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             executorService.shutdownNow();
 
         Object returnValue = valueTable.findInScope(lastWriterVariable);
-        if(returnValue instanceof String) {
-            String stringReturnValue = (String) returnValue;
-            if (stringReturnValue.contains(STRUCTURE_IDENTIFIER))
-                return obtainCompleteStructure(structureTable.findInScope(stringReturnValue.replace(STRUCTURE_IDENTIFIER, "")));
-        }
         // Logic here to decide what to do with the values in the structure table! They are stored in there just complete the associations and return it
-        // Use the new method findInNearestScope to do this as cleanly as possible
 
+        // START FROM HERE LATER
+        // RUN THE TEST CASES RN, THEY PASS. GREAT! SO NOW TRY TO FIGURE OUT HOW TO DO STRUCTURES AGAIN !! YOU CAN DO IT
+        // IS THE WAY WE OBTAIN STRUCTURES CORRECT?
 
         return returnValue;
     }
@@ -170,6 +167,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     // Recursively collapse a structure from its partial form into its true evaluated value
     private Structure obtainCompleteStructure(Structure structure) {
         List<Object> values = new ArrayList<>();
+        System.out.println("FAT ULLU");
         for(Object o : structure.getValues()) {
             Structure nestedStructure = structureTable.findInScope((String) o);
             if (nestedStructure !=null)

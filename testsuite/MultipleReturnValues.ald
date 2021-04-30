@@ -1,6 +1,6 @@
 #main(args)->()
 {
-    || x=a,y=c, p(x,y)->(res, k), print(res), print(k);
+    || x=a,y=c, print(p(x,y)->(res, k));
 }
 
 #p(x,y)->(z, m)
