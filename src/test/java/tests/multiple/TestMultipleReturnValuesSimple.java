@@ -5,8 +5,8 @@ import tests.MultipleReturnValueGenericTest;
 
 // To be used when we have multiple return values for a given main method body, in which case
 // the final result is a result wrapper
-public class MultipleValues extends MultipleReturnValueGenericTest {
-    public MultipleValues() {
+public class TestMultipleReturnValuesSimple extends MultipleReturnValueGenericTest {
+    public TestMultipleReturnValuesSimple() {
         super("MultipleReturnValues.ald");
         ResultWrapper wrapper1 = new ResultWrapper().addValue("d").addValue("g");
         ResultWrapper wrapper2= new ResultWrapper().addValue("b").addValue("f");
