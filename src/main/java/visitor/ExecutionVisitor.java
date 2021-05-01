@@ -168,12 +168,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             executorService.shutdownNow();
 
         Object returnValue = valueTable.findInScope(lastWriterVariable);
-        // Logic here to decide what to do with the values in the structure table! They are stored in there just complete the associations and return it
-
-        // START FROM HERE LATER
-        // RUN THE TEST CASES RN, THEY PASS. GREAT! SO NOW TRY TO FIGURE OUT HOW TO DO STRUCTURES AGAIN !! YOU CAN DO IT
-        // IS THE WAY WE OBTAIN STRUCTURES CORRECT?
-
         return returnValue;
     }
 
@@ -256,7 +250,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 // If the parameter refers to a structure in the nearest scope then...
                 if (structureTable.findInScope(param) != null) {
                     Structure found = structureTable.findInScope(param);
-                    valueTable.addVariable(formalName, paramValue);
+                    valueTable.addVariable(formalName, paramValue + STRUCTURE_IDENTIFIER);
                     structureTable.addVariable(formalName, found);
                 } else
                     valueTable.addVariable(formalName, paramValue);
