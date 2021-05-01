@@ -75,8 +75,17 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         for (RuleSetNode ruleSet : bodyNode.getRulesets()) {
             resultingValue = visit(ruleSet, data);
             if (resultingValue != null) {
-                for(WriterNode wn : writers)
-                    resultWrapper.addValue(valueTable.findInScope(wn.getName()));
+                for(WriterNode wn : writers) {
+                    if(resultingValue instanceof String) {
+                        String stringResult = (String) resultingValue;
+                        if (stringResult.contains(STRUCTURE_IDENTIFIER)) {
+                            resultWrapper.addValue(obtainCompleteStructure(structureTable.findInScope(stringResult.replace(STRUCTURE_IDENTIFIER, ""))));
+                        }
+                        else
+                            resultWrapper.addValue(valueTable.findInScope(wn.getName()));
+                    } else
+                        resultWrapper.addValue(resultingValue);
+                }
                 return resultWrapper;
             }
         }
@@ -167,7 +176,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     // Recursively collapse a structure from its partial form into its true evaluated value
     private Structure obtainCompleteStructure(Structure structure) {
         List<Object> values = new ArrayList<>();
-        System.out.println("FAT ULLU");
         for(Object o : structure.getValues()) {
             Structure nestedStructure = structureTable.findInScope((String) o);
             if (nestedStructure !=null)
@@ -260,6 +268,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
             if(!dispatchNode.getWriters().isEmpty())
                 for(int i = 0; i<writers.size(); i++)
+//                    if(results.getResults().get(i))
                     valueTable.addVariable(writers.get(i), results.getResults().get(i));
 
             return results;
@@ -306,7 +315,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         // Structures are handled differently in the context of an equals sign if the structure is converted from an array
         if(eqNode.getRight() instanceof StructureNode) {
             StructureNode right = (StructureNode) eqNode.getRight();
-            right.setVarName((String) visit(eqNode.getLeft(), data));
+            right.setVarName((String) visit(eqNode.getLeft(), Flag.ID_ONLY));
             return visit(right, data);
         }
 
