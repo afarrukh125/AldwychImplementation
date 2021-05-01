@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 public class DoubleEqualsNode extends BinOpNode {
     public DoubleEqualsNode(ExpressionNode left, ExpressionNode right) {

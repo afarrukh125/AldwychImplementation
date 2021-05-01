@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 import static nodes.StructureNode.DEFAULT_STRUCTURE_VAR_NAME;
 

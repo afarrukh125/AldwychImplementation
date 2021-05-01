@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 import java.util.Collections;
 import java.util.List;

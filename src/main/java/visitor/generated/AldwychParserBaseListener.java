@@ -291,6 +291,18 @@ public class AldwychParserBaseListener implements AldwychParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStringConstNode(AldwychParser.StringConstNodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStringConstNode(AldwychParser.StringConstNodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDivMultNode(AldwychParser.DivMultNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -322,6 +334,18 @@ public class AldwychParserBaseListener implements AldwychParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitEqNode(AldwychParser.EqNodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExtractableArrayNode(AldwychParser.ExtractableArrayNodeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExtractableArrayNode(AldwychParser.ExtractableArrayNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

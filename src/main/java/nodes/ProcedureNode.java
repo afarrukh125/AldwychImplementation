@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 public class ProcedureNode extends Subroutine {
 

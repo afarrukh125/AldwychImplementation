@@ -54,12 +54,13 @@ SQ_CLOSE                    : ']' ;
 RIGHT_ARROW                 : '->';
 LEFT_ARROW                  : '<-';
 PRED_SEPARATOR              : '||';
+ARRAY_SEPARATOR             : '|';
 HASH                        : '#';
 EQUALS                      : '=';
 GREATER_THAN                : '>';
 GREATER_EQ                  : '>=';
 LESS_EQ                     : '<=';
-LESS_THAN                        : '<';
+LESS_THAN                   : '<';
 NOT_EQUAL                   : '!=';
 COMMA                       : ',';
 

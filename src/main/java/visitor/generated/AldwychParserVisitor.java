@@ -161,6 +161,13 @@ public interface AldwychParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLEqNode(AldwychParser.LEqNodeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code StringConstNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringConstNode(AldwychParser.StringConstNodeContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code DivMultNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree
@@ -181,6 +188,13 @@ public interface AldwychParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitEqNode(AldwychParser.EqNodeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExtractableArrayNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExtractableArrayNode(AldwychParser.ExtractableArrayNodeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ArrayNode}
 	 * labeled alternative in {@link AldwychParser#expr}.

@@ -1,4 +1,4 @@
-package visitor.customised;
+package visitor;
 
 import nodes.*;
 
@@ -66,5 +66,7 @@ public interface CustomVisitor<T, D> {
     T visit(StructureNode structureNode, D data);
 
     T visit(ListEndNode listEndNode, D data);
+
+    T visit(StringConstNode stringConstNode, D data);
 
 }

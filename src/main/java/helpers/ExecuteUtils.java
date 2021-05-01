@@ -5,8 +5,8 @@ import org.antlr.v4.runtime.ANTLRFileStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import visitor.TreeBuilder;
-import visitor.customised.ExecutionVisitor;
-import visitor.customised.SemanticVisitor;
+import visitor.ExecutionVisitor;
+import visitor.SemanticVisitor;
 import visitor.generated.AldwychLexer;
 import visitor.generated.AldwychParser;
 

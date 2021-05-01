@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 public class DivNode extends BinOpNode {
     public DivNode(ExpressionNode left, ExpressionNode right) {

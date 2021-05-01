@@ -2,9 +2,9 @@ package nodes;
 
 import visitor.CustomVisitor;
 
-public class AssignNode extends BinOpNode {
-    public AssignNode(ExpressionNode left, ExpressionNode right) {
-        super(left, right);
+public class StringConstNode extends SingleValueNode<String> {
+    public StringConstNode(String value) {
+        super(value);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package visitor.customised;
+package visitor;
 
 import helpers.HeadingStringData;
 import helpers.Mode;
@@ -265,6 +265,13 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(MainProcedureNode mainProcedureNode, Object data) {
         visit(mainProcedureNode.getFinalRuleNode(), data);
+        return null;
+    }
+
+    @Override
+    public Object visit(StringConstNode stringConstNode, Object data) {
+        if(stringConstNode.getNodeValue().startsWith(TreeBuilder.HIDDEN_VAR_PREFIX))
+            addError("String constant may not start with reserved value " + TreeBuilder.HIDDEN_VAR_PREFIX);
         return null;
     }
 

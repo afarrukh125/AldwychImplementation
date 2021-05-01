@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 public class GTNode extends BinOpNode {
     public GTNode(ExpressionNode left, ExpressionNode right) {

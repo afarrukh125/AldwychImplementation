@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 public class EqNode extends BinOpNode {
     public EqNode(ExpressionNode left, ExpressionNode right) {

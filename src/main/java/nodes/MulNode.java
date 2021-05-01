@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 public class MulNode extends BinOpNode {
     public MulNode(ExpressionNode left, ExpressionNode right) {

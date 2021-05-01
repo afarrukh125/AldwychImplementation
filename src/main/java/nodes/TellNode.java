@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 public class TellNode extends TreeNode implements RuleComponent {
     private final ExpressionNode expressionNode;

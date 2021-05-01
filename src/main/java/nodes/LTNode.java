@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 public class LTNode extends BinOpNode {
     public LTNode(ExpressionNode left, ExpressionNode right) {

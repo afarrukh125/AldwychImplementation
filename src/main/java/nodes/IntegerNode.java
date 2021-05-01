@@ -1,6 +1,6 @@
 package nodes;
 
-import visitor.customised.CustomVisitor;
+import visitor.CustomVisitor;
 
 public class IntegerNode extends SingleValueNode<Integer> {
     public IntegerNode(Integer value) {

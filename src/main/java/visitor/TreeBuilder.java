@@ -274,8 +274,13 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
         return new DispatchNode(ctx.ID(0).getText(), exprs, writers);
     }
 
+    @Override
+    public TreeNode visitStringConstNode(AldwychParser.StringConstNodeContext ctx) {
+        return new StringConstNode(ctx.STRING_CONST().getText());
+    }
+
     private static int structureCounter = 0;
-    private static final String HIDDEN_VAR_PREFIX = "WQ";
+    static final String HIDDEN_VAR_PREFIX = "WQ";
     @Override
     public TreeNode visitArrayNode(AldwychParser.ArrayNodeContext ctx) {
         // An array is essentially just sequential structures

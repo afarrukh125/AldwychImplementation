@@ -263,6 +263,18 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 */
 	void exitLEqNode(AldwychParser.LEqNodeContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code StringConstNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringConstNode(AldwychParser.StringConstNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StringConstNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringConstNode(AldwychParser.StringConstNodeContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code DivMultNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
 	 * @param ctx the parse tree
@@ -298,6 +310,18 @@ public interface AldwychParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitEqNode(AldwychParser.EqNodeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExtractableArrayNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExtractableArrayNode(AldwychParser.ExtractableArrayNodeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExtractableArrayNode}
+	 * labeled alternative in {@link AldwychParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExtractableArrayNode(AldwychParser.ExtractableArrayNodeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ArrayNode}
 	 * labeled alternative in {@link AldwychParser#expr}.
