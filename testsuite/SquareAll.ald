@@ -1,0 +1,17 @@
+#main(args)->() {
+ || x=[2, 15, 5, 6, 7, 8, 28, 24, 21], squareAll(x)->r, print(r), copy(x)->copied, print(copied);
+}
+
+#squareAll(list1)->list2 {
+ list1=[]                      || list2=[];
+ list1=[head|tail]             || squareAll(tail)->out, k=head*head, list2=[k|out];
+                               :
+                               || list2=[]
+}
+
+#copy(list1)->list2 {
+ list1=[] || list2=[];
+ list1=[head|tail] || copy(tail)->out, list2=[head|out];
+            :
+            || list2=[]
+}
