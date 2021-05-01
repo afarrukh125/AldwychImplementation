@@ -20,7 +20,8 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(DoubleEqualsNode doubleEqualsNode, Object data) {
-        // TODO implement
+        visit(doubleEqualsNode.getLeft(), data);
+        visit(doubleEqualsNode.getRight(), data);
         return null;
     }
 
@@ -31,7 +32,13 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(AssignNode assignNode, Object data) {
-        // TODO implement
+        Object identifierName = visit(assignNode.getLeft(), data);
+        if(identifierName instanceof String) {
+            String stringIdentifier = (String) identifierName;
+            if(stringIdentifier.startsWith(TreeBuilder.HIDDEN_VAR_PREFIX))
+                addError("Identifiers may not start with reserved name " + TreeBuilder.HIDDEN_VAR_PREFIX);
+        }
+        visit(assignNode.getRight(), data);
         return null;
     }
 
@@ -91,6 +98,9 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
                 }
             }
         }
+
+        for(TellNode tellNode : finalRuleNode.getTells())
+            visit(tellNode, data);
         return null;
     }
 
@@ -150,6 +160,8 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(HeadingNode headingNode, Object data) {
+        visit(headingNode.getReaders(), data);
+        visit(headingNode.getWriters(), data);
         return null;
     }
 
@@ -225,13 +237,12 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ReaderNode readerNode, Object data) {
-        return null;
+        return readerNode.getName();
     }
 
     @Override
     public Object visit(ExpressionNode expressionNode, Object data) {
-        expressionNode.accept(this, data);
-        return null;
+        return expressionNode.accept(this, data);
     }
 
     @Override
@@ -249,12 +260,12 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(WriterNode writerNode, Object data) {
-        return null;
+        return writerNode.getName();
     }
 
     @Override
     public Object visit(IdentifierNode identifierNode, Object data) {
-        return identifierNode;
+        return identifierNode.getNodeValue();
     }
 
     @Override
@@ -270,13 +281,21 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(StringConstNode stringConstNode, Object data) {
-        if(stringConstNode.getNodeValue().startsWith(TreeBuilder.HIDDEN_VAR_PREFIX))
+        String value = stringConstNode.getNodeValue();
+        if(value.startsWith(TreeBuilder.HIDDEN_VAR_PREFIX))
             addError("String constant may not start with reserved value " + TreeBuilder.HIDDEN_VAR_PREFIX);
-        return null;
+        return value;
     }
 
     @Override
     public Object visit(StructureNode structureNode, Object data) {
+        // TODO implement
+        return null;
+    }
+
+    @Override
+    public Object visit(ExtractableArrayNode extractableArrayNode, Object data) {
+        // TODO implement
         return null;
     }
 

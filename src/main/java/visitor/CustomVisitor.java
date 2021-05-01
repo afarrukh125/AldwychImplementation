@@ -69,4 +69,6 @@ public interface CustomVisitor<T, D> {
 
     T visit(StringConstNode stringConstNode, D data);
 
+    T visit(ExtractableArrayNode extractableArrayNode, D data);
+
 }

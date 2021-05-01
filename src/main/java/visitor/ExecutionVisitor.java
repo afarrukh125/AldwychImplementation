@@ -531,6 +531,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         return stringConstNode.getNodeValue();
     }
 
+    @Override
+    public Object visit(ExtractableArrayNode extractableArrayNode, Object data) {
+        // TODO implement
+        return null;
+    }
+
     private <T extends ExpressionNode> int parseIntegerOperand(T operand, Object data) {
         String parsedOperand = (String) visit(operand, data);
         try {
