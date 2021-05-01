@@ -563,11 +563,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             Structure structureSecondParam = structureTable.findInScope((String) associatedStructure.getValues().get(1));
 
             valueTable.addVariable(tailVarName, tailVarName + STRUCTURE_IDENTIFIER);
-
-            if(structureSecondParam != null)
-                structureTable.addVariable(tailVarName, structureSecondParam);
-            else
-                return Boolean.toString(false);
+            structureTable.addVariable(tailVarName, structureSecondParam);
 
             return Boolean.toString(associatedStructure.getStructureName().equals(Structure.LIST_STRUCTURE_NAME));
         }

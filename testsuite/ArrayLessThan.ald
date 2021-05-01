@@ -3,6 +3,7 @@
 }
 
 #removeLessThan(list1,val)->list2 {
+ list1=[]                     || list2=[];
  list1=[head|tail], head>=val || removeLessThan(tail,val)->list2tail, list2=[head|list2tail];
  list1=[head|tail], head<val  || removeLessThan(tail,val)->list2;
                               :
