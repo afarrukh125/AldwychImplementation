@@ -66,7 +66,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(BodyNode bodyNode, Object data) {
         List<WriterNode> writers = (List<WriterNode>) data;
-        String lastWriterVariable = writers.get(writers.size() - 1).getName();
 
         Object resultingValue;
 
@@ -74,26 +73,29 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
         for (RuleSetNode ruleSet : bodyNode.getRulesets()) {
             resultingValue = visit(ruleSet, data);
-            if (resultingValue != null) {
-                for(WriterNode wn : writers) {
-                    if(resultingValue instanceof String) {
-                        String stringResult = (String) resultingValue;
-                        if (stringResult.contains(STRUCTURE_IDENTIFIER)) {
-                            resultWrapper.addValue(obtainCompleteStructure(structureTable.findInScope(stringResult.replace(STRUCTURE_IDENTIFIER, ""))));
-                        }
-                        else
-                            resultWrapper.addValue(valueTable.findInScope(wn.getName()));
-                    } else
-                        resultWrapper.addValue(resultingValue);
-                }
-                return resultWrapper;
-            }
+            if (resultingValue != null)
+                return populateResultWrapper(writers, resultingValue);
+
         }
 
-        visit(bodyNode.getFinalRule(), data);
+        resultingValue = visit(bodyNode.getFinalRule(), data);
 
-        for(WriterNode wn : writers)
-            resultWrapper.addValue(valueTable.findInScope(wn.getName()));
+        return populateResultWrapper(writers, resultingValue);
+    }
+
+    private ResultWrapper populateResultWrapper(List<WriterNode> writers, Object resultingValue) {
+        ResultWrapper resultWrapper = new ResultWrapper();
+        for(WriterNode wn : writers) {
+            if(resultingValue instanceof String) {
+                String stringResult = (String) resultingValue;
+                if (stringResult.contains(STRUCTURE_IDENTIFIER)) {
+                    resultWrapper.addValue(obtainCompleteStructure(structureTable.findInScope(stringResult.replace(STRUCTURE_IDENTIFIER, ""))));
+                }
+                else
+                    resultWrapper.addValue(valueTable.findInScope(wn.getName()));
+            } else
+                resultWrapper.addValue(resultingValue);
+        }
         return resultWrapper;
     }
 
