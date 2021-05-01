@@ -266,7 +266,9 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
 
     @Override
     public TreeNode visitNEqNode(AldwychParser.NEqNodeContext ctx) {
-        return super.visitNEqNode(ctx);
+        ExpressionNode left = (ExpressionNode) visit(ctx.expr(0));
+        ExpressionNode right = (ExpressionNode) visit(ctx.expr(1));
+        return new NEqNode(left, right);
     }
 
     @Override

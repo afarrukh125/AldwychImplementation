@@ -379,7 +379,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         if (left == null || right == null)
             return Boolean.toString(false);
 
-        return Boolean.toString(left.equals(right));
+        return Boolean.toString(!left.equals(right));
     }
 
     @Override
