@@ -21,11 +21,7 @@ public class Structure {
 
     @Override
     public String toString() {
-        return "Structure{" +
-                "varName='" + varName + '\'' +
-                ", structureName='" + structureName + '\'' +
-                ", values=" + values +
-                '}';
+        return structureName + values;
     }
 
     @Override
