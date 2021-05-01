@@ -11,11 +11,10 @@ import java.util.stream.Collectors;
 
 public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
+    public static final String STRUCTURE_IDENTIFIER = "\0";
     private final ValueTable<String, Object> valueTable;
     private final ValueTable<String, Structure> structureTable;
     private final MethodTable methodTable;
-
-    public static final String STRUCTURE_IDENTIFIER = "\0";
 
     public ExecutionVisitor() {
         valueTable = new ValueTable<>();
@@ -87,8 +86,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     private ResultWrapper populateResultWrapper(List<WriterNode> writers, Object resultingValue) {
         ResultWrapper resultWrapper = new ResultWrapper();
-        for(WriterNode wn : writers) {
-            if(resultingValue instanceof String) {
+        for (WriterNode wn : writers) {
+            if (resultingValue instanceof String) {
                 String stringResult = (String) resultingValue;
                 if (stringResult.contains(STRUCTURE_IDENTIFIER))
                     resultWrapper.addValue(obtainCompleteStructure(structureTable.findInScope(removeStructureIdentifier(stringResult))));
@@ -155,7 +154,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             }
         }
 
-        if(resultNode != null) {
+        if (resultNode != null) {
             List<TellNode> tells = resultNode.getTells();
 
             // In the context of a tell, the equals symbol behaves differently, so we must change the semantics
@@ -180,9 +179,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     // Recursively collapse a structure from its partial form into its true evaluated value
     private Structure obtainCompleteStructure(Structure structure) {
         List<Object> values = new ArrayList<>();
-        for(Object o : structure.getValues()) {
+        for (Object o : structure.getValues()) {
             Structure nestedStructure = structureTable.findInScope((String) o);
-            if (nestedStructure !=null)
+            if (nestedStructure != null)
                 values.add(obtainCompleteStructure(nestedStructure));
             else
                 values.add(o);
@@ -208,8 +207,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
             Object result = methodTable.handleDefaultMethod(procedureName, dispatchParams);
             List<String> writers = dispatchNode.getWriters();
-            if(!dispatchNode.getWriters().isEmpty())
-                for(String writer : writers)
+            if (!dispatchNode.getWriters().isEmpty())
+                for (String writer : writers)
                     valueTable.addVariable(writer, result);
 
             valueTable.exitScope();
@@ -227,7 +226,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             for (ExpressionNode exp : dispatchNode.getParams()) {
                 String rawPara = (String) visit(exp, Flag.ID_ONLY);
 
-                if(structureTable.findInScope(rawPara) != null) {
+                if (structureTable.findInScope(rawPara) != null) {
                     structureTable.addVariable(rawPara, structureTable.findInScope(rawPara));
                     dispatchParams.add(rawPara);
                 } else {
@@ -252,12 +251,11 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                     paramValue = param;
 
                 // If the parameter refers to a structure in the nearest scope then...
-                if(structureTable.findInScope(param) != null) {
+                if (structureTable.findInScope(param) != null) {
                     Structure found = structureTable.findInScope(param);
                     valueTable.addVariable(formalName, paramValue);
                     structureTable.addVariable(formalName, found);
-                }
-                else
+                } else
                     valueTable.addVariable(formalName, paramValue);
 
             }
@@ -270,8 +268,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
             List<String> writers = dispatchNode.getWriters();
 
-            if(!dispatchNode.getWriters().isEmpty())
-                for(int i = 0; i<writers.size(); i++)
+            if (!dispatchNode.getWriters().isEmpty())
+                for (int i = 0; i < writers.size(); i++)
 //                    if(results.getResults().get(i))
                     valueTable.addVariable(writers.get(i), results.getResults().get(i));
 
@@ -292,7 +290,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         String left = (String) visit(doubleEqualsNode.getLeft(), data);
         String right = (String) visit(doubleEqualsNode.getRight(), data);
 
-        if(left == null || right == null)
+        if (left == null || right == null)
             return Boolean.toString(false);
 
         return Boolean.toString(left.equals(right));
@@ -317,26 +315,26 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         // Depending on the flag, EqNode can imply a comparison or an assignment
 
         // Structures are handled differently in the context of an equals sign if the structure is converted from an array
-        if(eqNode.getRight() instanceof StructureNode) {
+        if (eqNode.getRight() instanceof StructureNode) {
             StructureNode right = (StructureNode) eqNode.getRight();
             right.setVarName((String) visit(eqNode.getLeft(), Flag.ID_ONLY));
             return visit(right, data);
         }
 
         if (data == Flag.EQ_SET) {
-                String left = (String) visit(eqNode.getLeft(), Flag.ID_ONLY);
-                String right = (String) visit(eqNode.getRight(), Flag.ID_ONLY);
-                valueTable.addVariable(left, right);
-                return left;
-            } else {
-                String left = (String) visit(eqNode.getLeft(), null);
-                String right = (String) visit(eqNode.getRight(), null);
+            String left = (String) visit(eqNode.getLeft(), Flag.ID_ONLY);
+            String right = (String) visit(eqNode.getRight(), Flag.ID_ONLY);
+            valueTable.addVariable(left, right);
+            return left;
+        } else {
+            String left = (String) visit(eqNode.getLeft(), null);
+            String right = (String) visit(eqNode.getRight(), null);
 
-                if(left == null || right == null)
-                    return Boolean.toString(false);
+            if (left == null || right == null)
+                return Boolean.toString(false);
 
-                return Boolean.toString(left.equals(right));
-            }
+            return Boolean.toString(left.equals(right));
+        }
     }
 
 
@@ -376,7 +374,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         String left = (String) visit(nEqNode.getLeft(), data);
         String right = (String) visit(nEqNode.getRight(), data);
 
-        if(left == null || right == null)
+        if (left == null || right == null)
             return Boolean.toString(false);
 
         return Boolean.toString(left.equals(right));
@@ -442,12 +440,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             // Alias variables when you visit a structure node in a comparison sense
             Structure existingStructure = structureTable.findInScope(structureNode.getVarName());
 
-            if(existingStructure == null || existingStructure.getValues().size() != structureNode.getExpressions().size())
+            if (existingStructure == null || existingStructure.getValues().size() != structureNode.getExpressions().size())
                 return Boolean.toString(false);
 
             List<Object> retrievedActuals = existingStructure.getValues();
 
-            for (int i = 0; i<structureNode.getExpressions().size(); i++) {
+            for (int i = 0; i < structureNode.getExpressions().size(); i++) {
                 ExpressionNode expr = structureNode.getExpressions().get(i);
 
                 String variableName = (String) visit(expr, Flag.ID_ONLY);
@@ -458,14 +456,14 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 // with the second parameter of the structure that is referred to by t
                 String retrievedActual = (String) retrievedActuals.get(i);
                 String retrievedActualValue = (String) valueTable.findInScope(retrievedActual);
-                if(retrievedActual.contains(STRUCTURE_IDENTIFIER) || (retrievedActualValue != null && retrievedActualValue.contains(STRUCTURE_IDENTIFIER))) {
+                if (retrievedActual.contains(STRUCTURE_IDENTIFIER) || (retrievedActualValue != null && retrievedActualValue.contains(STRUCTURE_IDENTIFIER))) {
                     String originalVariableName = removeStructureIdentifier(retrievedActual);
                     Structure aliasedStructure = structureTable.findInScope(originalVariableName);
 
                     // Map the found structure to the variable (this is where the aliasing actually happens between v1 and the original value)
                     Structure newStructure = new Structure(aliasedStructure.getStructureName(), variableName, aliasedStructure.getValues());
                     structureTable.addVariable(variableName, newStructure);
-                    valueTable.addVariable(variableName+STRUCTURE_IDENTIFIER, retrievedActual);
+                    valueTable.addVariable(variableName + STRUCTURE_IDENTIFIER, retrievedActual);
                 } else
                     valueTable.addVariable(variableName, retrievedActual);
             }
@@ -512,7 +510,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     @Override
     public Object visit(IdentifierNode identifierNode, Object data) {
         String identifierNodeValue = identifierNode.getNodeValue();
-        if(data == Flag.ID_ONLY)
+        if (data == Flag.ID_ONLY)
             return identifierNodeValue;
 
         Object result = valueTable.findInScope(identifierNodeValue);
@@ -533,6 +531,17 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ExtractableArrayNode extractableArrayNode, Object data) {
+        String varName = extractableArrayNode.getVarName();
+        String headVarName = extractableArrayNode.getHead();
+        String tailVarName = extractableArrayNode.getTail();
+
+        Structure associatedStructure = structureTable.findInNearestScope(varName);
+        valueTable.addVariable(headVarName, associatedStructure.getValues().get(0));
+
+        Structure structureSecondParam = structureTable.findInScope((String) associatedStructure.getValues().get(1));
+        valueTable.addVariable(tailVarName, tailVarName + STRUCTURE_IDENTIFIER);
+        structureTable.addVariable(tailVarName, structureSecondParam);
+
         // TODO implement
         return null;
     }

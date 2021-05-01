@@ -256,6 +256,11 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
     }
 
     @Override
+    public TreeNode visitExtractableArrayNode(AldwychParser.ExtractableArrayNodeContext ctx) {
+        return new ExtractableArrayNode(ctx.ID(0).getText(), ctx.ID(1).getText(), ctx.ID(2).getText());
+    }
+
+    @Override
     public TreeNode visitNEqNode(AldwychParser.NEqNodeContext ctx) {
         return super.visitNEqNode(ctx);
     }

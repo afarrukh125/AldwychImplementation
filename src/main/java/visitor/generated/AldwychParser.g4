@@ -57,6 +57,7 @@ finalrule
 
 expr
     : EMPTY                                                                                           # EmptyNode
+    | ID EQUALS SQ_OPEN ID ARRAY_SEPARATOR ID SQ_CLOSE                                                # ExtractableArrayNode
     | ID? EQUALS ID PARENT_OPEN (expr (COMMA expr)*)? PARENT_CLOSE                                    # StructureEqNode
     | STRUCTURE_ID EQUALS ID PARENT_OPEN (expr (COMMA expr)*) PARENT_CLOSE RIGHT_ARROW ID             # OutputStructureNode
     | ID PARENT_OPEN ( expr (COMMA expr)*)? PARENT_CLOSE (RIGHT_ARROW (ID |
@@ -72,7 +73,6 @@ expr
     | expr GREATER_THAN expr                                                                          # GTNode
     | expr NOT_EQUAL expr                                                                             # NEqNode
     | SQ_OPEN (expr (COMMA expr)*)* SQ_CLOSE                                                          # ArrayNode
-    | SQ_OPEN ID ARRAY_SEPARATOR ID SQ_CLOSE                                                          # ExtractableArrayNode
     | ID                                                                                              # IdentifierNode
     | (MINUS_OPERATOR? INTEGER)                                                                       # IntegerNode
     | STRING_CONST                                                                                    # StringConstNode
