@@ -56,10 +56,9 @@ finalrule
     ;
 
 expr
-    : EMPTY                                                                                           # EmptyNode
-    | ID EQUALS SQ_OPEN ID ARRAY_SEPARATOR ID SQ_CLOSE                                                # ExtractableArrayNode
+    : ID EQUALS SQ_OPEN ID ARRAY_SEPARATOR ID SQ_CLOSE                                                # ExtractableArrayNode
     | ID? EQUALS ID PARENT_OPEN (expr (COMMA expr)*)? PARENT_CLOSE                                    # StructureEqNode
-    | STRUCTURE_ID EQUALS ID PARENT_OPEN (expr (COMMA expr)*) PARENT_CLOSE RIGHT_ARROW ID             # OutputStructureNode
+    | STRUCTURE_ID EQUALS ID PARENT_OPEN (expr (COMMA expr)*)? PARENT_CLOSE RIGHT_ARROW ID            # OutputStructureNode
     | ID PARENT_OPEN ( expr (COMMA expr)*)? PARENT_CLOSE (RIGHT_ARROW (ID |
                                                     PARENT_OPEN ID (COMMA ID)* PARENT_CLOSE))?        # DispatchNode
     | <assoc=right> expr (MULT_OPERATOR | DIV_OPERATOR) expr                                          # DivMultNode

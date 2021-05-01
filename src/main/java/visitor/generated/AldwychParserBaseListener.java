@@ -195,18 +195,6 @@ public class AldwychParserBaseListener implements AldwychParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEmptyNode(AldwychParser.EmptyNodeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEmptyNode(AldwychParser.EmptyNodeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterStructureEqNode(AldwychParser.StructureEqNodeContext ctx) { }
 	/**
 	 * {@inheritDoc}

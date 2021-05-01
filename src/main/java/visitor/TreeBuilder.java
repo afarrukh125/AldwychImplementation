@@ -17,13 +17,16 @@ import java.util.List;
  */
 public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
 
+    static final String HIDDEN_VAR_PREFIX = "WQ";
+    private static int structureCounter = 0;
+
     @Override
     public TreeNode visitAldwychClass(AldwychParser.AldwychClassContext ctx) {
 
         // One sequential procedure per class
         AldwychParser.MainprocedureContext mainProcedureContext = ctx.mainprocedure();
 
-        if(mainProcedureContext == null)
+        if (mainProcedureContext == null)
             throw new NoMainException();
         MainProcedureNode seqProcedureResult = (MainProcedureNode) visit(mainProcedureContext);
         ClassNode classNode = new ClassNode(seqProcedureResult);
@@ -211,7 +214,7 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
 
         List<ExpressionNode> exprs = new ArrayList<>();
 
-        for(AldwychParser.ExprContext exprContext : ctx.expr())
+        for (AldwychParser.ExprContext exprContext : ctx.expr())
             exprs.add((ExpressionNode) visit(exprContext));
 
         return new StructureNode(variableName, structureName, exprs);
@@ -275,7 +278,7 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
         if (ctx.ID().size() == 1)
             return new DispatchNode(ctx.ID(0).getText(), exprs, Collections.emptyList());
         List<String> writers = new ArrayList<>();
-        for(int i = 1; i<ctx.ID().size(); i++)
+        for (int i = 1; i < ctx.ID().size(); i++)
             writers.add(ctx.ID(i).toString());
         return new DispatchNode(ctx.ID(0).getText(), exprs, writers);
     }
@@ -285,26 +288,24 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
         return new StringConstNode(ctx.STRING_CONST().getText());
     }
 
-    private static int structureCounter = 0;
-    static final String HIDDEN_VAR_PREFIX = "WQ";
     @Override
     public TreeNode visitArrayNode(AldwychParser.ArrayNodeContext ctx) {
         // An array is essentially just sequential structures
 
-        int structCount = ctx.expr().size() + structureCounter;
+        int structCount = ctx.expr().size() + 1 + structureCounter;
         structureCounter += structCount;
         List<AldwychParser.ExprContext> exprs = ctx.expr();
 
-        if(ctx.expr().size() == 0)
-            return ListEndNode.getInstance();
+        if (ctx.expr().size() == 0)
+            return new StructureNode(HIDDEN_VAR_PREFIX + structCount, Structure.EMPTY_STRUCTURE_NAME, Collections.emptyList());
 
         List<ExpressionNode> firstExprs = new ArrayList<>();
-        firstExprs.add((ExpressionNode) visit(ctx.expr(exprs.size()-1)));
-        firstExprs.add(ListEndNode.getInstance());
+        firstExprs.add((ExpressionNode) visit(ctx.expr(exprs.size() - 1)));
+        firstExprs.add(new StructureNode(HIDDEN_VAR_PREFIX + structCount--, Structure.EMPTY_STRUCTURE_NAME, Collections.emptyList()));
 
-        StructureNode constituentStructure = new StructureNode(HIDDEN_VAR_PREFIX +structCount--, Structure.LIST_STRUCTURE_NAME, firstExprs);
+        StructureNode constituentStructure = new StructureNode(HIDDEN_VAR_PREFIX + structCount--, Structure.LIST_STRUCTURE_NAME, firstExprs);
 
-        for (int i = exprs.size()-2; i >=0; i--) {
+        for (int i = exprs.size() - 2; i >= 0; i--) {
             List<ExpressionNode> expressionNodes = new ArrayList<>();
             expressionNodes.add((ExpressionNode) visit(ctx.expr(i)));
             expressionNodes.add(constituentStructure);
@@ -312,10 +313,5 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
         }
 
         return constituentStructure;
-    }
-
-    @Override
-    public TreeNode visitEmptyNode(AldwychParser.EmptyNodeContext ctx) {
-        return ListEndNode.getInstance();
     }
 }

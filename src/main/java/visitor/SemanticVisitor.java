@@ -26,11 +26,6 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
-    public Object visit(ListEndNode listEndNode, Object data) {
-        return null;
-    }
-
-    @Override
     public Object visit(AssignNode assignNode, Object data) {
         Object identifierName = visit(assignNode.getLeft(), data);
         if(identifierName instanceof String) {

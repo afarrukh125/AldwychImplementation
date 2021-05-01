@@ -10,6 +10,7 @@ public class Structure {
     private final List<Object> values;
 
     public static final String LIST_STRUCTURE_NAME = "list";
+    public static final String EMPTY_STRUCTURE_NAME = "empty";
 
     public Structure(String structureName, String varName, List<Object> values) {
         this.varName = varName;

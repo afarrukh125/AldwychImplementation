@@ -72,7 +72,6 @@ DIV_OPERATOR                : '/';
 
 TRUE                        : 'true';
 FALSE                       : 'false';
-EMPTY                        : E M P T Y;
 
 /* Integers, strings */
 INTEGER                     : DIGIT+;

@@ -1,5 +1,6 @@
 package nodes;
 
+import helpers.Structure;
 import visitor.CustomVisitor;
 
 import java.util.Collections;
@@ -9,8 +10,6 @@ public class StructureNode extends ExpressionNode {
     private String varName;
     private final String structureName;
     private final List<ExpressionNode> expressions;
-
-    public static final String DEFAULT_STRUCTURE_VAR_NAME = "empty";
 
     public StructureNode(String varName, String structureName, List<ExpressionNode> expressions) {
         this.varName = varName;

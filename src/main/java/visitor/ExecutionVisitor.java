@@ -486,11 +486,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     }
 
     @Override
-    public Object visit(ListEndNode listEndNode, Object data) {
-        return ListEndNode.NODE_NAME;
-    }
-
-    @Override
     public Object visit(SubNode subNode, Object data) {
         int left = parseIntegerOperand(subNode.getLeft(), data);
         int right = parseIntegerOperand(subNode.getRight(), data);
@@ -541,13 +536,13 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             // Look up values and assign to the variable, augment the structure, return a new structure
             Object rest = valueTable.findInScope(tailVarName);
             if(rest == null)
-                rest = ListEndNode.NODE_NAME;
+                rest = new Structure(Structure.EMPTY_STRUCTURE_NAME, "", Collections.emptyList());
             if(rest instanceof String) {
                 String restString = (String) rest;
                 if (restString.contains(STRUCTURE_IDENTIFIER)) {
                     Structure restOfStructure = structureTable.findInScope(tailVarName);
                     if (restOfStructure == null)
-                        rest = ListEndNode.NODE_NAME;
+                        rest = new Structure(Structure.EMPTY_STRUCTURE_NAME, "", Collections.emptyList());
                     else
                         rest = restOfStructure;
                 }
@@ -560,6 +555,9 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             return newStructure;
         } else {
             Structure associatedStructure = structureTable.findInScope(varName);
+            if(associatedStructure.getStructureName().equals(Structure.EMPTY_STRUCTURE_NAME))
+                return Boolean.toString(false);
+
             valueTable.addVariable(headVarName, associatedStructure.getValues().get(0));
 
             Structure structureSecondParam = structureTable.findInScope((String) associatedStructure.getValues().get(1));
