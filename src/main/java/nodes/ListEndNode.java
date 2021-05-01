@@ -6,6 +6,8 @@ import static nodes.StructureNode.DEFAULT_STRUCTURE_VAR_NAME;
 
 public class ListEndNode extends ExpressionNode {
 
+    public static final String NODE_NAME = "empty";
+
     private static ListEndNode instance;
 
     private ListEndNode() { }

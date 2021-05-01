@@ -4,6 +4,7 @@ import helpers.*;
 import nodes.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.*;
@@ -180,6 +181,8 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
     private Structure obtainCompleteStructure(Structure structure) {
         List<Object> values = new ArrayList<>();
         for (Object o : structure.getValues()) {
+            if(o instanceof Structure)
+                return structure;
             Structure nestedStructure = structureTable.findInScope((String) o);
             if (nestedStructure != null)
                 values.add(obtainCompleteStructure(nestedStructure));
@@ -270,7 +273,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
             if (!dispatchNode.getWriters().isEmpty())
                 for (int i = 0; i < writers.size(); i++)
-//                    if(results.getResults().get(i))
                     valueTable.addVariable(writers.get(i), results.getResults().get(i));
 
             return results;
@@ -485,7 +487,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(ListEndNode listEndNode, Object data) {
-        return "empty";
+        return ListEndNode.NODE_NAME;
     }
 
     @Override
@@ -535,15 +537,42 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         String headVarName = extractableArrayNode.getHead();
         String tailVarName = extractableArrayNode.getTail();
 
-        Structure associatedStructure = structureTable.findInNearestScope(varName);
-        valueTable.addVariable(headVarName, associatedStructure.getValues().get(0));
+        if (data == Flag.EQ_SET) {
+            // Look up values and assign to the variable, augment the structure, return a new structure
+            Object rest = valueTable.findInScope(tailVarName);
+            if(rest == null)
+                rest = ListEndNode.NODE_NAME;
+            if(rest instanceof String) {
+                String restString = (String) rest;
+                if (restString.contains(STRUCTURE_IDENTIFIER)) {
+                    Structure restOfStructure = structureTable.findInScope(tailVarName);
+                    if (restOfStructure == null)
+                        rest = ListEndNode.NODE_NAME;
+                    else
+                        rest = restOfStructure;
+                }
+            }
 
-        Structure structureSecondParam = structureTable.findInScope((String) associatedStructure.getValues().get(1));
-        valueTable.addVariable(tailVarName, tailVarName + STRUCTURE_IDENTIFIER);
-        structureTable.addVariable(tailVarName, structureSecondParam);
+            Structure newStructure = new Structure(Structure.LIST_STRUCTURE_NAME, varName,
+                    Arrays.asList(valueTable.findInScope(headVarName), rest));
+            structureTable.addVariable(varName, newStructure);
+            valueTable.addVariable(varName, varName + STRUCTURE_IDENTIFIER);
+            return newStructure;
+        } else {
+            Structure associatedStructure = structureTable.findInScope(varName);
+            valueTable.addVariable(headVarName, associatedStructure.getValues().get(0));
 
-        // TODO implement
-        return null;
+            Structure structureSecondParam = structureTable.findInScope((String) associatedStructure.getValues().get(1));
+
+            valueTable.addVariable(tailVarName, tailVarName + STRUCTURE_IDENTIFIER);
+
+            if(structureSecondParam != null)
+                structureTable.addVariable(tailVarName, structureSecondParam);
+            else
+                return Boolean.toString(false);
+
+            return Boolean.toString(associatedStructure.getStructureName().equals(Structure.LIST_STRUCTURE_NAME));
+        }
     }
 
     private <T extends ExpressionNode> int parseIntegerOperand(T operand, Object data) {

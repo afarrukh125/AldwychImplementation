@@ -1,6 +1,7 @@
 package visitor;
 
 import exceptions.NoMainException;
+import helpers.Structure;
 import nodes.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.generated.AldwychParser;
@@ -301,13 +302,13 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
         firstExprs.add((ExpressionNode) visit(ctx.expr(exprs.size()-1)));
         firstExprs.add(ListEndNode.getInstance());
 
-        StructureNode constituentStructure = new StructureNode(HIDDEN_VAR_PREFIX +structCount--, "list", firstExprs);
+        StructureNode constituentStructure = new StructureNode(HIDDEN_VAR_PREFIX +structCount--, Structure.LIST_STRUCTURE_NAME, firstExprs);
 
         for (int i = exprs.size()-2; i >=0; i--) {
             List<ExpressionNode> expressionNodes = new ArrayList<>();
             expressionNodes.add((ExpressionNode) visit(ctx.expr(i)));
             expressionNodes.add(constituentStructure);
-            constituentStructure = new StructureNode(HIDDEN_VAR_PREFIX + structCount--, "list", expressionNodes);
+            constituentStructure = new StructureNode(HIDDEN_VAR_PREFIX + structCount--, Structure.LIST_STRUCTURE_NAME, expressionNodes);
         }
 
         return constituentStructure;

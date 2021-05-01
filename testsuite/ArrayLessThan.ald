@@ -1,10 +1,10 @@
 #main(args)->() {
- || x=[2, 5, 6, 7, 8, 24, 21], removeLessThan(x, 10)->r, print(r);
+ || x=[2, 15, 5, 6, 7, 8, 24, 21], removeLessThan(x, 6)->r, print(r);
 }
 
 #removeLessThan(list1,val)->list2 {
- list1=[head|tail], head>=val || removeLessThan(tail,val)->list2tail, list2=[head|list2Tail];
- list1=[head|tail], head<val  || removeLessThan(tail,val)->list2tail;
+ list1=[head|tail], head>=val || removeLessThan(tail,val)->list2tail, list2=[head|list2tail];
+ list1=[head|tail], head<val  || removeLessThan(tail,val)->list2;
                               :
                               || list2=[]
 }

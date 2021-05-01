@@ -9,6 +9,8 @@ public class Structure {
     private final String structureName;
     private final List<Object> values;
 
+    public static final String LIST_STRUCTURE_NAME = "list";
+
     public Structure(String structureName, String varName, List<Object> values) {
         this.varName = varName;
         this.values = values;
@@ -22,6 +24,10 @@ public class Structure {
     @Override
     public String toString() {
         return structureName + values;
+    }
+
+    public void prependValue(Object value) {
+        values.add(0, value);
     }
 
     @Override
