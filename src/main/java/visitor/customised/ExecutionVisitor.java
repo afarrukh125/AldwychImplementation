@@ -69,8 +69,6 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
         Object resultingValue;
 
-        ResultWrapper resultWrapper = new ResultWrapper();
-
         for (RuleSetNode ruleSet : bodyNode.getRulesets()) {
             resultingValue = visit(ruleSet, data);
             if (resultingValue != null)
@@ -83,14 +81,19 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         return populateResultWrapper(writers, resultingValue);
     }
 
+    // Helper method to remove the structure identifier from a string
+    private String removeStructureIdentifier(String string) {
+        return string.replace(STRUCTURE_IDENTIFIER, "");
+    }
+
     private ResultWrapper populateResultWrapper(List<WriterNode> writers, Object resultingValue) {
         ResultWrapper resultWrapper = new ResultWrapper();
         for(WriterNode wn : writers) {
             if(resultingValue instanceof String) {
                 String stringResult = (String) resultingValue;
-                if (stringResult.contains(STRUCTURE_IDENTIFIER)) {
-                    resultWrapper.addValue(obtainCompleteStructure(structureTable.findInScope(stringResult.replace(STRUCTURE_IDENTIFIER, ""))));
-                }
+                if (stringResult.contains(STRUCTURE_IDENTIFIER))
+                    resultWrapper.addValue(obtainCompleteStructure(structureTable.findInScope(removeStructureIdentifier(stringResult))));
+
                 else
                     resultWrapper.addValue(valueTable.findInScope(wn.getName()));
             } else
@@ -457,7 +460,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                 String retrievedActual = (String) retrievedActuals.get(i);
                 String retrievedActualValue = (String) valueTable.findInScope(retrievedActual);
                 if(retrievedActual.contains(STRUCTURE_IDENTIFIER) || (retrievedActualValue != null && retrievedActualValue.contains(STRUCTURE_IDENTIFIER))) {
-                    String originalVariableName = retrievedActual.replace(STRUCTURE_IDENTIFIER, "");
+                    String originalVariableName = removeStructureIdentifier(retrievedActual);
                     Structure aliasedStructure = structureTable.findInScope(originalVariableName);
 
                     // Map the found structure to the variable (this is where the aliasing actually happens between v1 and the original value)
