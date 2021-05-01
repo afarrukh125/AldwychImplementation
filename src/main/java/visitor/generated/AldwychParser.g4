@@ -33,7 +33,7 @@ writers
     | PARENT_OPEN (ID COMMA)* ID PARENT_CLOSE;
 
 body
-    : ruleset+ finalrule
+    : ruleset* finalrule
     ;
 
 ruleset
@@ -41,7 +41,7 @@ ruleset
     ;
 
 regularrule
-    : ask (COMMA ask)* PRED_SEPARATOR tell (COMMA tell)*;
+    : (ask (COMMA ask)*)? PRED_SEPARATOR tell (COMMA tell)*;
 
 ask
     : expr                                                                                            # AskNode

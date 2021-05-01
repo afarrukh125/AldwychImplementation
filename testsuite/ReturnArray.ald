@@ -3,8 +3,14 @@
 }
 
 #last(arr)->(r) {
-  arr=list(a, b), b=empty     || r=[a, 6, 7];
+  arr=list(a, b), b=empty     || double(a)->p, r=[a, 6, 7, p];
   arr=list(a, b), b=list(c,d) || last(b)->r;
                               :
                               || r<-0
+}
+
+#double(x)->y {
+                || y<-x+x;
+                :
+                || y<-x+x
 }
