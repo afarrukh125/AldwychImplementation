@@ -39,8 +39,8 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
     public Object visit(ClassNode classNode, Object data) {
 
         visit(classNode.getMainProcedureNode(), data);
-        if (classNode.getMainProcedureNode() == null)
-            addError("No entry point procedure found. Please include exactly one.");
+        if (classNode.getMainProcedureNode() == null || !classNode.getMainProcedureNode().getHeadingNode().getName().equals("main"))
+            addError("No entry point procedure found. Please include exactly one, and call it 'main'");
 
         for (ProcedureNode procedureNode : classNode.getProcedures())
             visit(procedureNode, data);

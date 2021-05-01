@@ -1,5 +1,6 @@
 package visitor;
 
+import exceptions.NoMainException;
 import nodes.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import visitor.generated.AldwychParser;
@@ -21,6 +22,8 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
         // One sequential procedure per class
         AldwychParser.MainprocedureContext mainProcedureContext = ctx.mainprocedure();
 
+        if(mainProcedureContext == null)
+            throw new NoMainException();
         MainProcedureNode seqProcedureResult = (MainProcedureNode) visit(mainProcedureContext);
         ClassNode classNode = new ClassNode(seqProcedureResult);
 

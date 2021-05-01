@@ -41,7 +41,7 @@ ruleset
     ;
 
 regularrule
-    : (ask (COMMA ask)*)? PRED_SEPARATOR tell (COMMA tell)*;
+    : ask (COMMA ask)* PRED_SEPARATOR tell (COMMA tell)*;
 
 ask
     : expr                                                                                            # AskNode
