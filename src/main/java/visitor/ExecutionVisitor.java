@@ -537,6 +537,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
         String headVarName = extractableArrayNode.getHead();
         String tailVarName = extractableArrayNode.getTail();
 
+        // In the context of a tell (assignment)
         if (data == Flag.EQ_SET) {
             // Look up values and assign to the variable, augment the structure, return a new structure
             Object rest = valueTable.findInScope(tailVarName);
@@ -559,6 +560,7 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
             valueTable.addVariable(varName, varName + STRUCTURE_IDENTIFIER);
             return newStructure;
         } else {
+            // In the context of an ask (comparison)
             Structure associatedStructure = structureTable.findInScope(varName);
             if(associatedStructure.getStructureName().equals(Structure.EMPTY_STRUCTURE_NAME))
                 return Boolean.toString(false);

@@ -294,7 +294,7 @@ public class TreeBuilder extends AldwychParserBaseVisitor<TreeNode> {
     public TreeNode visitArrayNode(AldwychParser.ArrayNodeContext ctx) {
         // An array is essentially just sequential structures
 
-        int structCount = ctx.expr().size() + 1 + structureCounter;
+        int structCount = ctx.expr().size() + structureCounter;
         structureCounter += structCount;
         List<AldwychParser.ExprContext> exprs = ctx.expr();
 
