@@ -233,7 +233,13 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
                     dispatchParams.add(rawPara);
                 } else {
                     Object dispatchParam = visit(exp, data);
-                    dispatchParams.add((String) dispatchParam);
+                    if(dispatchParam instanceof Structure) {
+                        Structure dispatchStructure = (Structure) dispatchParam;
+                        structureTable.addVariable(rawPara, dispatchStructure);
+                        valueTable.addVariable(rawPara, rawPara + STRUCTURE_IDENTIFIER);
+                        dispatchParams.add(rawPara);
+                    }else
+                        dispatchParams.add((String) dispatchParam);
                 }
             }
 
@@ -559,7 +565,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
             valueTable.addVariable(headVarName, associatedStructure.getValues().get(0));
 
-            Structure structureSecondParam = structureTable.findInScope((String) associatedStructure.getValues().get(1));
+            Structure structureSecondParam;
+
+            if(associatedStructure.getValues().get(1) instanceof Structure)
+                structureSecondParam = (Structure) associatedStructure.getValues().get(1);
+            else
+                structureSecondParam = structureTable.findInScope((String) associatedStructure.getValues().get(1));
 
             valueTable.addVariable(tailVarName, tailVarName + STRUCTURE_IDENTIFIER);
             structureTable.addVariable(tailVarName, structureSecondParam);
