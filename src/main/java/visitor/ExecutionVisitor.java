@@ -199,7 +199,12 @@ public class ExecutionVisitor implements CustomVisitor<Object, Object> {
 
             for (ExpressionNode expressionNode : dispatchNode.getParams()) {
                 Object result = visit(expressionNode, data);
-                dispatchParams.add(result);
+                if(result instanceof String && ((String)result).contains(STRUCTURE_IDENTIFIER)) {
+                    String stringResult = (String) result;
+                    Structure structure = structureTable.findInScope(removeStructureIdentifier(stringResult));
+                    dispatchParams.add(obtainCompleteStructure(structure));
+                } else
+                    dispatchParams.add(result);
             }
 
             Object result = methodTable.handleDefaultMethod(procedureName, dispatchParams);
