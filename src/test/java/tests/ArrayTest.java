@@ -71,6 +71,7 @@ public abstract class ArrayTest {
             return ArrayStructureBuilder.this;
         }
 
+        // Applies filter operation to all existing values
         public final ArrayStructureBuilder<T> filter(Predicate<T> pred) {
             for(int i = 0; i<storedValues.size(); i++) {
                 List<T> currentList = storedValues.get(i);
