@@ -80,20 +80,6 @@ public class SemanticVisitor implements CustomVisitor<Object, Object> {
 
     @Override
     public Object visit(FinalRuleNode finalRuleNode, Object data) {
-
-        if (data != null) {
-            HeadingStringData headingStringData = (HeadingStringData) data;
-            Set<String> writers = headingStringData.getWriters();
-            String procedureName = headingStringData.getProcedureName();
-
-            for (TellNode tellNode : finalRuleNode.getTells()) {
-                if (tellNode.getExpressionNode() instanceof BinOpNode) {
-                    BinOpNode binOpNode = (BinOpNode) tellNode.getExpressionNode();
-                    checkAndReportBinOpNode(procedureName, binOpNode, writers, Mode.WRITE);
-                }
-            }
-        }
-
         for(TellNode tellNode : finalRuleNode.getTells())
             visit(tellNode, data);
         return null;
