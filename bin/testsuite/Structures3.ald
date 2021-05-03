@@ -1,0 +1,29 @@
+#main(args)->()
+{
+    || b=two(22,23), k=try(21, b), structurise(k)->r, print(r);
+}
+
+#structurise(t)->res
+{
+ t=three(v1,v2,v3)          || addTwo(v1,v2,v3)->res;
+ t=two(u1,u2)               || addTwo(u1,u2,0)->res;
+ t=try(a,v1), v1=two(v2,v3) || multiplyPositives(v2, v3)->m, addTwo(a,v2,m)->res;
+                            :
+                            || res <- 0
+}
+
+#multiplyPositives(a, b)->result
+{
+ a>0, b>0 || result <- a*b;
+          :
+          || result <- 0
+}
+
+#addTwo(a,b,c)->r
+{
+ a>0, b>0 || r<-a+b;
+ a>0, c>0 || r<-a+c;
+ b>0, c>0 || r<-b+c;
+          :
+          || r<-0
+}

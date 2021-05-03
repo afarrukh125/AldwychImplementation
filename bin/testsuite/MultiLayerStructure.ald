@@ -1,0 +1,18 @@
+#main(args)->() {
+        || m = two(18, 19), y = one(20), z = try(y, m), add(z)->r, print(r);
+}
+
+#add(t)->res {
+ t=try(t1,t2), t1=one(v1), t2=two(v2,v3) || addTwo(v1,v2,v3)->res;
+                                           :
+                                           || res<-0
+}
+
+#addTwo(a,b,c)->r {
+
+ a>0, b>0 || r<-a+b;
+ a>0, c>0 || r<-a+c;
+ b>0, c>0 || r<-b+c;
+          :
+          || r<-0
+}

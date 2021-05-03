@@ -1,0 +1,15 @@
+#main(args)->() {
+ || x=[2, 5, 6], filter(x)->r, print(r);
+}
+
+#filter(arr)->(r) {
+  arr=list(a, b), b=list(c,d), d=list(e, f) || raw(e)->r;
+                 :
+                 || r<-555
+}
+
+#raw(v)->(r) {
+    v < 10 || r <- v;
+           :
+           || r<-100
+}

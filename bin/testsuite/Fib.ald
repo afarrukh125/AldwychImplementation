@@ -1,0 +1,11 @@
+#main(args)->() {
+        || x <- 9, fib(x)->result, print(result);
+}
+
+#fib(n)->k {
+ n==0 || k<-0;
+ n==1 || k<-1;
+ n>1 || fib(n-1)->a1, fib(n-2)->a2, k<-a1+a2;
+     :
+     || k<-1
+}

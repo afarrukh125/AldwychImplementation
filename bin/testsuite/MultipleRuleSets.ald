@@ -1,0 +1,17 @@
+#main(args)->()
+{
+    || x<-0, y<-0, z<-0, k<-12, m<-13, chooseValue(x,y,z,k,m)->res, print(res);
+}
+
+#chooseValue(a,b,c,d,e)->r
+{
+ a>0 || r<-a;
+   :
+ c>0 || r<-c;
+ b>0 || r<-b;
+   :
+ d>0 || r<-d;
+ e>0 || r<-e;
+   :
+ || r<-0
+}

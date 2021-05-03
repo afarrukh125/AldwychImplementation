@@ -1,5 +1,7 @@
 # Aldwych Interpreter
 
+Please view these instructions in a markdown reader that supports GitHub markdown.
+
 ## Folder descriptions
 
 * `bin` Contains JAR files required to run Aldwych code
@@ -27,6 +29,8 @@ The following instructions are for use if work is to be continued on this projec
 ### Setting up with an IDE
 
 This step may vary greatly depending on which IDE is used. Quite simply, the `lib` folder needs to be added as a library root and the `src/main/java` folder needs to be marked as a sources root. If test cases are required to be run, the `src/test/java` folder needs to be marked as a test sources root. It will certainly be useful to find relevant ANTLR plugins for your IDE. The project was developed using [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/), which has a popular ANTLR plugin to view parse trees from within the IDE for any given input.
+
+**IMPORTANT**: Ensure your IDE ignores the `bin` folder.
 
 ### Updating the lexer and parser
 
