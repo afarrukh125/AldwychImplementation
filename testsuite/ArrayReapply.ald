@@ -1,5 +1,5 @@
 #main(args)->() {
- || x=[2, 15, 5, 6, 7, 8, 28, 24, 21], squareAll(x)->r, print(r);
+ || x=[2, 15, 5, 6, 7, 8, 28, 24, 21], squareAll(x)->r, squareAll(r)->s, print(s);
 }
 
 #squareAll(list1)->list2 {

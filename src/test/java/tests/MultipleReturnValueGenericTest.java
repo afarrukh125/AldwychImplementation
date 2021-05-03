@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import static tests.GenericTest.obtainCompleteFileName;
+
 // For test cases where we return multiple values and test the result
 public abstract class MultipleReturnValueGenericTest {
 
@@ -17,7 +19,7 @@ public abstract class MultipleReturnValueGenericTest {
 
     public MultipleReturnValueGenericTest(String fileName, ResultWrapper... expectedResults) {
         expectedValues = new HashSet<>(Arrays.asList(expectedResults));
-        this.fileName = fileName;
+        this.fileName = obtainCompleteFileName(fileName);
     }
 
     @Test
@@ -25,7 +27,7 @@ public abstract class MultipleReturnValueGenericTest {
         Set<ResultWrapper> retrievedResults = new HashSet<>();
 
         int attempts = 0;
-        while(!retrievedResults.equals(expectedValues) && attempts < 1000) {
+        while (!retrievedResults.equals(expectedValues) && attempts < 1000) {
             ResultWrapper result = (ResultWrapper) ExecuteUtils.runAndReturn("testsuite/" + fileName);
             retrievedResults.add(result);
             attempts++;

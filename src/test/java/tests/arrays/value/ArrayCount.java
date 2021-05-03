@@ -1,4 +1,4 @@
-package tests.arrays;
+package tests.arrays.value;
 
 import tests.GenericTest;
 

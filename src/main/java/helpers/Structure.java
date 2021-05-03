@@ -24,7 +24,9 @@ public class Structure {
 
     @Override
     public String toString() {
-        return structureName + values;
+        return structureName + (values.toString()
+                .replace("[", "(")
+                .replace("]", ")"));
     }
 
     public void prependValue(Object value) {
