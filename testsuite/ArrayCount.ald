@@ -3,9 +3,9 @@
 }
 
 #count(list1,val)->count {
- list1=[]                      || count=0;
+ list1=[]                      || count<-0;
  list1=[head|tail], head==val  || count(tail,val)->restcount, count<-restcount+1;
  list1=[head|tail], head!=val  || count(tail,val)->count;
                                :
-                               || count=[]
+                               || count<-0
 }

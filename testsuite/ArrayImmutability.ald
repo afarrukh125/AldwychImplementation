@@ -4,7 +4,7 @@
 
 #squareAll(list1)->list2 {
  list1=[]                      || list2=[];
- list1=[head|tail]             || squareAll(tail)->out, k=head*head, list2=[k|out];
+ list1=[head|tail]             || squareAll(tail)->out, k<-head*head, list2=[k|out];
                                :
                                || list2=[]
 }
