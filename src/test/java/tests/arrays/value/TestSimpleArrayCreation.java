@@ -2,8 +2,8 @@ package tests.arrays.value;
 
 import tests.GenericTest;
 
-public class TestSimpleArrayCollapse extends GenericTest {
-    public TestSimpleArrayCollapse() {
+public class TestSimpleArrayCreation extends GenericTest {
+    public TestSimpleArrayCreation() {
         super("ArrayCreation.ald", 6);
     }
 }

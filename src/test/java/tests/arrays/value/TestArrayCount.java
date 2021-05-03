@@ -2,9 +2,9 @@ package tests.arrays.value;
 
 import tests.GenericTest;
 
-public class ArrayCount extends GenericTest {
+public class TestArrayCount extends GenericTest {
 
-    public ArrayCount() {
+    public TestArrayCount() {
         super("ArrayCount.ald", 3);
     }
 }
