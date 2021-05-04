@@ -1,7 +1,5 @@
 # Aldwych Interpreter
 
-Please view these instructions in a markdown reader that supports GitHub markdown.
-
 ## Folder descriptions
 
 * `bin` Contains JAR files required to run Aldwych code
