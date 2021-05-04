@@ -38,11 +38,11 @@ Updating the lexer and parser for this project is something that has been quite 
 
 It would be good to look at how to setup ANTLR and add it to a class path. A tutorial to setup the environment variables for Windows can be found [here](https://levlaz.org/setting-up-antlr4-on-windows/). This essentially aims to reduce the amount of writing needed to be done to generate the files from the lexer and parser. The `.bat` files I have used and added to my classpath on my Windows machine are included in the `bin` directory if needed.
 
-Setting up ANTLR class paths, however, is not necessary and will not be required for the rest of the instructions. The JAR files in the `bin` folder can be used directly if required.
+Setting up ANTLR class paths, however, is not necessary and will not be required for the rest of the instructions. It will, however, reduce the length of the commands that need to be entered significantly. The JAR files in the `bin` folder can be used directly if required.
 
 Given that the `AldwychLexer.g4` and `AldwychParser.g4` files are in the same folder as the ANTLR jar files, the following command compiles both the lexer and parser:
 
-`java org.antlr.v4.Tool Ald*.g4 -visitor`
+`java -jar antlr-4.5.3-complete.jar Aldwych*.g4 -visitor`
 
 This generates the visitors and all necessary classes from the `.g4` files. **The generated Java files will not have any package declarations by default, so use the drag method above, or otherwise to make that correct**.
 
@@ -50,7 +50,7 @@ This generates the visitors and all necessary classes from the `.g4` files. **Th
 
 If you wish to generate a graphical view of how the lexer and parser handle some input, this can be done easily, after running the command above to generate the visitors and listeners from ANTLR.
 
-* `javac *.java` (This can lead to the directory becoming quite messy so use `rm *.class` to clean up as required)
-* `java org.antlr.v4.gui.TestRig Aldwych aldwychClass -gui`
+* `javac -cp "antlr-4.5.3-complete.jar" *.java` (This can lead to the directory becoming quite messy so use `rm *.class` to clean up as required)
+* `java -cp ".;antlr-4.5.3-complete.jar" org.antlr.v4.gui.TestRig Aldwych aldwychClass -gui`
 
-The command line should then pause and allow you to write or paste in any Aldwych code. Press `Ctrl+Z` and `Enter` once the input has been passed. After this, a generated parse tree should show up, unless there were errors while parsing.
+The command line should then pause and allow you to write or paste in any Aldwych code. Press `Ctrl+Z` and `Enter` once the input has been passed. After this, a generated parse tree should show up, unless there were errors while parsing. As mentioned, looking at a way to get the ANTLR JAR files into the class path, and aliasing these commands on your operating system will be of significant benefit. Plenty of guides are available to get this sorted.
