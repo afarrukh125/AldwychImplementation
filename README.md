@@ -28,9 +28,9 @@ The following instructions are for use if work is to be continued on this projec
 
 ### Setting up with an IDE
 
-This step may vary greatly depending on which IDE is used. Quite simply, the `lib` folder needs to be added as a library root and the `src/main/java` folder needs to be marked as a sources root. If test cases are required to be run, the `src/test/java` folder needs to be marked as a test sources root. It will certainly be useful to find relevant ANTLR plugins for your IDE. The project was developed using [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/), which has a popular ANTLR plugin to view parse trees from within the IDE for any given input.
+This step may vary greatly depending on which IDE is used. Quite simply, the `lib` folder needs to be added as a library root and the `src/main/java` folder needs to be marked as a sources root. If test cases are required to be run, the `src/test/java` folder needs to be marked as a test sources root. It will certainly be useful to find relevant ANTLR plugins for your IDE. The project was developed using [Jetbrains IntelliJ IDEA](https://www.jetbrains.com/idea/), which has a popular ANTLR plugin to view parse trees from within the IDE for any given input. In order for the tests to compile, JUnit 5.4 must be added as a library.
 
-**IMPORTANT**: Ensure your IDE ignores the `bin` folder.
+**IMPORTANT**: Ensure your IDE ignores the `bin` folder and does not mark it as a dependency or library. This is so that the actual source code can be used when you run the project rather than the contents of `AldwychConcurrency.jar`.
 
 ### Updating the lexer and parser
 
