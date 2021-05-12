@@ -1,6 +1,6 @@
 package tests;
 
-import helpers.ExecuteUtils;
+import helpers.ProgramRunner;
 import helpers.Structure;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +29,7 @@ public abstract class ArrayTest {
 
         int attempts = 0;
         while(!retrievedResults.equals(arrays) && attempts < 1000) {
-            Object result = ExecuteUtils.runAndReturn("testsuite/" + fileName);
+            Object result = ProgramRunner.runAndReturnProgram("testsuite/" + fileName);
             retrievedResults.add(result);
             attempts++;
         }

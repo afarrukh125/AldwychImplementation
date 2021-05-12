@@ -1,6 +1,6 @@
 package tests;
 
-import helpers.ExecuteUtils;
+import helpers.ProgramRunner;
 import helpers.ResultWrapper;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +28,7 @@ public abstract class MultipleReturnValueGenericTest {
 
         int attempts = 0;
         while (!retrievedResults.equals(expectedValues) && attempts < 1000) {
-            ResultWrapper result = (ResultWrapper) ExecuteUtils.runAndReturn("testsuite/" + fileName);
+            ResultWrapper result = (ResultWrapper) ProgramRunner.runAndReturnProgram("testsuite/" + fileName);
             retrievedResults.add(result);
             attempts++;
         }

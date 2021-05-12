@@ -35,10 +35,10 @@ public class ValueTable<K, V> {
      */
     public V findInScope(K identifier) {
         for (int i = table.size() - 1; i >= 0; i--) {
-        Entry<K, V> tableEntry = table.get(i);
-        Object value = tableEntry.getValue(identifier);
-        if (value != null)
-            return tableEntry.getValue(identifier);
+            Entry<K, V> tableEntry = table.get(i);
+            Object value = tableEntry.getValue(identifier);
+            if (value != null)
+                return tableEntry.getValue(identifier);
         }
         return null;
     }

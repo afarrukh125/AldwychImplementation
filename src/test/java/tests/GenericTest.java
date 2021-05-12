@@ -1,6 +1,6 @@
 package tests;
 
-import helpers.ExecuteUtils;
+import helpers.ProgramRunner;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -38,7 +38,7 @@ public abstract class GenericTest {
 
         int attempts = 0;
         while(!retrievedResults.equals(expectedValues) && attempts < 1000) {
-            Object result = ExecuteUtils.runAndReturn(PATH + fileName);
+            Object result = ProgramRunner.runAndReturnProgram(PATH + fileName);
             retrievedResults.add(result);
             attempts++;
         }

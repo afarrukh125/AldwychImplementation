@@ -1,4 +1,4 @@
-import helpers.ExecuteUtils;
+import helpers.ProgramRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Main {
 
     private static void runAll(List<String> fileNames) throws IOException {
         for (String fileName : fileNames) {
-            Object result = ExecuteUtils.runAndReturn(fileName);
+            Object result = ProgramRunner.runAndReturnProgram(fileName);
         }
     }
 }

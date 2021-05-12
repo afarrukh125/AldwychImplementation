@@ -1,0 +1,11 @@
+#main(args)->()
+{
+    || k=try(50, 51), first(k)->r, print(r);
+}
+
+#first(t)->res
+{
+ k=try(v1,v2)          || res<-v1;
+                       :
+                       || res<-0
+}
